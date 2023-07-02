@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import toyproject.stylecast.domain.Figure;
-import toyproject.stylecast.domain.Gender;
-import toyproject.stylecast.domain.Member;
-import toyproject.stylecast.domain.Profile;
+import toyproject.stylecast.domain.*;
+import toyproject.stylecast.domain.geocode.Location;
 import toyproject.stylecast.repository.MemberRepository;
+import toyproject.stylecast.weather.WeatherService;
 
 import java.util.List;
 
@@ -108,6 +107,25 @@ public class MemberServiceTest {
     public void 위도테스트() throws Exception {
         //given
         String str = geocodingService.getCoordinates("충북 제천");
+        //when
+        Location location = geocodingService.getLocation(str);
+        //then
+        System.out.println("location.getLat() = " + location.getLat());
+        System.out.println("location.getLot() = " + location.getLon());
+    }
+
+    @Autowired
+    private WeatherService weatherService;
+    @Test
+    public void 날씨_정보() throws Exception {
+        //given
+        String coordinates = geocodingService.getCoordinates("서울");
+        Location location = geocodingService.getLocation(coordinates);
+        String lat = location.getLat();
+        String lon = location.getLon();
+        System.out.println("lat = " + lat);
+        System.out.println("lon = " + lon);
+        weatherService.getWeatherData(lat, lon);
         //when
 
         //then

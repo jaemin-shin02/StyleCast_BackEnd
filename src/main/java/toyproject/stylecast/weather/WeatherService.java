@@ -1,52 +1,49 @@
 package toyproject.stylecast.weather;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+import toyproject.stylecast.domain.WeatherData;
+import toyproject.stylecast.domain.geocode.Location;
+import toyproject.stylecast.service.GeocodingService;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
 
 @Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class WeatherService {
 
+    private final GeocodingService geocodingService;
     private final String apiKey = "23fe151cdb3b30d73c1d46a274a04037";
-    private final String apiUrl = "http://api.openweathermap.org/data/2.5/weather";
-    private final String lang = "kr";
+    private final String BASE_URL = "http://api.openweathermap.org/data/2.5/weather";
 
-
-    public WeatherResponse getWeatherByCity(String city) {
-        String encodedCityName = encodeCityName(city);
-        String url = apiUrl + "?q=" + encodedCityName + "&appid=" + apiKey + "&lang" + lang + "&units=metric";
-
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<WeatherResponse> responseEntity = restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                null,
-                WeatherResponse.class
-        );
-
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            return responseEntity.getBody();
-        } else {
-            // API 요청이 실패한 경우 예외 처리 등을 수행
-            throw new RuntimeException("Failed to get weather data from API");
-        }
-    }
-
-    private String encodeCityName(String cityName) {
+    public void getWeatherData(String lat, String lon) {
+        StringBuilder urlBuilder = new StringBuilder(BASE_URL);
         try {
-            return URLEncoder.encode(cityName, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+            urlBuilder.append("?" + URLEncoder.encode("lat", "UTF-8") + "=" + lat);
+            urlBuilder.append("&" + URLEncoder.encode("lon", "UTF-8") + "=" + lon);
+            urlBuilder.append("&" + URLEncoder.encode("appid", "UTF-8") + "=" + apiKey);
+            urlBuilder.append("&" + URLEncoder.encode("lang", "UTF-8") + "=kr");
+            urlBuilder.append("&" + URLEncoder.encode("units", "UTF-8") + "=metric");
+
+            System.out.println("urlBuilder = " + urlBuilder);
+
+            RestTemplate restTemplate = new RestTemplate();
+            WeatherData response = restTemplate.getForObject(urlBuilder.toString(), WeatherData.class);
+
+            System.out.println("urlBuilder = " + urlBuilder);
+            System.out.println(response);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return "";
     }
 
-    public void setRestTemplate(RestTemplate restTemplateMock) {
-    }
 }

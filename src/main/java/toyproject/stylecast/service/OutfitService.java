@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.Clothes;
+import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Outfit;
+import toyproject.stylecast.domain.Style;
+import toyproject.stylecast.repository.MemberRepository;
 import toyproject.stylecast.repository.OutfitRepository;
 
 import java.util.List;
@@ -14,8 +17,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OutfitService {
     private final OutfitRepository outfitRepository;
+    private final MemberRepository memberRepository;
 
     public Long outfit(Outfit outfit){
+        outfitRepository.save(outfit);
+        return outfit.getId();
+    }
+
+    public Long outfit(Long memberId, String name, Style style, String description, Long top_id, Long bottom_id, Long outerwear_id){
+        Member member = memberRepository.findOne(memberId);
+        Outfit outfit = Outfit.creatOutfit(member, style, name, description, top_id, bottom_id, outerwear_id);
+
         outfitRepository.save(outfit);
         return outfit.getId();
     }
@@ -24,7 +36,7 @@ public class OutfitService {
         return outfitRepository.findAll();
     }
 
-    public Outfit findClothes(Long outfitId){
+    public Outfit findOutfit(Long outfitId){
         return outfitRepository.findOne(outfitId);
     }
 

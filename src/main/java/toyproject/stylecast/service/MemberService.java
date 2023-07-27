@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.Member;
+import toyproject.stylecast.domain.Profile;
 import toyproject.stylecast.repository.MemberRepository;
 
 import java.util.List;
@@ -15,8 +16,11 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long join(Member member){
+    public Long join(Member member, Profile profile){
         validateDuplicateMember(member);
+
+        member.setProfile(profile);
+
         memberRepository.save(member);
         return member.getId();
     }
@@ -38,6 +42,11 @@ public class MemberService {
         return memberRepository.findOne(memberId);
     }
 
+    public void setProfile(Long memberId, Profile profile){
+        Member member = memberRepository.findOne(memberId);
+        member.setProfile(profile);
+    }
+
     @Transactional
     public void updateName(Long id, String name) {
         Member member = memberRepository.findOne(id);
@@ -56,5 +65,10 @@ public class MemberService {
         member.setBirth_date(birth);
     }
 
+    @Transactional
+    public void addLocation(Long id, String location){
+        Member member = memberRepository.findOne(id);
+        member.addLocation(location);
+    }
 
 }

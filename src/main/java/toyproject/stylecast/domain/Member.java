@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,15 +27,18 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Grade grade;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id")
     private Profile profile;
 
     @OneToMany(mappedBy = "member")
-    private List<Clothes> clothesList;
+    private List<Clothes> clothesList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    private List<Outfit> outfitList;
+    private List<Outfit> outfitList = new ArrayList<>();
+
+    @ElementCollection
+    private List<String> locationList = new ArrayList<>();
 
     public void setGrade_User(){
         this.grade = Grade.USER;
@@ -63,6 +67,10 @@ public class Member {
     public void addOutfits(Outfit outfit){
         outfit.setMember(this);
         this.outfitList.add(outfit);
+    }
+
+    public void addLocation(String location){
+        this.locationList.add(location);
     }
 
     //==생성 메소드==//

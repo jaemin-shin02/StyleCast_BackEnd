@@ -17,8 +17,12 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class ClothesService {
     private final ClothesRepository clothesRepository;
+    private final MemberRepository memberRepository;
 
-    public Long clothes(Clothes clothes){
+    public Long clothes(Long memberId, String name, Category category, String color, Season season){
+        Member findMember = memberRepository.findOne(memberId);
+        Clothes clothes = Clothes.creatClothes(findMember, name, category, color, season);
+
         clothesRepository.save(clothes);
 
         return clothes.getId();

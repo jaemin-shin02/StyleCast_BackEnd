@@ -1,5 +1,6 @@
 package toyproject.stylecast.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,17 +20,22 @@ public class Outfit {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
+    @JsonIgnore
     private Member member;
     private String name;
     private String description; //코디 설명
+
+    @Enumerated(EnumType.STRING)
+    private Style style;
 
     //악세서리는 추후 추가 예정
     private Long top_id;
     private Long bottom_id;
     private Long outerwear_id;
 
-    public void setDefault(String name, String description, Long top_id, Long bottom_id, Long outerwear_id) {
+    public void setDefault(String name, Style style,String description, Long top_id, Long bottom_id, Long outerwear_id) {
         this.name = name;
+        this.style = style;
         this.description = description;
         this.top_id = top_id;
         this.bottom_id = bottom_id;
@@ -43,10 +49,10 @@ public class Outfit {
     }
 
     //==생성 메서드==//
-    public static Outfit creatOutfit(Member member, String name, String description, Long top_id, Long bottom_id, Long outerwear_id){
+    public static Outfit creatOutfit(Member member, Style style,String name, String description, Long top_id, Long bottom_id, Long outerwear_id){
         Outfit outfit = new Outfit();
         outfit.setMember(member);
-        outfit.setDefault(name, description, top_id, bottom_id, outerwear_id);
+        outfit.setDefault(name, style, description, top_id, bottom_id, outerwear_id);
 
         return outfit;
     }

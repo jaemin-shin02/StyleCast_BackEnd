@@ -1,19 +1,11 @@
 package toyproject.stylecast.weather;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import toyproject.stylecast.domain.WeatherData;
-import toyproject.stylecast.domain.geocode.Location;
 import toyproject.stylecast.service.GeocodingService;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URLEncoder;
 
 @Service

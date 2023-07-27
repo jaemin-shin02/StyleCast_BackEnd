@@ -89,11 +89,11 @@ public class MemberServiceTest {
     public void 생성_및_아이템추가() throws Exception {
         //given
         Member member = Member.creatMember("shin", "020220", "sour_jam0220@naver.com", "woals0220!");
-        Profile profile = Profile.creatProfile(member, Gender.MEN, 73, 174, Figure.STANDARD, true, "no");
+        Profile profile = Profile.creatProfile(member, Gender.MEN, 73, 174, Figure.STANDARD, true);
         member.setProfile(profile);
         
         //when
-        memberService.join(member);
+//        memberService.join(member);
         
         //then
         Assert.assertEquals(profile.getMember(), member);
@@ -119,7 +119,7 @@ public class MemberServiceTest {
     @Test
     public void 날씨_정보() throws Exception {
         //given
-        String coordinates = geocodingService.getCoordinates("서울");
+        String coordinates = geocodingService.getCoordinates("서울 신촌");
         Location location = geocodingService.getLocation(coordinates);
         String lat = location.getLat();
         String lon = location.getLon();

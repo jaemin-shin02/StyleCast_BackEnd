@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.Clothes;
+import toyproject.stylecast.domain.Outfit;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -25,4 +26,5 @@ public class ClothesRepository {
         return em.createQuery("select c from Clothes c", Clothes.class)
                 .getResultList();
     }
+
 }

@@ -40,6 +40,13 @@ public class OutfitService {
         return outfitRepository.findOne(outfitId);
     }
 
+    public List<Outfit> recommendOutfit(Long memberId, Style style){
+        Member findMember = memberRepository.findOne(memberId);
+        List<Outfit> recommendOutfit = outfitRepository.RecommendOutfit(findMember.getProfile(), style);
+
+        return recommendOutfit;
+    }
+
     @Transactional
     public void updateName(Long outfitId, String name){
         Outfit outfit = outfitRepository.findOne(outfitId);

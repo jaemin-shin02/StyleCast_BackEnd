@@ -44,7 +44,7 @@ public class InitDb {
             Long clothesId3 = clothesService.clothes(memberId, "된장포스", Category.신발, "된장", Season.여름);
             Clothes clothes3 = clothesService.findClothes(clothesId3);
 
-            Long outfit = outfitService.outfit(memberId, "기본코디", Style.스트릿, "꾸안꾸", clothesId1, clothesId2, clothesId3);
+            Long outfit = outfitService.outfit(memberId, "기본코디1", Style.스트릿, "꾸안꾸", clothesId1, clothesId2, clothesId3);
             Outfit clothes = outfitService.findOutfit(outfit);
 
             memberService.addLocation(memberId, "서울");
@@ -52,7 +52,7 @@ public class InitDb {
 
         public void dbInit2(){
             Member member = Member.creatMember("Yes", "20020611", "yesju@naver.com", "sulwha");
-            Profile profile = Profile.creatProfile(member, Gender.WOMEN, 48, 165, Figure.STANDARD, true);
+            Profile profile = Profile.creatProfile(member, Gender.WOMEN, 71, 176, Figure.STANDARD, true);
             profile.addStyle(Style.스트릿);
             profile.addStyle(Style.걸리시);
             Long memberId = memberService.join(member, profile);
@@ -64,7 +64,7 @@ public class InitDb {
             Long clothesId3 = clothesService.clothes(memberId, "된장포스", Category.신발, "된장", Season.여름);
             Clothes clothes3 = clothesService.findClothes(clothesId3);
 
-            Long outfit = outfitService.outfit(memberId, "기본코디", Style.스트릿,"꾸안꾸", clothesId1, clothesId2, clothesId3);
+            Long outfit = outfitService.outfit(memberId, "기본코디2", Style.스트릿,"꾸안꾸", clothesId1, clothesId2, clothesId3);
             Outfit clothes = outfitService.findOutfit(outfit);
 
             memberService.addLocation(memberId,"부산");

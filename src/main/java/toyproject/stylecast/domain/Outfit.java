@@ -33,6 +33,8 @@ public class Outfit {
     private Long bottom_id;
     private Long outerwear_id;
 
+    private Long shoe_id;
+
     public void setDefault(String name, Style style,String description, Long top_id, Long bottom_id, Long outerwear_id) {
         this.name = name;
         this.style = style;
@@ -49,11 +51,12 @@ public class Outfit {
     }
 
     //==생성 메서드==//
-    public static Outfit creatOutfit(Member member, Style style,String name, String description, Long top_id, Long bottom_id, Long outerwear_id){
+    public static Outfit creatOutfit(Member member, String name, Style style, String description, Long top_id, Long bottom_id, Long outerwear_id){
         Outfit outfit = new Outfit();
         outfit.setMember(member);
         outfit.setDefault(name, style, description, top_id, bottom_id, outerwear_id);
 
         return outfit;
     }
+
 }

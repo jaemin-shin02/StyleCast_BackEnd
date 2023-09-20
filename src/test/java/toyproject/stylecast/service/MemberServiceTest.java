@@ -12,8 +12,6 @@ import toyproject.stylecast.domain.geocode.Location;
 import toyproject.stylecast.repository.MemberRepository;
 import toyproject.stylecast.weather.WeatherService;
 
-import java.util.List;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
@@ -119,7 +117,7 @@ public class MemberServiceTest {
     @Test
     public void 날씨_정보() throws Exception {
         //given
-        String coordinates = geocodingService.getCoordinates("서울 신촌");
+        String coordinates = geocodingService.getCoordinates("서울");
         Location location = geocodingService.getLocation(coordinates);
         String lat = location.getLat();
         String lon = location.getLon();

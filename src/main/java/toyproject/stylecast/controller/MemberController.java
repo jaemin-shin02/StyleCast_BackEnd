@@ -1,13 +1,11 @@
-package toyproject.stylecast.api;
+package toyproject.stylecast.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import toyproject.stylecast.domain.*;
 import toyproject.stylecast.dto.*;
-import toyproject.stylecast.repository.MemberRepository;
 import toyproject.stylecast.service.MemberService;
 
 import javax.validation.Valid;
@@ -16,16 +14,15 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-public class MemberApiController {
-    private final MemberRepository memberRepository;
+public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/api/v1/members")
     @ResponseBody
     public Result members() {
-        List<Member> findMembers = memberRepository.findAll();
+        List<Member> findMembers = memberService.findMembers();
         List<MemberDto> collectM = findMembers.stream()
-                .map(m -> new MemberDto(m.getName(), m.getBirth_date(), m.getEmail(), m.getGrade(), m.getClothesList(), m.getOutfitList(), m.getLocationList()))
+                .map(m -> new MemberDto(m.getName(), m.getBirthdate(), m.getEmail(), m.getGrade(), m.getClothesList(), m.getOutfitList(), m.getLocationList()))
                 .collect(Collectors.toList());
         List<ProfileDto> collectP = findMembers.stream()
                 .map(m -> new ProfileDto(m.getName(), m.getProfile().getGender(), m.getProfile().getWeight(), m.getProfile().getHeight(), m.getProfile().getFigure(), m.getProfile().getWork_out(), m.getProfile().getPrefer_style()))
@@ -45,7 +42,6 @@ public class MemberApiController {
         }
 
         Long id = memberService.join(member, profile);
-        System.out.println("id = " + id);
 
         return new CreateMemberResponse(id);
     }

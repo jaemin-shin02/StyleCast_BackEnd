@@ -5,9 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import toyproject.stylecast.domain.clothes.Category;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
@@ -26,6 +26,8 @@ public class Clothes {
 
     @Enumerated(EnumType.STRING)
     private Category category;
+
+    private String subCategory;
     private String color;
     @Enumerated(EnumType.STRING)
     private Season season;
@@ -36,6 +38,10 @@ public class Clothes {
         this.color = color;
         this.season = season;
     }
+
+//    public void setSubCategory(Enum subCategory){
+//        this.subCategory = subCategory;
+//    }
 
     //==연관관계 메소드==//
     public void setMember(Member member){

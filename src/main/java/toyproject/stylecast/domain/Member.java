@@ -20,7 +20,8 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
     private String name;
-    private String birth_date;
+
+    private String birthdate;
     private String email;
     private String password;
 
@@ -46,7 +47,7 @@ public class Member {
 
     public void setDefault(String name, String birth_date, String email, String password) {
         this.name = name;
-        this.birth_date = birth_date;
+        this.birthdate = birth_date;
         this.email = email;
         this.password = password;
     }

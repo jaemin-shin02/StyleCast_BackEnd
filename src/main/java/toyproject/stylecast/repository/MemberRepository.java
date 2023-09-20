@@ -31,7 +31,7 @@ public class MemberRepository {
     }
 
     public List<Member> findByNameWithBirth(String name, String date){
-        return em.createQuery("select m from Member m where m.name = :name and m.birth_date = :date", Member.class)
+        return em.createQuery("select m from Member m where m.name = :name and m.birthdate = :date", Member.class)
                 .setParameter("name", name)
                 .setParameter("date", date)
                 .getResultList();

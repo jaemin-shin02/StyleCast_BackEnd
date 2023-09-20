@@ -11,10 +11,4 @@ public class StylecastApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(StylecastApplication.class, args);
 	}
-//
-//	@Bean
-//	Hibernate5Module hibernate5Module(){
-//		return new Hibernate5Module();
-//	}
-
 }

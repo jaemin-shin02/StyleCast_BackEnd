@@ -5,15 +5,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Profile;
-import toyproject.stylecast.repository.MemberRepository;
+import toyproject.stylecast.repository.MemberDataRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MemberService {
-    private final MemberRepository memberRepository;
+public class MemberDataService {
+    private final MemberDataRepository memberDataRepository;
 
     @Transactional
     public Long join(Member member, Profile profile){
@@ -21,13 +22,13 @@ public class MemberService {
 
         member.setProfile(profile);
 
-        memberRepository.save(member);
+        memberDataRepository.save(member);
         return member.getId();
     }
 
     private void validateDuplicateMember(Member member) {
-        List<Member> byEmail = memberRepository.findByEmail(member.getEmail());
-        List<Member> byNameWithBirth = memberRepository.findByNameWithBirth(member.getName(), member.getBirthdate());
+        List<Member> byEmail = memberDataRepository.findMembersByEmail(member.getEmail());
+        List<Member> byNameWithBirth = memberDataRepository.findMembersByNameAndBirthdate(member.getName(), member.getBirthdate());
 
         if(!byEmail.isEmpty() || !byNameWithBirth.isEmpty()){
             throw new IllegalStateException("이미 존재하는 회원입니다.");
@@ -35,40 +36,39 @@ public class MemberService {
     }
 
     public List<Member> findMembers(){
-        return memberRepository.findAll();
+        return memberDataRepository.findAll();
     }
 
     public Member findOne(Long memberId){
-        return memberRepository.findOne(memberId);
+        return memberDataRepository.findById(memberId).get();
     }
 
     public void setProfile(Long memberId, Profile profile){
-        Member member = memberRepository.findOne(memberId);
+        Member member = memberDataRepository.findById(memberId).get();
         member.setProfile(profile);
     }
 
     @Transactional
     public void updateName(Long id, String name) {
-        Member member = memberRepository.findOne(id);
+        Member member = memberDataRepository.findById(id).get();
         member.setName(name);
     }
 
     @Transactional
     public void updateEmail(Long id, String email) {
-        Member member = memberRepository.findOne(id);
+        Member member = memberDataRepository.findById(id).get();
         member.setName(email);
     }
 
     @Transactional
     public void updateBirth(Long id, String birth){
-        Member member = memberRepository.findOne(id);
+        Member member = memberDataRepository.findById(id).get();
         member.setBirthdate(birth);
     }
 
     @Transactional
     public void addLocation(Long id, String location){
-        Member member = memberRepository.findOne(id);
+        Member member = memberDataRepository.findById(id).get();
         member.addLocation(location);
     }
-
 }

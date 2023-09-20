@@ -17,7 +17,7 @@ public class WeatherService {
     private final String apiKey = "23fe151cdb3b30d73c1d46a274a04037";
     private final String BASE_URL = "http://api.openweathermap.org/data/2.5/weather";
 
-    public void getWeatherData(String lat, String lon) {
+    public float getWeatherData(String lat, String lon) {
         StringBuilder urlBuilder = new StringBuilder(BASE_URL);
         try {
             urlBuilder.append("?" + URLEncoder.encode("lat", "UTF-8") + "=" + lat);
@@ -33,8 +33,10 @@ public class WeatherService {
 
             System.out.println("urlBuilder = " + urlBuilder);
             System.out.println(response);
+            return response.getMain().getTemp();
         } catch (Exception e) {
             e.printStackTrace();
+            return 0;
         }
     }
 

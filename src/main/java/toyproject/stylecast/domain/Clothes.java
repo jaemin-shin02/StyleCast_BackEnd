@@ -1,10 +1,7 @@
 package toyproject.stylecast.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import toyproject.stylecast.domain.clothes.Category;
 
 import javax.persistence.*;
@@ -13,6 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Data
 public class Clothes {
     @Id @GeneratedValue
     @Column(name = "clothes_id")

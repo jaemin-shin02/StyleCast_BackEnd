@@ -13,4 +13,5 @@ import java.util.List;
 
 public interface OutfitDataRepositoryCustom {
     List<OutfitDto> RecommendOutfit(OutfitSearchCondition condition);
+
 }

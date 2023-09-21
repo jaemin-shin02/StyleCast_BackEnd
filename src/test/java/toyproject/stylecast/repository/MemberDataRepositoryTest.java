@@ -1,0 +1,56 @@
+package toyproject.stylecast.repository;
+
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+import toyproject.stylecast.domain.Member;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+@Transactional
+class MemberDataRepositoryTest {
+    @Autowired
+    private MemberDataRepository memberDataRepository;
+
+    @Test
+    public void createMember() throws Exception {
+        Member member = Member.creatMember("Sul", "19990719", "meow@naver.com", "dbwls99!");
+        memberDataRepository.save(member);
+
+        Optional<Member> findMember = memberDataRepository.findById(member.getId());
+        Member find = findMember.get();
+
+        assertThat(member.getName()).isEqualTo(find.getName());
+        assertThat(member).isEqualTo(find);
+    }
+
+    @Test
+    public void findByEmail() throws Exception {
+        Member member = Member.creatMember("Sul", "19990719", "meow@naver.com", "dbwls99!");
+        memberDataRepository.save(member);
+
+        List<Member> result = memberDataRepository.findMembersByEmail("meow@naver.com");
+
+        assertThat(result.get(0).getName()).isEqualTo(member.getName());
+        assertThat(result.get(0)).isEqualTo(member);
+    }
+
+    @Test
+    public void findByNameWithBirth() throws Exception {
+        Member member = Member.creatMember("Sul", "19990719", "meow@naver.com", "dbwls99!");
+        memberDataRepository.save(member);
+
+        List<Member> sul = memberDataRepository.findMembersByNameAndBirthdate("Sul", "19990719");
+
+        assertThat(sul.get(0).getName()).isEqualTo(member.getName());
+        assertThat(sul.get(0)).isEqualTo(member);
+    }
+
+}

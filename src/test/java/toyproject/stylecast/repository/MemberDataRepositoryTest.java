@@ -21,7 +21,7 @@ class MemberDataRepositoryTest {
 
     @Test
     public void createMember() throws Exception {
-        Member member = Member.creatMember("Sul", "19990719", "meow@naver.com", "dbwls99!");
+        Member member = Member.creatMember("Sul", "바밤바","19990719", "meow@naver.com", "dbwls99!");
         memberDataRepository.save(member);
 
         Optional<Member> findMember = memberDataRepository.findById(member.getId());
@@ -33,7 +33,7 @@ class MemberDataRepositoryTest {
 
     @Test
     public void findByEmail() throws Exception {
-        Member member = Member.creatMember("Sul", "19990719", "meow@naver.com", "dbwls99!");
+        Member member = Member.creatMember("Sul", "바밤바","19990719", "meow@naver.com", "dbwls99!");
         memberDataRepository.save(member);
 
         List<Member> result = memberDataRepository.findMembersByEmail("meow@naver.com");
@@ -44,7 +44,7 @@ class MemberDataRepositoryTest {
 
     @Test
     public void findByNameWithBirth() throws Exception {
-        Member member = Member.creatMember("Sul", "19990719", "meow@naver.com", "dbwls99!");
+        Member member = Member.creatMember("Sul", "바밤바","19990719", "meow@naver.com", "dbwls99!");
         memberDataRepository.save(member);
 
         List<Member> sul = memberDataRepository.findMembersByNameAndBirthdate("Sul", "19990719");

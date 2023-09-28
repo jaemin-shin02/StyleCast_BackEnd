@@ -36,11 +36,15 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath name = createString("name");
 
+    public final StringPath nickname = createString("nickname");
+
     public final ListPath<Outfit, QOutfit> outfitList = this.<Outfit, QOutfit>createList("outfitList", Outfit.class, QOutfit.class, PathInits.DIRECT2);
 
     public final StringPath password = createString("password");
 
     public final QProfile profile;
+
+    public final StringPath refreshToken = createString("refreshToken");
 
     public QMember(String variable) {
         this(Member.class, forVariable(variable), INITS);

@@ -10,4 +10,7 @@ public interface MemberDataRepository extends JpaRepository<Member, Long> {
     List<Member> findMembersByNameAndBirthdate(String name, String birthdate);
     List<Member> findMembersByEmail(String email);
 
+    Optional<Member> findByName(String username);
+    Optional<Member> findMemberByEmail(String email);
+
 }

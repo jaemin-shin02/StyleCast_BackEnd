@@ -27,7 +27,7 @@ class ClothesDataRepositoryTest {
 
     @Test
     public void createClothes() throws Exception {
-        Member member = Member.creatMember("Sul", "19990719", "meow@naver.com", "dbwls99!");
+        Member member = Member.creatMember("Sul", "바밤바","19990719", "meow@naver.com", "dbwls99!");
         memberDataRepository.save(member);
 
         Clothes clothes = Clothes.creatClothes(member, "인세인 롱슬리브", Category.상의, "검정", Season.가을);

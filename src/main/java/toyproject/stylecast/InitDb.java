@@ -34,7 +34,7 @@ public class InitDb {
         private final OutfitDataService outfitDataService;
 
         public void dbInit1(){
-            Member member = Member.creatMember("Shin", "20020220", "sour_jam0220@naver.com", "woals0220!");
+            Member member = Member.creatMember("Shin", "우주최강재민","20020220", "sour_jam0220@naver.com", "woals0220!");
             Profile profile = Profile.creatProfile(member, Gender.MEN, 73, 174, Figure.STANDARD, true);
             profile.addStyle(Style.스트릿);
             profile.addStyle(Style.포멀);
@@ -55,7 +55,7 @@ public class InitDb {
         }
 
         public void dbInit2(){
-            Member member = Member.creatMember("Yes", "20020611", "yesju@naver.com", "sulwha");
+            Member member = Member.creatMember("Sul", "안유진","20020611", "youjin@naver.com", "sulwha");
             Profile profile = Profile.creatProfile(member, Gender.WOMEN, 71, 176, Figure.STANDARD, true);
             profile.addStyle(Style.스트릿);
             profile.addStyle(Style.걸리시);

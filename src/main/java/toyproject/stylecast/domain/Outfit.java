@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import toyproject.stylecast.domain.recommendframe.Weather;
 
 import javax.persistence.*;
 import java.util.List;
@@ -34,6 +35,10 @@ public class Outfit {
     private Long outerwear_id;
 
     private Long shoe_id;
+
+    @Enumerated(EnumType.STRING)
+    @ElementCollection
+    private List<Weather> weatherList;
 
     public void setDefault(String name, Style style,String description, Long top_id, Long bottom_id, Long outerwear_id) {
         this.name = name;

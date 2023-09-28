@@ -31,7 +31,7 @@ public class OutfitServiceTest {
     @Test
     public void recommendTest() throws Exception {
         //given
-        Member member = Member.creatMember("Gong", "20010507", "gaya01@naver.com", "gonggong!");
+        Member member = Member.creatMember("Gong", "꽁지","20010507", "gaya01@naver.com", "gonggong!");
         Profile profile = Profile.creatProfile(member, Gender.MEN, 73, 174, Figure.STANDARD, true);
         profile.addStyle(Style.스트릿);
         Long memberId = memberService.join(member, profile);
@@ -49,7 +49,7 @@ public class OutfitServiceTest {
     @Test
     public void recommendT() throws Exception {
         //given
-        Member member = Member.creatMember("Gong", "20010507", "gaya01@naver.com", "gonggong!");
+        Member member = Member.creatMember("Gong", "꽁지","20010507", "gaya01@naver.com", "gonggong!");
         Profile profile = Profile.creatProfile(member, Gender.MEN, 73, 174, Figure.STANDARD, true);
         profile.addStyle(Style.스트릿);
         Long memberId = memberService.join(member, profile);

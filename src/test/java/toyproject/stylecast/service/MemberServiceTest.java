@@ -86,7 +86,7 @@ public class MemberServiceTest {
     @Test
     public void 생성_및_아이템추가() throws Exception {
         //given
-        Member member = Member.creatMember("shin", "020220", "sour_jam0220@naver.com", "woals0220!");
+        Member member = Member.creatMember("shin", "빰빰","020220", "sour_jam0220@naver.com", "woals0220!");
         Profile profile = Profile.creatProfile(member, Gender.MEN, 73, 174, Figure.STANDARD, true);
         member.setProfile(profile);
         

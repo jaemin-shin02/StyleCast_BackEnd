@@ -40,6 +40,8 @@ public class QOutfit extends EntityPathBase<Outfit> {
 
     public final NumberPath<Long> top_id = createNumber("top_id", Long.class);
 
+    public final ListPath<toyproject.stylecast.domain.recommendframe.Weather, EnumPath<toyproject.stylecast.domain.recommendframe.Weather>> weatherList = this.<toyproject.stylecast.domain.recommendframe.Weather, EnumPath<toyproject.stylecast.domain.recommendframe.Weather>>createList("weatherList", toyproject.stylecast.domain.recommendframe.Weather.class, EnumPath.class, PathInits.DIRECT2);
+
     public QOutfit(String variable) {
         this(Outfit.class, forVariable(variable), INITS);
     }

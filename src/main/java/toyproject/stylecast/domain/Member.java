@@ -19,8 +19,9 @@ public class Member {
     @Id @GeneratedValue
     @Column(name = "member_id")
     private Long id;
-    private String name;
 
+    private String nickname;
+    private String name;
     private String birthdate;
     private String email;
     private String password;
@@ -41,12 +42,19 @@ public class Member {
     @ElementCollection
     private List<String> locationList = new ArrayList<>();
 
+    private String refreshToken;
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
     public void setGrade_User(){
         this.grade = Grade.USER;
     }
 
-    public void setDefault(String name, String birth_date, String email, String password) {
+    public void setDefault(String name, String nickname, String birth_date, String email, String password) {
         this.name = name;
+        this.nickname = nickname;
         this.birthdate = birth_date;
         this.email = email;
         this.password = password;
@@ -75,10 +83,18 @@ public class Member {
     }
 
     //==생성 메소드==//
-    public static Member creatMember(String name, String birth_date, String email, String password){
+    public static Member creatMember(String name, String nickname, String birth_date, String email, String password){
         Member member = new Member();
-        member.setDefault(name, birth_date, email, password);
+        member.setDefault(name, nickname, birth_date, email, password);
         member.setGrade_User();
+
+        return member;
+    }
+
+    public static Member creatAdmin(String name, String nickname, String birth_date, String email, String password){
+        Member member = new Member();
+        member.setDefault(name, nickname, birth_date, email, password);
+        member.setGrade(Grade.ADMIN);
 
         return member;
     }

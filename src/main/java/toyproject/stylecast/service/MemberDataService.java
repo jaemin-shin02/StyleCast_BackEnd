@@ -1,6 +1,7 @@
 package toyproject.stylecast.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.Member;
@@ -8,18 +9,18 @@ import toyproject.stylecast.domain.Profile;
 import toyproject.stylecast.repository.MemberDataRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MemberDataService {
     private final MemberDataRepository memberDataRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public Long join(Member member, Profile profile){
         validateDuplicateMember(member);
-
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
         member.setProfile(profile);
 
         memberDataRepository.save(member);
@@ -71,4 +72,5 @@ public class MemberDataService {
         Member member = memberDataRepository.findById(id).get();
         member.addLocation(location);
     }
+
 }

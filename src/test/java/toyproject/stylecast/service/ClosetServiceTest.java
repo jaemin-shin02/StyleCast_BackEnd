@@ -27,7 +27,7 @@ public class ClosetServiceTest {
     @Test
     public void 옷생성() throws Exception {
         //given
-        Member member = Member.creatMember("pye", "20021011", "pyecute@naver.com", "dksdlfrTLq!!");
+        Member member = Member.creatMember("pye", "예니","20021011", "pyecute@naver.com", "dksdlfrTLq!!");
         Long memberId = memberService.join(member, null);
 
 //        when

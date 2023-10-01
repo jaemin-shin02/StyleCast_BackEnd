@@ -46,6 +46,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath refreshToken = createString("refreshToken");
 
+    public final ListPath<String, StringPath> roles = this.<String, StringPath>createList("roles", String.class, StringPath.class, PathInits.DIRECT2);
+
     public QMember(String variable) {
         this(Member.class, forVariable(variable), INITS);
     }

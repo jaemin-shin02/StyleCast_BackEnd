@@ -1,11 +1,9 @@
 package toyproject.stylecast.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import toyproject.stylecast.auth.Authority;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Data
 public class Member {
     @Id @GeneratedValue
     @Column(name = "member_id")
@@ -43,6 +42,10 @@ public class Member {
     private List<String> locationList = new ArrayList<>();
 
     private String refreshToken;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+//    @Builder.Default
+    private List<String> roles = new ArrayList<>();
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;

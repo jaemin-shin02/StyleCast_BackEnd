@@ -62,10 +62,14 @@ dependencies {
     //로그인 구현을 위한 Spring-security와 JWT 의존성 추가
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
 //    //타임리프 설정 추가
 //    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 //    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+//    annotationProcessor('org.projectlombok:lombok')
+//    testAnnotationProcessor('org.projectlombok:lombok')
 }
 
 tasks.named('test') {

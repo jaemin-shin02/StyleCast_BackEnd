@@ -1,9 +1,6 @@
 package toyproject.stylecast.domain;
 
 import lombok.*;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import toyproject.stylecast.auth.Authority;
 
 import javax.persistence.*;
 import java.util.ArrayList;

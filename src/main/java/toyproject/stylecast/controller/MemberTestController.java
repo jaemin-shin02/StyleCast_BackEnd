@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import toyproject.stylecast.auth.JwtService;
 import toyproject.stylecast.auth.JwtTokenProvider;
 import toyproject.stylecast.domain.*;
 import toyproject.stylecast.repository.MemberDataRepository;
@@ -23,8 +24,9 @@ public class MemberTestController {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final MemberDataService memberDataService;
-
     private final MemberDataRepository memberDataRepository;
+
+    private final JwtService jwtService;
 
     @PostMapping("/join")
     public String join(){
@@ -42,13 +44,24 @@ public class MemberTestController {
     }
 
     // 로그인
+//    @PostMapping("/login")
+//    public String login(@RequestBody Map<String, String> user) {
+//        log.info("user email = {}", user.get("email"));
+//        Member member = memberDataRepository.findMemberByEmail(user.get("email"))
+//                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
+//
+//        return jwtTokenProvider.createToken(member.getEmail(), member.getRoles());
+//    }
     @PostMapping("/login")
-    public String login(@RequestBody Map<String, String> user) {
-        log.info("user email = {}", user.get("email"));
+    public Token login(@RequestBody Map<String, String> user) {
+        log.info("user email = {}", user.get("userEmail"));
         Member member = memberDataRepository.findMemberByEmail(user.get("email"))
                 .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
 
-        return jwtTokenProvider.createToken(member.getEmail(), member.getRoles());
+        Token tokenDto = jwtTokenProvider.createAccessToken(member.getEmail(), member.getRoles());
+        log.info("getRoles = {}", member.getRoles());
+        jwtService.login(tokenDto);
+        return tokenDto;
     }
 
 

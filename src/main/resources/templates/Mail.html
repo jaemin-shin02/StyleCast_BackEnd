@@ -1,0 +1,33 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>메일 보내기</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<form th:action="@{/mail/send}" method="post">-->
+<!--  <input type="text" name="email" placeholder="받는 사람 입력"><br>-->
+<!--  <input type="submit" value="전송">-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>메일 보내기 및 인증</title>
+</head>
+<body>
+<!-- 이메일 전송 폼 -->
+<form th:action="@{/mail/send}" method="post">
+  <input type="text" name="email" placeholder="받는 사람 입력"><br>
+  <input type="submit" value="이메일 전송">
+</form>
+
+<!-- 인증 번호 확인 폼 -->
+<form th:action="@{/mail/verify}" method="post">
+  <input type="text" name="code" placeholder="인증 번호 입력"><br>
+  <input type="submit" value="확인">
+</form>
+</body>
+</html>

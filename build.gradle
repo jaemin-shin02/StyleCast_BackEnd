@@ -68,8 +68,8 @@ dependencies {
 //    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 //    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
-//    annotationProcessor('org.projectlombok:lombok')
-//    testAnnotationProcessor('org.projectlombok:lombok')
+    //이메일 인증 의존성 추가
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
 
 tasks.named('test') {

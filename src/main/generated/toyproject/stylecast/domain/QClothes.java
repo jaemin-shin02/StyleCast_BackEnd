@@ -22,6 +22,8 @@ public class QClothes extends EntityPathBase<Clothes> {
 
     public static final QClothes clothes = new QClothes("clothes");
 
+    public final BooleanPath bookmark = createBoolean("bookmark");
+
     public final EnumPath<toyproject.stylecast.domain.clothes.Category> category = createEnum("category", toyproject.stylecast.domain.clothes.Category.class);
 
     public final StringPath color = createString("color");

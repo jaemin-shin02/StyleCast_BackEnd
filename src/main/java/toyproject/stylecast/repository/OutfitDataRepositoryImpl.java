@@ -50,7 +50,8 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
                         workOutEq(condition.getProfile().getWork_out()),
                         preferStyleIn(condition.getStyle()),
                         weatherEq(condition.getWeather()),
-                        temperatureEq(condition.getTemperature())
+                        temperatureCmp(condition.getTemperature()),
+                        outfit.likes.goe(10)
                 )
                 .fetch();
     }
@@ -87,7 +88,7 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
         return null;
     }
 
-    private BooleanExpression temperatureEq(Temperature temperature) {
+    private BooleanExpression temperatureCmp(float temperature) {
         return null;
     }
 

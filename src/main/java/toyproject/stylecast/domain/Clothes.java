@@ -30,21 +30,28 @@ public class Clothes {
     @Enumerated(EnumType.STRING)
     private Season season;
 
+    private Boolean bookmark;
+
     public void setDefault(String name, Category category, String color, Season season) {
         this.name = name;
         this.category = category;
         this.color = color;
         this.season = season;
+        this.bookmark = false;
     }
 
-//    public void setSubCategory(Enum subCategory){
-//        this.subCategory = subCategory;
-//    }
 
     //==연관관계 메소드==//
     public void setMember(Member member){
         this.member = member;
         member.getClothesList().add(this);
+    }
+
+    public void setBookmarkT(){
+        this.bookmark = true;
+    }
+    public void setBookmarkF(){
+        this.bookmark = false;
     }
 
     //==생성 메소드==//

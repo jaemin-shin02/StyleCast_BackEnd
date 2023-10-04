@@ -3,12 +3,9 @@ package toyproject.stylecast.controller;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import toyproject.stylecast.domain.*;
 import toyproject.stylecast.dto.*;
-import toyproject.stylecast.repository.MemberDataRepository;
 import toyproject.stylecast.service.MemberDataService;
 import toyproject.stylecast.service.MemberService;
 
@@ -25,7 +22,7 @@ public class MemberController {
     @GetMapping("/api/v1/members")
     @ResponseBody
     public Result members() {
-        List<Member> findMembers = memberService.findMembers();
+        List<Member> findMembers = memberDataService.findMembers();
         List<MemberDto> collectM = findMembers.stream()
                 .map(m -> new MemberDto(m.getName(), m.getBirthdate(), m.getEmail(), m.getGrade(), m.getClothesList(), m.getOutfitList(), m.getLocationList()))
                 .collect(Collectors.toList());
@@ -36,32 +33,22 @@ public class MemberController {
         return new Result(collectM.size() ,collectM, collectP);
     }
 
-    @PostMapping("/api/v1/members")
+    @PostMapping("/api/members/su")
     public CreateMemberResponse saveMember(@RequestBody @Valid CreateMemberRequest request){
 
-        Member member = Member.creatMember(request.getNewMember().getName(), request.getNewMember().getNickname(), request.getNewMember().getBirth_date(), request.getNewMember().getEmail(), request.getNewMember().getPassword2());
-        Profile profile = Profile.creatProfile(member, request.getNewProfile().getGender(), request.getNewProfile().getWeight(), request.getNewProfile().getHeight(), request.getNewProfile().getFigure(), request.getNewProfile().getWork_out());
-        List<Style> prefer_style = request.getNewProfile().getPrefer_style();
-        for (Style style : prefer_style) {
-            profile.addStyle(style);
-        }
+        Member member = Member.creatMember(request.getName(), request.getNickname(), request.getBirthdate(), request.getEmail(), request.getPassword2());
 
-        Long id = memberService.join(member, profile);
+        Long id = memberDataService.join(member);
 
         return new CreateMemberResponse(id);
     }
 
-    @PostMapping("/api/v2/members")
+    @PostMapping("/api/members/sa")
     public CreateMemberResponse saveAdmin(@RequestBody @Valid CreateMemberRequest request){
 
-        Member member = Member.creatAdmin(request.getNewMember().getName(), request.getNewMember().getNickname(), request.getNewMember().getBirth_date(), request.getNewMember().getEmail(), request.getNewMember().getPassword2());
-        Profile profile = Profile.creatProfile(member, request.getNewProfile().getGender(), request.getNewProfile().getWeight(), request.getNewProfile().getHeight(), request.getNewProfile().getFigure(), request.getNewProfile().getWork_out());
-        List<Style> prefer_style = request.getNewProfile().getPrefer_style();
-        for (Style style : prefer_style) {
-            profile.addStyle(style);
-        }
+        Member member = Member.creatAdmin(request.getName(), request.getNickname(), request.getBirthdate(), request.getEmail(), request.getPassword2());
 
-        Long id = memberService.join(member, profile);
+        Long id = memberDataService.join(member);
 
         return new CreateMemberResponse(id);
     }

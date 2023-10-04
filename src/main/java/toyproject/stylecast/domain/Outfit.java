@@ -5,9 +5,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import toyproject.stylecast.domain.recommendframe.Temperature;
 import toyproject.stylecast.domain.recommendframe.Weather;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -37,16 +39,18 @@ public class Outfit {
     private Long shoe_id;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection
-    private List<Weather> weatherList;
+    @ElementCollection(targetClass = Weather.class)
+    private List<Weather> weatherList  = new ArrayList<>();
 
-    public void setDefault(String name, Style style,String description, Long top_id, Long bottom_id, Long outerwear_id) {
-        this.name = name;
-        this.style = style;
-        this.description = description;
-        this.top_id = top_id;
-        this.bottom_id = bottom_id;
-        this.outerwear_id = outerwear_id;
+    @Enumerated(EnumType.STRING)
+    private Temperature temperature;
+
+    private int likes;
+    public void addLike(){
+        this.likes++;
+    }
+    public void unLike(){
+        this.likes--;
     }
 
     //==연관관계 메서드==//
@@ -56,6 +60,15 @@ public class Outfit {
     }
 
     //==생성 메서드==//
+    public void setDefault(String name, Style style,String description, Long top_id, Long bottom_id, Long outerwear_id) {
+        this.name = name;
+        this.style = style;
+        this.description = description;
+        this.top_id = top_id;
+        this.bottom_id = bottom_id;
+        this.outerwear_id = outerwear_id;
+    }
+
     public static Outfit creatOutfit(Member member, String name, Style style, String description, Long top_id, Long bottom_id, Long outerwear_id){
         Outfit outfit = new Outfit();
         outfit.setMember(member);

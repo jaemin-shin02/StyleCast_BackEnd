@@ -28,6 +28,8 @@ public class QOutfit extends EntityPathBase<Outfit> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final NumberPath<Integer> likes = createNumber("likes", Integer.class);
+
     public final QMember member;
 
     public final StringPath name = createString("name");
@@ -37,6 +39,8 @@ public class QOutfit extends EntityPathBase<Outfit> {
     public final NumberPath<Long> shoe_id = createNumber("shoe_id", Long.class);
 
     public final EnumPath<Style> style = createEnum("style", Style.class);
+
+    public final EnumPath<toyproject.stylecast.domain.recommendframe.Temperature> temperature = createEnum("temperature", toyproject.stylecast.domain.recommendframe.Temperature.class);
 
     public final NumberPath<Long> top_id = createNumber("top_id", Long.class);
 

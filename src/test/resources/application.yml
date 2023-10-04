@@ -12,6 +12,17 @@ spring:
       hibernate:
 #        show_sql: true
         format_sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 465
+    username: sourjam0220@gmail.com
+    password: fckgqedlsislhgct
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl.enable: true # 또는 starttls.enable: true
+          timeout: 5000
 
 #  thymeleaf:
 #    prefix: classpath:/templates/

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -38,19 +39,8 @@ public class Member {
     @ElementCollection
     private List<String> locationList = new ArrayList<>();
 
-    private String refreshToken;
-
     @ElementCollection(fetch = FetchType.EAGER)
-//    @Builder.Default
     private List<String> roles = new ArrayList<>();
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
-    public void setGrade_User(){
-        this.grade = Grade.USER;
-    }
 
     public void setDefault(String name, String nickname, String birth_date, String email, String password) {
         this.name = name;
@@ -59,8 +49,6 @@ public class Member {
         this.email = email;
         this.password = password;
     }
-
-
 
     //==연관관계 메소드==//
     public void setProfile(Profile profile){
@@ -86,7 +74,8 @@ public class Member {
     public static Member creatMember(String name, String nickname, String birth_date, String email, String password){
         Member member = new Member();
         member.setDefault(name, nickname, birth_date, email, password);
-        member.setGrade_User();
+        member.setGrade(Grade.USER);
+        member.setRoles(Collections.singletonList("ROLE_USER"));
 
         return member;
     }
@@ -95,6 +84,7 @@ public class Member {
         Member member = new Member();
         member.setDefault(name, nickname, birth_date, email, password);
         member.setGrade(Grade.ADMIN);
+        member.setRoles(Collections.singletonList("ROLE_ADMIN"));
 
         return member;
     }

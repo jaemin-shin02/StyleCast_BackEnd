@@ -26,7 +26,10 @@ spring:
           auth: true
           ssl.enable: true # 또는 starttls.enable: true
           timeout: 5000
-
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 10MB
 
 logging.level:
   org.hibernate.SQL: debug
@@ -36,3 +39,6 @@ logging.level:
 jwt:
   secret:
     key: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY5NTcxMjAwMywiaWF0IjoxNjk1NzEyMDAzfQ.mAEJihIPAGoJQUyxihgm1KwwOD_NHYkjJaCGBGZ1oAk
+
+file:
+  dir: /Users/shinjaemin/Downloads

@@ -25,20 +25,21 @@ public class InitDb {
     @Transactional
     @RequiredArgsConstructor
     static class InitService{
-        private final MemberService memberService;
         private final MemberDataService memberDataService;
-
-        private final ClothesService clothesService;
+        private final ProfileService profileService;
         private final ClothesDataService clothesDataService;
-        private final OutfitService outfitService;
         private final OutfitDataService outfitDataService;
+
 
         public void dbInit1(){
             Member member = Member.creatMember("Shin", "우주최강재민","20020220", "sour_jam0220@naver.com", "woals0220!");
             Profile profile = Profile.creatProfile(member, Gender.MEN, 73, 174, Figure.STANDARD, true);
             profile.addStyle(Style.스트릿);
             profile.addStyle(Style.포멀);
-            Long memberId = memberDataService.join(member, profile);
+
+            Long memberId = memberDataService.join(member);
+            Long profileId = profileService.save(profile);
+            memberDataService.setProfile(memberId, profileId);
 
             Long clothesId1 = clothesDataService.clothes(memberId, "무지반팔", Category.상의, "검정", Season.여름);
             Clothes clothes1 = clothesDataService.findClothes(clothesId1);
@@ -59,7 +60,10 @@ public class InitDb {
             Profile profile = Profile.creatProfile(member, Gender.WOMEN, 71, 176, Figure.STANDARD, true);
             profile.addStyle(Style.스트릿);
             profile.addStyle(Style.걸리시);
-            Long memberId = memberDataService.join(member, profile);
+
+            Long memberId = memberDataService.join(member);
+            Long profileId = profileService.save(profile);
+            memberDataService.setProfile(memberId, profileId);
 
             Long clothesId1 = clothesDataService.clothes(memberId, "프린팅반팔", Category.상의, "검정", Season.여름);
             Clothes clothes1 = clothesDataService.findClothes(clothesId1);

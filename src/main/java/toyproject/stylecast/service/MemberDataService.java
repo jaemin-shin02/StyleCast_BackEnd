@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Profile;
 import toyproject.stylecast.repository.MemberDataRepository;
+import toyproject.stylecast.repository.ProfileRepository;
 
 import java.util.List;
 
@@ -15,7 +16,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberDataService {
     private final MemberDataRepository memberDataRepository;
+
+    private final ProfileRepository profileRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Transactional
+    public Long join(Member member){
+        validateDuplicateMember(member);
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
+
+        memberDataRepository.save(member);
+        return member.getId();
+    }
+
+    public void setProfile(Long memberId, Long profileId){
+        Member member = memberDataRepository.findById(memberId).orElseThrow(
+                () -> new IllegalArgumentException("일치하는 회원 정보가 없습니다.")
+        );
+
+        Profile profile = profileRepository.findById(profileId).orElseThrow(
+                () -> new IllegalArgumentException("Profile 정보가 없습니다.")
+        );
+
+        member.setProfile(profile);
+    }
 
     @Transactional
     public Long join(Member member, Profile profile){

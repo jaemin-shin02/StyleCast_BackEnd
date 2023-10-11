@@ -1,73 +1,120 @@
 package toyproject.stylecast.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-import toyproject.stylecast.domain.*;
-import toyproject.stylecast.dto.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import toyproject.stylecast.auth.JwtService;
+import toyproject.stylecast.auth.JwtTokenProvider;
+import toyproject.stylecast.auth.mail.MailService;
+import toyproject.stylecast.domain.Member;
+import toyproject.stylecast.dto.CreateMemberRequest;
+import toyproject.stylecast.repository.MemberDataRepository;
 import toyproject.stylecast.service.MemberDataService;
-import toyproject.stylecast.service.MemberService;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.List;
-import java.util.stream.Collectors;
 
-@RestController
+@Slf4j
+@Controller
 @RequiredArgsConstructor
 public class MemberController {
-    private final MemberService memberService;
+    private final JwtTokenProvider jwtTokenProvider;
     private final MemberDataService memberDataService;
+    private final MemberDataRepository memberDataRepository;
+    private final JwtService jwtService;
 
-    @GetMapping("/api/v1/members")
-    @ResponseBody
-    public Result members() {
-        List<Member> findMembers = memberDataService.findMembers();
-        List<MemberDto> collectM = findMembers.stream()
-                .map(m -> new MemberDto(m.getName(), m.getBirthdate(), m.getEmail(), m.getGrade(), m.getClothesList(), m.getOutfitList(), m.getLocationList()))
-                .collect(Collectors.toList());
-        List<ProfileDto> collectP = findMembers.stream()
-                .map(m -> new ProfileDto(m.getName(), m.getProfile().getGender(), m.getProfile().getWeight(), m.getProfile().getHeight(), m.getProfile().getFigure(), m.getProfile().getWork_out(), m.getProfile().getPrefer_style()))
-                .collect(Collectors.toList());
+    private final PasswordEncoder passwordEncoder;
 
-        return new Result(collectM.size() ,collectM, collectP);
+    private final MailService mailService;
+
+    @GetMapping("/joinPage")
+    public String joinPage(Model model, HttpSession session){
+        // 세션에서 저장된 회원정보를 읽어 모델에 추가
+        String name = (String) session.getAttribute("name");
+        String nickname = (String) session.getAttribute("nickname");
+        String birthdate = (String) session.getAttribute("birthdate");
+        String email = (String) session.getAttribute("email");
+        String password1 = (String) session.getAttribute("password1");
+        String password2 = (String) session.getAttribute("password2");
+
+        if (name != null) {
+            model.addAttribute("name", name);
+            model.addAttribute("nickname", nickname);
+            model.addAttribute("birthdate", birthdate);
+            model.addAttribute("email", email);
+            model.addAttribute("password1", password1);
+            model.addAttribute("password2", password2);
+        }
+
+        return "join";
     }
 
-    @PostMapping("/api/members/su")
-    public CreateMemberResponse saveMember(@RequestBody @Valid CreateMemberRequest request){
+    @PostMapping("/joinPage/member")
+    public String joinUser(@Valid CreateMemberRequest request){
+        log.info("일반 회원가입 시도됨");
+        System.out.println("request = " + request);
 
         Member member = Member.creatMember(request.getName(), request.getNickname(), request.getBirthdate(), request.getEmail(), request.getPassword2());
 
-        Long id = memberDataService.join(member);
+        memberDataService.join(member);
 
-        return new CreateMemberResponse(id);
+        return "redirect:/joinPage/success";
     }
 
-    @PostMapping("/api/members/sa")
-    public CreateMemberResponse saveAdmin(@RequestBody @Valid CreateMemberRequest request){
+    @PostMapping("/joinPage/admin")
+    public String joinAdmin(@RequestBody @Valid CreateMemberRequest request){
+        log.info("관리자 회원가입 시도됨");
 
         Member member = Member.creatAdmin(request.getName(), request.getNickname(), request.getBirthdate(), request.getEmail(), request.getPassword2());
 
-        Long id = memberDataService.join(member);
+        memberDataService.join(member);
 
-        return new CreateMemberResponse(id);
+        return member.toString();
     }
 
-    @Data
-    @AllArgsConstructor
-    static class Result<T> {
-        private int count;
-        private T date1;
-        private T date2;
+    @PostMapping("/joinPage/mail/send")
+    public String MailSend(String email, HttpSession session){
+        // 인증 번호 생성 및 저장
+        System.out.println("email = " + email);
+        int verificationCode = mailService.sendMail(email);
+
+        // 생성된 인증 번호를 문자열로 변환하여 세션에 저장
+        session.setAttribute("verificationCode", String.valueOf(verificationCode));
+
+        // 입력한 이메일을 세션에 저장
+        session.setAttribute("email", email);
+
+        return "redirect:/mail";
     }
 
-    @Data
-    static class CreateMemberResponse {
-        private Long id;
+    @PostMapping("/joinPage/mail/verify")
+    public String verifyCode(@RequestParam("code") String enteredCode, HttpSession session) {
+        // 세션에서 인증 번호와 이메일을 가져옵니다.
+        String verificationCode = (String) session.getAttribute("verificationCode");
+        String email = (String) session.getAttribute("email");
 
-        public CreateMemberResponse(Long id) {
-            this.id = id;
+        if (verificationCode != null && enteredCode.equals(verificationCode)) {
+            // 인증 성공 시 세션에서 이메일 정보 삭제
+            session.removeAttribute("verificationCode");
+            session.removeAttribute("email");
+            return "redirect:/mail/success"; // 인증 성공 페이지로 리다이렉트
+        } else {
+            return "redirect:/mail/failure"; // 인증 실패 시 Mail 페이지로 다시 렌더링
         }
     }
 
+    @GetMapping("/joinPage/success")
+    public String joinSuccess(){
+        return "success";
+    }
+    @GetMapping("/joinPage/failure")
+    public String joinFailure(){
+        return "failure";
+    }
 }

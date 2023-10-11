@@ -10,9 +10,9 @@ public class CreateMemberRequest {
     private String name;
     private String nickname;
     private String birthdate;
+    private String email;
     private String password1;
     private String password2;
-    private String email;
 
     @AssertTrue(message = "비밀번호가 일치하지 않습니다.")
     public boolean isPasswordMatching() {

@@ -32,16 +32,9 @@
 * Spring Data JPA
 * QueryDsl
 
-아래는 수정중
 
 ## 📁 DB 구조
-![참빛 DB](https://user-images.githubusercontent.com/89342648/212599883-a295b786-2565-4d8d-a776-535e742f317f.png)
-* `lecture` : 매학기 학교에서 제공하는 개설과목 4개년치(2019~2022)를 엑셀로 데이터 가공, 중복제거 후 저장한 모든 과목 정보 테이블
-* `lecture_time_slot` : `lecture` 와 `time_slot` 을 매핑해주는 중간 테이블
-* `timetable_lecture` : `timetable` 과 `lecture` 를 매핑해주는 중간 테이블
-* `student_lecture` : `student` 와 `lecture` 를 매핑해주는 중간 테이블
+
 
 ## 🗂️ Entitiy 구조
-![클래스다이어그램 drawio](https://user-images.githubusercontent.com/89342648/212615762-40056e62-ca8a-483a-8592-db779ba303dc.svg)
 
-* `Credit` : 전공학점, 부전공학점, 교양학점과 관련된 엔티티

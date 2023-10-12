@@ -1,20 +1,49 @@
-<html>
-<div>
-    <form th:action="@{/login}" method="post">
-        <div th:if="${param.error}">
-            <div class="alert alert-danger">
-                사용자ID 또는 비밀번호를 확인해 주세요.
-            </div>
-        </div>
-        <div class="mb-3">
-            <label th:for="email" class="form-label">사용자Email</label>
-            <input type="text" name="email" id="email" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label th:for="password" class="form-label">비밀번호</label>
-            <input type="password" name="password" id="password" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">로그인</button>
-    </form>
-</div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>로그인</title>
+    <script>
+        function submitLoginForm() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            var data = {
+                "email": email,
+                "password": password
+            };
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open("POST", "/loginPage/verify", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // 로그인 성공
+                    var response = JSON.parse(xhr.responseText);
+                    console.log("로그인 성공, 토큰: " + response.token);
+                } else {
+                    // 로그인 실패
+                    console.error("로그인 실패: " + xhr.responseText);
+                }
+            };
+
+            xhr.send(JSON.stringify(data));
+        }
+    </script>
+</head>
+<body>
+<h1>로그인</h1>
+<form th:action="@{/loginPage/verify}" method="post">
+    <div class="mb-3">
+        <label th:for="email" class="form-label">사용자Email</label>
+        <input type="text" name="email" id="email" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label th:for="password" class="form-label">비밀번호</label>
+        <input type="password" name="password" id="password" class="form-control">
+    </div>
+    <button type="button" class="btn btn-primary" onclick="submitLoginForm()">로그인</button>
+</form>
+</body>
 </html>

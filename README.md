@@ -23,7 +23,7 @@
 ## 🔎 기능 소개
 * GeocodingApi와 openWeatherMap api를 통해 위치 기반 날씨 정보 제공
 * 사용자의 Profile을 기반으로 코디 추천기능 제공
- * 하위  
+* * 하위  
 
 ## 📃 기술 스택
 ### Database

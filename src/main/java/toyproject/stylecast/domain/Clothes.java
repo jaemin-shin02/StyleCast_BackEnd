@@ -2,7 +2,7 @@ package toyproject.stylecast.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import toyproject.stylecast.domain.clothes.Category;
+import toyproject.stylecast.domain.clothes.*;
 
 import javax.persistence.*;
 
@@ -17,6 +17,10 @@ public class Clothes {
     private Long id;
     private String name;
 
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "photo_id")
+//    private FileInfo photo;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     @JsonIgnore
@@ -25,7 +29,18 @@ public class Clothes {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    private String subCategory;
+    @Enumerated(EnumType.STRING)
+    private Top top;
+    @Enumerated(EnumType.STRING)
+    private Pants pants;
+    @Enumerated(EnumType.STRING)
+    private Skirt skirt;
+    @Enumerated(EnumType.STRING)
+    private Onepiece onepiece;
+    @Enumerated(EnumType.STRING)
+    private Shoes shoes;
+    @Enumerated(EnumType.STRING)
+    private Outer outer;
     private String color;
     @Enumerated(EnumType.STRING)
     private Season season;
@@ -46,6 +61,11 @@ public class Clothes {
         this.member = member;
         member.getClothesList().add(this);
     }
+
+//    public void setFileInfo(FileInfo file){
+//        this.photo = file;
+//        file.setClothes(this);
+//    }
 
     public void setBookmarkT(){
         this.bookmark = true;

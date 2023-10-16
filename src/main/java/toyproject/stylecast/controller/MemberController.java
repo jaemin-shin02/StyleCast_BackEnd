@@ -142,9 +142,11 @@ public class MemberController {
             Token tokenDto = jwtTokenProvider.createAccessToken(member.getEmail(), member.getRoles());
             log.info("getRoles = {}", member.getRoles());
             jwtService.login(tokenDto);
+            log.info("tokenDto = {}", tokenDto);
             return ResponseEntity.ok(tokenDto); // 로그인 성공
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호가 일치하지 않습니다."); // 로그인 실패
         }
     }
+
 }

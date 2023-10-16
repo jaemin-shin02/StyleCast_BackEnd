@@ -1,10 +1,11 @@
-package toyproject.stylecast.controller;
+package toyproject.stylecast.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
@@ -21,7 +22,9 @@ import toyproject.stylecast.service.MemberDataService;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 //@Controller
@@ -88,12 +91,31 @@ public class MemberApiController {
         }
     }
 
+//    @GetMapping("/check-login-status")
+//    public ResponseEntity<String> checkLoginStatus() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication != null && authentication.isAuthenticated()) {
+//            // 현재 사용자가 로그인 상태입니다.
+//            return ResponseEntity.ok("현재 로그인 중입니다.");
+//        } else {
+//            // 현재 사용자가 로그인되어 있지 않습니다.
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인되어 있지 않습니다.");
+//        }
+//    }
     @GetMapping("/check-login-status")
     public ResponseEntity<String> checkLoginStatus() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             // 현재 사용자가 로그인 상태입니다.
-            return ResponseEntity.ok("현재 로그인 중입니다.");
+            // 현재 사용자의 권한(역할) 목록을 얻기
+            List<String> userRoles = authentication.getAuthorities()
+                    .stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+
+            // userRoles에는 현재 사용자의 권한 목록이 들어 있습니다.
+
+            return ResponseEntity.ok("현재 로그인 중이며 권한은: " + userRoles);
         } else {
             // 현재 사용자가 로그인되어 있지 않습니다.
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인되어 있지 않습니다.");

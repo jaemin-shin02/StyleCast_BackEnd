@@ -28,5 +28,5 @@ public class OutfitSearchCondition {
     private Top top;
 
     private Weather weather;
-    private float temperature;
+    private Float temperature;
 }

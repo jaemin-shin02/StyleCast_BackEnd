@@ -1,36 +1,56 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>로그인</title>-->
+<!--    <script>-->
+<!--        function submitLoginForm() {-->
+<!--            var email = document.getElementById("email").value;-->
+<!--            var password = document.getElementById("password").value;-->
+
+<!--            var data = {-->
+<!--                "email": email,-->
+<!--                "password": password-->
+<!--            };-->
+
+<!--            var xhr = new XMLHttpRequest();-->
+
+<!--            xhr.open("POST", "/loginPage/verify", true);-->
+<!--            xhr.setRequestHeader("Content-Type", "application/json");-->
+
+<!--            xhr.onload = function () {-->
+<!--                if (xhr.status === 200) {-->
+<!--                    // 로그인 성공-->
+<!--                    var response = JSON.parse(xhr.responseText);-->
+<!--                    console.log("로그인 성공, 토큰: " + response.token);-->
+<!--                } else {-->
+<!--                    // 로그인 실패-->
+<!--                    console.error("로그인 실패: " + xhr.responseText);-->
+<!--                }-->
+<!--            };-->
+
+<!--            xhr.send(JSON.stringify(data));-->
+<!--        }-->
+<!--    </script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>로그인</h1>-->
+<!--<form th:action="@{/loginPage/verify}" method="post">-->
+<!--    <div class="mb-3">-->
+<!--        <label th:for="email" class="form-label">사용자Email</label>-->
+<!--        <input type="text" name="email" id="email" class="form-control">-->
+<!--    </div>-->
+<!--    <div class="mb-3">-->
+<!--        <label th:for="password" class="form-label">비밀번호</label>-->
+<!--        <input type="password" name="password" id="password" class="form-control">-->
+<!--    </div>-->
+<!--    <button type="button" class="btn btn-primary" onclick="submitLoginForm()">로그인</button>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>로그인</title>
-    <script>
-        function submitLoginForm() {
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
-
-            var data = {
-                "email": email,
-                "password": password
-            };
-
-            var xhr = new XMLHttpRequest();
-
-            xhr.open("POST", "/loginPage/verify", true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    // 로그인 성공
-                    var response = JSON.parse(xhr.responseText);
-                    console.log("로그인 성공, 토큰: " + response.token);
-                } else {
-                    // 로그인 실패
-                    console.error("로그인 실패: " + xhr.responseText);
-                }
-            };
-
-            xhr.send(JSON.stringify(data));
-        }
-    </script>
 </head>
 <body>
 <h1>로그인</h1>
@@ -45,5 +65,41 @@
     </div>
     <button type="button" class="btn btn-primary" onclick="submitLoginForm()">로그인</button>
 </form>
+
+<!-- 클라이언트 측 JavaScript 코드 추가 -->
+<script>
+    function submitLoginForm() {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+
+        var data = {
+            "email": email,
+            "password": password
+        };
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("POST", "/loginPage/verify", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // 로그인 성공
+                var response = JSON.parse(xhr.responseText);
+                var accessToken = response.accessToken;
+
+                // 액세스 토큰을 로컬 스토리지에 저장
+                localStorage.setItem("accessToken", accessToken);
+
+                console.log("로그인 성공, 토큰: " + accessToken);
+            } else {
+                // 로그인 실패
+                console.error("로그인 실패: " + xhr.responseText);
+            }
+        };
+
+        xhr.send(JSON.stringify(data));
+    }
+</script>
 </body>
 </html>

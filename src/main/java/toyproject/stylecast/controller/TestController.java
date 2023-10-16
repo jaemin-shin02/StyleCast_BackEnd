@@ -11,4 +11,9 @@ public class TestController {
         return "<h1>test 통과</h1>";
     }
 
+    @PostMapping("/user/test")
+    public String userTest(){
+        return "<h1>user Test 통과</h1>";
+    }
+
 }

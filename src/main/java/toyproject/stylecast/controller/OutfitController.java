@@ -1,63 +1,65 @@
 package toyproject.stylecast.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-import toyproject.stylecast.domain.Member;
-import toyproject.stylecast.domain.Outfit;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import toyproject.stylecast.domain.Clothes;
+import toyproject.stylecast.domain.clothes.Category;
+import toyproject.stylecast.dto.CreateClothesRequest;
 import toyproject.stylecast.dto.CreateOutfitRequest;
-import toyproject.stylecast.dto.OutfitDto;
-import toyproject.stylecast.service.ClothesService;
-import toyproject.stylecast.service.MemberService;
-import toyproject.stylecast.service.OutfitService;
+import toyproject.stylecast.service.ClothesDataService;
+import toyproject.stylecast.service.MemberDataService;
+import toyproject.stylecast.service.OutfitDataService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@RestController
+@Slf4j
+@Controller
 @RequiredArgsConstructor
 public class OutfitController {
+    
+    private final MemberDataService memberService;
+    private final ClothesDataService clothesService;
+    private final OutfitDataService outfitService;
+    
+    @GetMapping("/outfit/create/{id}")
+    public String AddClothesPage(Model model, @PathVariable("id") Long memberId){
 
-    private final OutfitService outfitService;
-    private final ClothesService clothesService;
-    private final MemberService memberService;
+        List<Clothes> topList = clothesService.findClothesByMemberIdWithCategory(memberId, Category.상의);
+        List<Clothes> bottomList = clothesService.findClothesByMemberIdWithCategory(memberId, Category.바지);
+        List<Clothes> outerList = clothesService.findClothesByMemberIdWithCategory(memberId, Category.아우터);
 
-    @GetMapping("/api/outfit/{id}")
-    @ResponseBody
-    public Result clothesList(@PathVariable("id") Long memberId){
-        List<Outfit> outfitList = outfitService.findOutfitByMember(memberId);
-        List<OutfitDto> collect = outfitList.stream()
-                .map(o -> new OutfitDto(o.getName(), o.getDescription(), o.getStyle(), o.getTop_id(), o.getBottom_id(), o.getOuterwear_id()))
-                .collect(Collectors.toList());
+        // 경로 변수 'id'를 모델에 추가하여 뷰로 전달
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("topList", topList);
+        model.addAttribute("bottomList", bottomList);
+        model.addAttribute("outerList", outerList);
 
-        return new Result(collect.size(), collect);
+        return "outfitUpdate";
     }
 
-    @PostMapping("/api/outfit/create/{id}")
-    public CreateOutfitResponse saveOutfit(@RequestBody @Valid CreateOutfitRequest request, @PathVariable("id") Long memberId){
-        Member member = memberService.findOne(memberId);
-        Outfit outfit = Outfit.creatOutfit(member, request.getName(), request.getStyle(), request.getDescription(), request.getTop_id(), request.getBottom_id(), request.getOuterwear_id());
-        Long outfitId = outfitService.outfit(outfit);
+    @PostMapping("/outfit/create/{id}")
+    public String AddClothes(@PathVariable("id") Long memberId, @Valid CreateOutfitRequest request){
+        log.info("옷 추가 시도");
+        System.out.println("request = " + request);
 
-        return new CreateOutfitResponse(outfitId);
+        outfitService.outfit(memberId, request.getName(), request.getDescription(), request.getStyle(), request.getTop_id(), request.getBottom_id(), request.getOuterwear_id());
+
+        return "redirect:/outfit/success";
     }
 
-
-    @Data
-    @AllArgsConstructor
-    static class Result<T> {
-        private int count;
-        private T date;
+    @GetMapping("/outfit/success")
+    public String joinSuccess(){
+        return "success";
+    }
+    @GetMapping("/outfit/failure")
+    public String joinFailure(){
+        return "failure";
     }
 
-    @Data
-    static class CreateOutfitResponse {
-        private Long id;
-
-        public CreateOutfitResponse(Long id) {
-            this.id = id;
-        }
-    }
 }

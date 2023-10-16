@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import toyproject.stylecast.domain.clothes.*;
 import toyproject.stylecast.domain.recommendframe.Temperature;
 import toyproject.stylecast.domain.recommendframe.Weather;
 
@@ -28,6 +29,10 @@ public class Outfit {
     private String name;
     private String description; //코디 설명
 
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "photo_id")
+//    private FileInfo photo;
+
     @Enumerated(EnumType.STRING)
     private Style style;
 
@@ -39,12 +44,16 @@ public class Outfit {
     private Long shoe_id;
 
     @Enumerated(EnumType.STRING)
+    private Season season;
+
+    @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = Weather.class)
     private List<Weather> weatherList  = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Temperature temperature;
 
+    private Boolean bookmark;
     private int likes;
     public void addLike(){
         this.likes++;
@@ -59,6 +68,11 @@ public class Outfit {
         member.getOutfitList().add(this);
     }
 
+//    public void setFileInfo(FileInfo file){
+//        this.photo = file;
+//        file.setOutfit(this);
+//    }
+
     //==생성 메서드==//
     public void setDefault(String name, Style style,String description, Long top_id, Long bottom_id, Long outerwear_id) {
         this.name = name;
@@ -67,6 +81,8 @@ public class Outfit {
         this.top_id = top_id;
         this.bottom_id = bottom_id;
         this.outerwear_id = outerwear_id;
+//        this.season = season;
+        this.bookmark = false;
     }
 
     public static Outfit creatOutfit(Member member, String name, Style style, String description, Long top_id, Long bottom_id, Long outerwear_id){

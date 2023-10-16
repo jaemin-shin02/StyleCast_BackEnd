@@ -7,8 +7,10 @@ import toyproject.stylecast.domain.clothes.Category;
 import java.util.List;
 import java.util.Optional;
 
-public interface ClothesDataRepository extends JpaRepository<Clothes, Long> {
+public interface ClothesDataRepository extends JpaRepository<Clothes, Long>, ClothesDataRepositoryCustom{
     List<Clothes> findClothesByMemberId(Long memberId);
+
+    List<Clothes> findClothesByCategory(Category category);
 
     List<Clothes> findClothesByMemberIdAndCategory(Long memberId, Category category);
 

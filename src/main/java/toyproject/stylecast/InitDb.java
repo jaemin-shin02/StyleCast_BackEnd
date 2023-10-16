@@ -57,7 +57,7 @@ public class InitDb {
 
         public void dbInit2(){
             Member member = Member.creatMember("Sul", "안유진","20020611", "youjin@naver.com", "sulwha");
-            Profile profile = Profile.creatProfile(member, Gender.WOMEN, 71, 176, Figure.STANDARD, true);
+            Profile profile = Profile.creatProfile(member, Gender.WOMEN, 47, 163, Figure.STANDARD, true);
             profile.addStyle(Style.스트릿);
             profile.addStyle(Style.걸리시);
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import toyproject.stylecast.domain.WeatherData;
+import toyproject.stylecast.dto.WeatherDto;
 import toyproject.stylecast.service.GeocodingService;
 import java.net.URLEncoder;
 
@@ -17,7 +18,7 @@ public class WeatherService {
     private final String apiKey = "23fe151cdb3b30d73c1d46a274a04037";
     private final String BASE_URL = "http://api.openweathermap.org/data/2.5/weather";
 
-    public float getWeatherData(String lat, String lon) {
+    public WeatherDto getWeatherData(String lat, String lon) {
         StringBuilder urlBuilder = new StringBuilder(BASE_URL);
         try {
             urlBuilder.append("?" + URLEncoder.encode("lat", "UTF-8") + "=" + lat);
@@ -33,10 +34,13 @@ public class WeatherService {
 
             System.out.println("urlBuilder = " + urlBuilder);
             System.out.println(response);
-            return response.getMain().getTemp();
+            String main = response.getWeather().get(0).getMain();
+            float temp = response.getMain().getTemp();
+
+            return new WeatherDto(main, temp);
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return new WeatherDto(null, null);
         }
     }
 

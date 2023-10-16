@@ -1,4 +1,4 @@
-package toyproject.stylecast.controller;
+package toyproject.stylecast.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

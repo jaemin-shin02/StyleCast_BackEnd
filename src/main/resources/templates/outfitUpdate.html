@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>코디 생성 폼</title>
+</head>
+<body>
+<h1>코디 생성</h1>
+<form th:action="@{'/outfit/create/' + ${memberId}}" method="post">
+    <div>
+        <label for="name">코디 이름:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+        <label for="description">코디 설명:</label>
+        <textarea id="description" name="description" required></textarea>
+    </div>
+    <div>
+        <label for="style">카테고리:</label>
+        <select id="style" name="style" th:required="required">
+            <option value="캐주얼">캐주얼</option>
+            <option value="시크">시크</option>
+            <option value="댄디">댄디</option>
+            <option value="포멀">포멀</option>
+            <option value="걸리시">걸리시</option>
+            <option value="레트로">레트로</option>
+            <option value="스포츠">스포츠</option>
+            <option value="스트릿">스트릿</option>
+            <option value="고프코어">고프코어</option>
+        </select>
+    </div>
+    <div>
+        <label for="top_id">상의 ID:</label>
+        <select id="top_id" name="top_id" required>
+            <option value="">선택</option>
+              <option th:each="clothes : ${topList}" th:value="${clothes.id}" th:text="${clothes.name}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="bottom_id">바지 ID:</label>
+        <select id="bottom_id" name="bottom_id" required>
+            <option value="">선택</option>
+              <option th:each="clothes : ${bottomList}" th:value="${clothes.id}" th:text="${clothes.name}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="outerwear_id">아우터 ID:</label>
+        <select id="outerwear_id" name="outerwear_id">
+            <option value="">선택</option>
+              <option th:each="clothes : ${outerList}" th:value="${clothes.id}" th:text="${clothes.name}"></option>
+        </select>
+    </div>
+
+    <div>
+        <input type="submit" value="코디 생성">
+    </div>
+</form>
+</body>
+</html>

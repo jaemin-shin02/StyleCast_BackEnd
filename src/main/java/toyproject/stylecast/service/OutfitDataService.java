@@ -3,7 +3,9 @@ package toyproject.stylecast.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Outfit;
+import toyproject.stylecast.domain.Style;
 import toyproject.stylecast.repository.MemberDataRepository;
 import toyproject.stylecast.repository.OutfitDataRepository;
 
@@ -16,8 +18,18 @@ public class OutfitDataService {
     private final OutfitDataRepository outfitDataRepository;
     private final MemberDataRepository memberDataRepository;
 
+    @Transactional
     public Long outfit(Outfit outfit){
         outfitDataRepository.save(outfit);
+        return outfit.getId();
+    }
+
+    @Transactional
+    public Long outfit(Long memberId, String name, String description, Style style, Long top, Long bottom, Long outer){
+        Member member = memberDataRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        Outfit outfit = Outfit.creatOutfit(member, name, style, description, top, bottom, outer);
+        outfitDataRepository.save(outfit);
+
         return outfit.getId();
     }
 

@@ -34,9 +34,19 @@ public class QClothes extends EntityPathBase<Clothes> {
 
     public final StringPath name = createString("name");
 
+    public final EnumPath<toyproject.stylecast.domain.clothes.Onepiece> onepiece = createEnum("onepiece", toyproject.stylecast.domain.clothes.Onepiece.class);
+
+    public final EnumPath<toyproject.stylecast.domain.clothes.Outer> outer = createEnum("outer", toyproject.stylecast.domain.clothes.Outer.class);
+
+    public final EnumPath<toyproject.stylecast.domain.clothes.Pants> pants = createEnum("pants", toyproject.stylecast.domain.clothes.Pants.class);
+
     public final EnumPath<Season> season = createEnum("season", Season.class);
 
-    public final StringPath subCategory = createString("subCategory");
+    public final EnumPath<toyproject.stylecast.domain.clothes.Shoes> shoes = createEnum("shoes", toyproject.stylecast.domain.clothes.Shoes.class);
+
+    public final EnumPath<toyproject.stylecast.domain.clothes.Skirt> skirt = createEnum("skirt", toyproject.stylecast.domain.clothes.Skirt.class);
+
+    public final EnumPath<toyproject.stylecast.domain.clothes.Top> top = createEnum("top", toyproject.stylecast.domain.clothes.Top.class);
 
     public QClothes(String variable) {
         this(Clothes.class, forVariable(variable), INITS);

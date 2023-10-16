@@ -1,5 +1,5 @@
 package toyproject.stylecast.domain.recommendframe;
 
 public enum Weather {
-    SUNNY, RAINY, CLOUDY, SNOWY
+    Thunderstorm, Drizzle, Rain, Snow, Clear, Clouds
 }

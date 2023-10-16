@@ -22,6 +22,8 @@ public class QOutfit extends EntityPathBase<Outfit> {
 
     public static final QOutfit outfit = new QOutfit("outfit");
 
+    public final BooleanPath bookmark = createBoolean("bookmark");
+
     public final NumberPath<Long> bottom_id = createNumber("bottom_id", Long.class);
 
     public final StringPath description = createString("description");
@@ -35,6 +37,8 @@ public class QOutfit extends EntityPathBase<Outfit> {
     public final StringPath name = createString("name");
 
     public final NumberPath<Long> outerwear_id = createNumber("outerwear_id", Long.class);
+
+    public final EnumPath<Season> season = createEnum("season", Season.class);
 
     public final NumberPath<Long> shoe_id = createNumber("shoe_id", Long.class);
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>의류 생성 폼</title>
+</head>
+<body>
+<h1>의류 생성</h1>
+<form th:action="@{'/clothes/create/' + ${memberId}}" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="name">의류 이름:</label>
+        <input type="text" id="name" name="name" th:required="required">
+    </div>
+    <div>
+        <label for="category">카테고리:</label>
+        <select id="category" name="category" th:required="required">
+            <option value="상의">상의</option>
+            <option value="바지">바지</option>
+            <option value="아우터">아우터</option>
+            <option value="신발">신발</option>
+            <option value="원피스">원피스</option>
+            <option value="스커트">스커트</option>
+        </select>
+    </div>
+    <div>
+        <label for="color">색상:</label>
+        <input type="text" id="color" name="color" th:required="required">
+    </div>
+    <div>
+        <label for="season">계절:</label>
+        <select id="season" name="season" th:required="required">
+            <option value="봄">봄</option>
+            <option value="여름">여름</option>
+            <option value="가을">가을</option>
+            <option value="겨울">겨울</option>
+        </select>
+    </div>
+    <h4>단일 파일 업로드</h4>
+    <input type="file" name="file">
+    <div>
+        <input type="submit" value="의류 생성">
+    </div>
+</form>
+</body>
+</html>

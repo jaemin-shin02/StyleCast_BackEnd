@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -26,6 +23,12 @@ public class FileInfo {
     private String savedNm;
 
     private String savedPath;
+
+//    @OneToOne(fetch = FetchType.LAZY, mappedBy = "photo")
+//    private Clothes clothes;
+//
+//    @OneToOne(fetch = FetchType.LAZY, mappedBy = "photo")
+//    private Outfit outfit;
 
     @Builder
     public FileInfo(Long id, String orgNm, String savedNm, String savedPath) {

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>메인 페이지</title>
+</head>
+<body>
+<h1>환영합니다</h1>
+<div th:if="${#request.isUserInRole('USER')}">
+  <form action="/logout" method="post">
+    <button type="submit">로그아웃</button>
+  </form>
+</div>
+<div th:unless="${#request.isUserInRole('USER')}">
+  <a th:href="@{'/loginPage'}">로그인</a>
+  <a th:href="@{'/joinPage'}">회원가입</a>
+</div>
+
+</body>
+</html>

@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.*;
 import toyproject.stylecast.domain.geocode.Location;
+import toyproject.stylecast.dto.WeatherDto;
 import toyproject.stylecast.repository.MemberRepository;
 import toyproject.stylecast.weather.WeatherService;
 
@@ -123,7 +124,8 @@ public class MemberServiceTest {
         String lon = location.getLon();
         System.out.println("lat = " + lat);
         System.out.println("lon = " + lon);
-        weatherService.getWeatherData(lat, lon);
+        WeatherDto weatherData = weatherService.getWeatherData(lat, lon);
+        System.out.println("weatherData = " + weatherData);
         //when
 
         //then

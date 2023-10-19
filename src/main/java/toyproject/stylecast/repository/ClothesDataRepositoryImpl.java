@@ -2,7 +2,6 @@ package toyproject.stylecast.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import toyproject.stylecast.domain.clothes.*;
-import toyproject.stylecast.dto.QClothesIdDto;
 
 import javax.persistence.EntityManager;
 import java.util.List;

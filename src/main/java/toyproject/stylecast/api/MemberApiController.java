@@ -72,8 +72,6 @@ public class MemberApiController {
         return member.toString();
     }
 
-
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> user) {
         log.info("user email = {}", user.get("userEmail"));
@@ -91,17 +89,6 @@ public class MemberApiController {
         }
     }
 
-//    @GetMapping("/check-login-status")
-//    public ResponseEntity<String> checkLoginStatus() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication != null && authentication.isAuthenticated()) {
-//            // 현재 사용자가 로그인 상태입니다.
-//            return ResponseEntity.ok("현재 로그인 중입니다.");
-//        } else {
-//            // 현재 사용자가 로그인되어 있지 않습니다.
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인되어 있지 않습니다.");
-//        }
-//    }
     @GetMapping("/check-login-status")
     public ResponseEntity<String> checkLoginStatus() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

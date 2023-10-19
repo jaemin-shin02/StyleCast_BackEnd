@@ -31,14 +31,6 @@ public class UserSecurityService implements UserDetailsService {
         if (findMember.isEmpty()) {
             throw new UsernameNotFoundException("사용자를 찾을수 없습니다.");
         }
-//        Member member = findMember.get();
-//        List<GrantedAuthority> authorities = new ArrayList<>();
-//        if ("admin".equals(email)) {
-//            authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
-//        } else {
-//            authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
-//        }
-//        return new User(member.getEmail(), member.getPassword(), authorities);
 
         return new CustomUserDetails(findMember.get());
     }

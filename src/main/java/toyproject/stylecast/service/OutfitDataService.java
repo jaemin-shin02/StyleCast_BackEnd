@@ -6,8 +6,14 @@ import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Outfit;
 import toyproject.stylecast.domain.Style;
+import toyproject.stylecast.domain.geocode.Location;
+import toyproject.stylecast.domain.recommendframe.Weather;
+import toyproject.stylecast.dto.OutfitDto;
+import toyproject.stylecast.dto.OutfitSearchCondition;
+import toyproject.stylecast.dto.WeatherDto;
 import toyproject.stylecast.repository.MemberDataRepository;
 import toyproject.stylecast.repository.OutfitDataRepository;
+import toyproject.stylecast.weather.WeatherService;
 
 import java.util.List;
 
@@ -17,6 +23,8 @@ import java.util.List;
 public class OutfitDataService {
     private final OutfitDataRepository outfitDataRepository;
     private final MemberDataRepository memberDataRepository;
+    private final GeocodingService geocodingService;
+    private final WeatherService weatherService;
 
     @Transactional
     public Long outfit(Outfit outfit){
@@ -41,15 +49,38 @@ public class OutfitDataService {
         return outfitDataRepository.findById(outfitId).get();
     }
 
-//    public List<Outfit> recommendOutfit(Long memberId, Style style){
-//        Member findMember = memberRepository.findOne(memberId);
-//        List<Outfit> recommendOutfit = outfitRepository.RecommendOutfitV1(findMember.getProfile(), style);
-//
-//        return recommendOutfit;
-//    }
 
     public List<Outfit> findOutfitByMember(Long memberId){
         return outfitDataRepository.findOutfitsByMember_Id(memberId);
+    }
+
+    public List<OutfitDto> recommendOutfitBasic(Long memberId){
+        Member member = memberDataRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        String coordinates = geocodingService.getCoordinates(member.getLocationList().get(0));
+        Location location = geocodingService.getLocation(coordinates);
+        WeatherDto weatherData = weatherService.getWeatherData(location.getLat(), location.getLon());
+
+        OutfitSearchCondition condition = new OutfitSearchCondition();
+        condition.setProfile(member.getProfile());
+        condition.setWeather(Weather.valueOf(weatherData.getMain()));
+        condition.setTemperature(weatherData.getTemp());
+
+        return outfitDataRepository.RecommendOutfit(condition);
+    }
+
+    public List<OutfitDto> recommendOutfitByStyle(Long memberId, Style style){
+        Member member = memberDataRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        String coordinates = geocodingService.getCoordinates(member.getLocationList().get(0));
+        Location location = geocodingService.getLocation(coordinates);
+        WeatherDto weatherData = weatherService.getWeatherData(location.getLat(), location.getLon());
+
+        OutfitSearchCondition condition = new OutfitSearchCondition();
+        condition.setProfile(member.getProfile());
+        condition.setWeather(Weather.valueOf(weatherData.getMain()));
+        condition.setTemperature(weatherData.getTemp());
+        condition.setStyle(style);
+
+        return outfitDataRepository.RecommendOutfit(condition);
     }
 
     @Transactional

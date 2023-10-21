@@ -1,10 +1,7 @@
 package toyproject.stylecast.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import toyproject.stylecast.domain.clothes.*;
 import toyproject.stylecast.domain.recommendframe.Temperature;
 import toyproject.stylecast.domain.recommendframe.Weather;
@@ -66,6 +63,10 @@ public class Outfit {
     public void setMember(Member member){
         this.member = member;
         member.getOutfitList().add(this);
+    }
+
+    public void addWeather(Weather weather){
+        this.weatherList.add(weather);
     }
 
 //    public void setFileInfo(FileInfo file){

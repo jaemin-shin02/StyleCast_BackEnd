@@ -17,18 +17,15 @@ import toyproject.stylecast.domain.clothes.Category;
 @Transactional
 public class ClosetServiceTest {
     @Autowired
-    private ClothesService clothesService;
-
-    @Autowired
     private ClothesDataService clothesDataService;
     @Autowired
-    private MemberService memberService;
+    private MemberDataService memberDataService;
 
     @Test
     public void 옷생성() throws Exception {
         //given
         Member member = Member.creatMember("pye", "예니","20021011", "pyecute@naver.com", "dksdlfrTLq!!");
-        Long memberId = memberService.join(member, null);
+        Long memberId = memberDataService.join(member, null);
 
 //        when
         Long clothesId = clothesDataService.clothes(memberId, "무지반팔", Category.상의, "검정", Season.여름);

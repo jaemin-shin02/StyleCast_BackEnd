@@ -9,6 +9,9 @@ import toyproject.stylecast.domain.Clothes;
 import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Season;
 import toyproject.stylecast.domain.clothes.Category;
+import toyproject.stylecast.domain.clothes.Outer;
+import toyproject.stylecast.domain.clothes.Pants;
+import toyproject.stylecast.domain.clothes.Top;
 
 import java.util.List;
 import java.util.Optional;
@@ -62,4 +65,33 @@ class ClothesDataRepositoryTest {
 
         assertThat(result.size()).isEqualTo(1);
     }
+
+    @Test
+    public void SelectTest() throws Exception {
+        //given
+        Member member = Member.creatMember("Sul", "바밤바","19990719", "meow@naver.com", "dbwls99!");
+        memberDataRepository.save(member);
+
+        for(int i=0;i<100;i++){
+            Clothes clothes1 = Clothes.creatClothes(member, "인세인 롱슬리브"+i, Category.상의, "검정", Season.가을);
+            clothes1.setTop(Top.긴팔);
+            Clothes clothes2 = Clothes.creatClothes(member, "블랙진"+i, Category.바지, "검정", Season.가을);
+            clothes1.setPants(Pants.데님팬츠);
+            Clothes clothes3 = Clothes.creatClothes(member, "후디"+i, Category.아우터, "검정", Season.가을);
+            clothes3.setOuter(Outer.후드집업);
+            clothesDataRepository.save(clothes1);
+            clothesDataRepository.save(clothes2);
+            clothesDataRepository.save(clothes3);
+        }
+        //when
+        List<Long> selectByTop = clothesDataRepository.SelectByTop(Top.긴팔);
+        List<Long> selectByPants = clothesDataRepository.SelectByPants(Pants.데님팬츠);
+        List<Long> selectByOuter = clothesDataRepository.SelectByOuter(Outer.후드집업);
+        //then
+        assertThat(selectByTop.size()).isEqualTo(100);
+        assertThat(selectByPants.size()).isEqualTo(100);
+        assertThat(selectByOuter.size()).isEqualTo(100);
+    }
+
+
 }

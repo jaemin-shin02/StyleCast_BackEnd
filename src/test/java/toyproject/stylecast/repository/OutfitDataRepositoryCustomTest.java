@@ -95,14 +95,9 @@ class OutfitDataRepositoryCustomTest {
         }
 
         //when
-
         OutfitSearchCondition condition = new OutfitSearchCondition();
         condition.setProfile(profile1);
-        condition.setStyle(Style.스트릿);
-//        condition.setWeightLoe(3);
-//        condition.setHeightGoe(3);
-//        condition.setWeightGoe(3);
-//        condition.setHeightLoe(3);
+//        condition.setStyle(Style.스트릿);
 
         List<OutfitDto> outfits = outfitDataRepository.RecommendOutfit(condition);
         //then

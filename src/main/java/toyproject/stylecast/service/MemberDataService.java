@@ -68,6 +68,10 @@ public class MemberDataService {
         return memberDataRepository.findById(memberId).get();
     }
 
+    public Member findByEmail(String email){
+        return memberDataRepository.findMemberByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
+    }
+
     public void setProfile(Long memberId, Profile profile){
         Member member = memberDataRepository.findById(memberId).get();
         member.setProfile(profile);

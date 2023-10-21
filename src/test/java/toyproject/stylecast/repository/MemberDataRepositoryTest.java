@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.Member;
+import toyproject.stylecast.domain.Style;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,6 +52,22 @@ class MemberDataRepositoryTest {
 
         assertThat(sul.get(0).getName()).isEqualTo(member.getName());
         assertThat(sul.get(0)).isEqualTo(member);
+    }
+    
+    @Test
+    public void findByStyle() throws Exception {
+        //given
+        Style style = Style.스트릿;
+        
+        //when
+        List<Member> byPreferStyle = memberDataRepository.findByPreferStyle(style);
+        
+        //then
+        for (Member member : byPreferStyle) {
+            System.out.println("member.getName() = " + member.getName());
+        }
+
+        assertThat(byPreferStyle.size()).isEqualTo(2);
     }
 
 }

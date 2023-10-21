@@ -51,6 +51,7 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
                         heightLoe(condition.getHeightLoe()),
                         figureEq(condition.getProfile().getFigure()),
                         workOutEq(condition.getProfile().getWork_out()),
+                        genderEq(condition.getProfile().getGender()),
                         preferStyleIn(condition.getStyle()),
                         styleEq(condition.getStyle()),
                         weatherEq(condition.getWeather()),
@@ -64,7 +65,7 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
     }
 
     private BooleanExpression weightGoe(Integer weightGoe) {
-        return weightGoe != null ? outfit.member.profile.weight.goe(weightGoe) : null;
+        return weightGoe != null ? outfit.member.profile.weight.goe(weightGoe) :  null;
     }
 
     private BooleanExpression weightLoe(Integer weightLoe) {
@@ -87,6 +88,10 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
         return work_out != null ? outfit.member.profile.work_out.eq(work_out) : null;
     }
 
+    private BooleanExpression genderEq(Gender gender){
+        return gender != null ? outfit.member.profile.gender.eq(gender) : null;
+    }
+
     private BooleanExpression preferStyleIn(Style style) {
         return style != null ? outfit.member.profile.prefer_style.contains(style) : null;
     }
@@ -100,7 +105,6 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
     }
 
     private BooleanExpression temperatureCmp(Float temperature) {
-
         if(temperature == null){
             return null;
         } else if (temperature > 28) {
@@ -184,7 +188,7 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.블루종));
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.트러커));
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.항공점퍼));
-
+            System.out.println("outerIdList = " + outerIdList);
             return outfit.outerwear_id.in(outerIdList);
         } else if (temperature > 9) {
             List<Long> outerIdList = new ArrayList<>();

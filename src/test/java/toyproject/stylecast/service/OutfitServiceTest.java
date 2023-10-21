@@ -21,8 +21,6 @@ public class OutfitServiceTest {
     @Autowired
     private MemberService memberService;
     @Autowired
-    private ClothesService clothesService;
-    @Autowired
     private OutfitService outfitService;
 
     @Autowired

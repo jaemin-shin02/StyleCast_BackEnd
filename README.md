@@ -43,6 +43,8 @@
 ### Add..
 * Spring Data JPA
 * QueryDsl
+* Spring Security
+* JWT
 
 ## ⚙️ 시스템 아키텍처
 ![stylecast drawio](https://github.com/19-21-40/KLtime_BackEnd/assets/99861250/74a94069-136d-4dde-9ddc-b45ab7f5dc0f)

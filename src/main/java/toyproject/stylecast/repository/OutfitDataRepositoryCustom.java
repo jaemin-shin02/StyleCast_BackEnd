@@ -12,6 +12,11 @@ import toyproject.stylecast.dto.OutfitSearchCondition;
 import java.util.List;
 
 public interface OutfitDataRepositoryCustom {
-    List<OutfitDto> RecommendOutfit(OutfitSearchCondition condition);
+    List<OutfitDto> RecommendOutfitBasic(OutfitSearchCondition condition);
+
+    List<OutfitDto> RecommendOutfitByPersonalized(OutfitSearchCondition condition);
+
+    List<OutfitDto> RecommendOutfitBySimilarThing(OutfitSearchCondition condition);
+
 
 }

@@ -14,9 +14,8 @@ import javax.servlet.http.HttpSession;
 public class HomeController {
 
     @GetMapping("/home")
-    public String joinPage(Model model, HttpSession session){
-
-        return "home";
+    public String home(Model model, HttpSession session){
+        return "anyway";
     }
 
     @GetMapping("/user/test")

@@ -8,9 +8,7 @@ import toyproject.stylecast.domain.clothes.Pants;
 import toyproject.stylecast.domain.clothes.Skirt;
 import toyproject.stylecast.domain.clothes.Top;
 import toyproject.stylecast.domain.recommendframe.Weather;
-import toyproject.stylecast.dto.OutfitDto;
-import toyproject.stylecast.dto.OutfitSearchCondition;
-import toyproject.stylecast.dto.QOutfitDto;
+import toyproject.stylecast.dto.outfit.*;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -32,10 +30,10 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
     }
 
     @Override
-    public List<OutfitDto> RecommendOutfitBasic(OutfitSearchCondition condition) {
+    public List<OutfitDto> RecommendOutfitBasic(OutfitSearchBasic condition) {
 
         return queryFactory
-                .select(new  QOutfitDto(
+                .select(new QOutfitDto(
                         outfit.name,
                         outfit.description,
                         outfit.style,
@@ -57,7 +55,7 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
     }
 
     @Override
-    public List<OutfitDto> RecommendOutfitByPersonalized(OutfitSearchCondition condition) {
+    public List<OutfitDto> RecommendOutfitByPersonalized(OutfitSearchPersonal condition) {
         return queryFactory
                 .select(new  QOutfitDto(
                         outfit.name,
@@ -148,7 +146,6 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
     }
 
     private BooleanExpression preferStyleIn(Style style) {
-//        List<Member> memberList = memberDataRepository.findByPreferStyle(style);
         return style != null ? outfit.member.profile.prefer_style.contains(style) : null;
     }
 

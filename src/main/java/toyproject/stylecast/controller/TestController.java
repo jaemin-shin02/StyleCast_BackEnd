@@ -1,19 +1,17 @@
 package toyproject.stylecast.controller;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Slf4j
+@Controller
 public class TestController {
 
-    @PostMapping("/test")
+    @GetMapping("/test")
     public String test(){
-        return "<h1>test 통과</h1>";
-    }
-
-    @PostMapping("/user/test")
-    public String userTest(){
-        return "<h1>user Test 통과</h1>";
+        return "test";
     }
 
 }

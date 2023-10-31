@@ -1,4 +1,4 @@
-package toyproject.stylecast.dto;
+package toyproject.stylecast.dto.outfit;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;

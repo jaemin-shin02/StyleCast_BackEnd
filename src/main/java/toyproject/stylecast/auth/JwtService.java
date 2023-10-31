@@ -31,6 +31,14 @@ public class JwtService {
 
     }
 
+    @Transactional
+    public void logout(String key){
+        if(refreshTokenRepository.existsByKeyEmail(key)){
+            log.info("기존의 존재하는 refresh 토큰 삭제");
+            refreshTokenRepository.deleteByKeyEmail(key);
+        }
+    }
+
     public Optional<RefreshToken> getRefreshToken(String refreshToken){
         return refreshTokenRepository.findByRefreshToken(refreshToken);
     }

@@ -1,20 +1,18 @@
 package toyproject.stylecast.repository;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.*;
 import toyproject.stylecast.domain.clothes.Category;
-import toyproject.stylecast.dto.OutfitDto;
-import toyproject.stylecast.dto.OutfitSearchCondition;
+import toyproject.stylecast.dto.outfit.OutfitDto;
+import toyproject.stylecast.dto.outfit.OutfitSearchCondition;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -99,7 +97,7 @@ class OutfitDataRepositoryCustomTest {
         condition.setProfile(profile1);
 //        condition.setStyle(Style.스트릿);
 
-        List<OutfitDto> outfits = outfitDataRepository.RecommendOutfit(condition);
+        List<OutfitDto> outfits = outfitDataRepository.RecommendOutfitBySimilarThing(condition);
         //then
         System.out.println("outfits.size() = " + outfits.size());
         for (OutfitDto outfit : outfits) {

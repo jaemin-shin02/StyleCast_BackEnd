@@ -25,9 +25,8 @@ public class UserSecurityService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.out.println("email = " + email);
         Optional<Member> findMember = this.memberDataRepository.findMemberByEmail(email);
-        System.out.println("findMember = " + findMember);
+
         if (findMember.isEmpty()) {
             throw new UsernameNotFoundException("사용자를 찾을수 없습니다.");
         }

@@ -8,14 +8,18 @@ import toyproject.stylecast.domain.Outfit;
 import toyproject.stylecast.domain.Style;
 import toyproject.stylecast.domain.geocode.Location;
 import toyproject.stylecast.domain.recommendframe.Weather;
-import toyproject.stylecast.dto.OutfitDto;
-import toyproject.stylecast.dto.OutfitSearchCondition;
+import toyproject.stylecast.dto.outfit.OutfitDto;
+import toyproject.stylecast.dto.outfit.OutfitSearchBasic;
+import toyproject.stylecast.dto.outfit.OutfitSearchCondition;
 import toyproject.stylecast.dto.WeatherDto;
+import toyproject.stylecast.dto.outfit.OutfitSearchPersonal;
 import toyproject.stylecast.repository.MemberDataRepository;
 import toyproject.stylecast.repository.OutfitDataRepository;
 import toyproject.stylecast.weather.WeatherService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -41,7 +45,7 @@ public class OutfitDataService {
         return outfit.getId();
     }
 
-    public List<Outfit> findAllClothes(){
+    public List<Outfit> findAllOutfit(){
         return outfitDataRepository.findAll();
     }
 
@@ -60,12 +64,11 @@ public class OutfitDataService {
         Location location = geocodingService.getLocation(coordinates);
         WeatherDto weatherData = weatherService.getWeatherData(location.getLat(), location.getLon());
 
-        OutfitSearchCondition condition = new OutfitSearchCondition();
-        condition.setProfile(member.getProfile());
+        OutfitSearchBasic condition = new OutfitSearchBasic();
         condition.setWeather(Weather.valueOf(weatherData.getMain()));
         condition.setTemperature(weatherData.getTemp());
 
-        return outfitDataRepository.RecommendOutfit(condition);
+        return outfitDataRepository.RecommendOutfitBasic(condition);
     }
 
     public List<OutfitDto> recommendOutfitByStyle(Long memberId, Style style){
@@ -74,13 +77,25 @@ public class OutfitDataService {
         Location location = geocodingService.getLocation(coordinates);
         WeatherDto weatherData = weatherService.getWeatherData(location.getLat(), location.getLon());
 
-        OutfitSearchCondition condition = new OutfitSearchCondition();
+        OutfitSearchPersonal condition = new OutfitSearchPersonal();
         condition.setProfile(member.getProfile());
-        condition.setWeather(Weather.valueOf(weatherData.getMain()));
-        condition.setTemperature(weatherData.getTemp());
         condition.setStyle(style);
 
-        return outfitDataRepository.RecommendOutfit(condition);
+        return outfitDataRepository.RecommendOutfitByPersonalized(condition);
+    }
+
+    public List<OutfitDto> recommendBySimilarStyle(Style style){
+        List<Member> memberList = memberDataRepository.findByPreferStyle(style);
+
+        List<Outfit> outfitList = new ArrayList<>();
+        for (Member member : memberList) {
+            outfitList.addAll(member.getOutfitList());
+        }
+        List<OutfitDto> outfitDtoList = outfitList.stream()
+                .map(o -> new OutfitDto(o.getName(), o.getDescription(), o.getStyle(), o.getTop_id(), o.getBottom_id(), o.getOuterwear_id()))
+                .collect(Collectors.toList());
+
+        return outfitDtoList;
     }
 
     @Transactional

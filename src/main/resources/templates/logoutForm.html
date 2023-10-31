@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>로그아웃</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h1>로그아웃</h1>
+<p>정말 로그아웃 하시겠습니까?</p>
+<button type="submit" class="btn btn-danger" onclick="submitLogoutForm()">로그아웃</button>
+<script>
+  function submitLogoutForm() {
+    const accessToken = localStorage.getItem('accessToken');
+
+    var data = {
+      "accessToken" : accessToken
+    };
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", "/logout/delete", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        console.log("로그아웃 성공");
+
+        // 액세스 토큰을 로컬 스토리지에서 삭제
+        localStorage.removeItem("accessToken");
+
+        // axios의 Authorization 헤더를 초기화하여 제거합니다.
+        axios.defaults.headers.common['Authorization'] = '';
+
+        window.location.href = "/home";
+      } else {
+        // 로그아웃 실패
+        console.error("로그아웃 실패" + xhr.responseText);
+      }
+    };
+
+    xhr.send(JSON.stringify(data));
+  }
+</script>
+</body>
+</html>

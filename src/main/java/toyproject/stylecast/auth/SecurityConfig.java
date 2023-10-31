@@ -9,6 +9,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -39,9 +42,9 @@ public class SecurityConfig {
 //                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // 세션 관리 활성화
                 .maximumSessions(1) // 동시 로그인 세션 개수 (1로 설정하면 중복 로그인 방지)
-                .expiredUrl("/mail/success") // 세션이 만료된 경우 리다이렉트할 URL
+                .expiredUrl("/loginPage") // 세션이 만료된 경우 리다이렉트할 URL
                 .and()
-                .invalidSessionUrl("/mail/failure"); // 세션이 유효하지 않은 경우 리다이렉트할 URL
+                .invalidSessionUrl("/loginPage"); // 세션이 유효하지 않은 경우 리다이렉트할 URL
 
         return http.build();
     }

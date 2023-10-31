@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import toyproject.stylecast.domain.*;
-import toyproject.stylecast.dto.*;
+import toyproject.stylecast.dto.member.CreateMemberRequest;
+import toyproject.stylecast.dto.member.MemberDto;
+import toyproject.stylecast.dto.member.ProfileDto;
 import toyproject.stylecast.service.MemberDataService;
 import toyproject.stylecast.service.MemberService;
 

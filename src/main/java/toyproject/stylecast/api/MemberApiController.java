@@ -8,19 +8,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import toyproject.stylecast.auth.JwtService;
 import toyproject.stylecast.auth.JwtTokenProvider;
 import toyproject.stylecast.domain.*;
-import toyproject.stylecast.dto.CreateMemberRequest;
+import toyproject.stylecast.dto.member.CreateMemberProfileDto;
+import toyproject.stylecast.dto.member.CreateMemberRequest;
+import toyproject.stylecast.dto.member.LoginRequest;
 import toyproject.stylecast.repository.MemberDataRepository;
 import toyproject.stylecast.service.MemberDataService;
+import toyproject.stylecast.service.ProfileService;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -31,13 +29,8 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 public class MemberApiController {
-
-    private final JwtTokenProvider jwtTokenProvider;
     private final MemberDataService memberDataService;
-    private final MemberDataRepository memberDataRepository;
-    private final JwtService jwtService;
-
-    private final PasswordEncoder passwordEncoder;
+    private final ProfileService profileService;
 
     @PostMapping("/join/test")
     public String joinTest(){
@@ -72,21 +65,19 @@ public class MemberApiController {
         return member.toString();
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> user) {
-        log.info("user email = {}", user.get("userEmail"));
-        Member member = memberDataRepository.findMemberByEmail(user.get("email"))
-                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
+    @PostMapping("/member/profile/{id}")
+    public String setProfile(@RequestBody @Valid CreateMemberProfileDto request, @PathVariable("id") Long memberId){
+        Member member = memberDataService.findOne(memberId);
+        Profile profile = Profile.creatProfile(member, request.getGender(), request.getWeight(), request.getHeight(), request.getFigure(), request.getWork_out());
+        profileService.save(profile);
+        memberDataService.setProfile(memberId, profile.getId());
 
-        // 비밀번호를 비교하여 로그인을 검증합니다.
-        if (passwordEncoder.matches(user.get("password"), member.getPassword())) {
-            Token tokenDto = jwtTokenProvider.createAccessToken(member.getEmail(), member.getRoles());
-            log.info("getRoles = {}", member.getRoles());
-            jwtService.login(tokenDto);
-            return ResponseEntity.ok(tokenDto); // 로그인 성공
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호가 일치하지 않습니다."); // 로그인 실패
-        }
+        return member.toString();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        return memberDataService.login(request);
     }
 
     @GetMapping("/check-login-status")

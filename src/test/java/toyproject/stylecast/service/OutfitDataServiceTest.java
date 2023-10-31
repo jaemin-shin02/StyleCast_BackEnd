@@ -10,14 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.*;
 import toyproject.stylecast.domain.clothes.*;
 import toyproject.stylecast.domain.recommendframe.Weather;
-import toyproject.stylecast.dto.OutfitDto;
-import toyproject.stylecast.dto.OutfitSearchCondition;
+import toyproject.stylecast.dto.outfit.OutfitDto;
 import toyproject.stylecast.repository.ClothesDataRepository;
 import toyproject.stylecast.repository.MemberDataRepository;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

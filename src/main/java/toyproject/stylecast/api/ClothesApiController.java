@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import toyproject.stylecast.domain.Clothes;
 import toyproject.stylecast.domain.Member;
-import toyproject.stylecast.dto.ClothesDto;
-import toyproject.stylecast.dto.CreateClothesRequest;
+import toyproject.stylecast.dto.clothes.ClothesDto;
+import toyproject.stylecast.dto.clothes.CreateClothesRequest;
 import toyproject.stylecast.service.ClothesService;
 import toyproject.stylecast.service.MemberService;
 

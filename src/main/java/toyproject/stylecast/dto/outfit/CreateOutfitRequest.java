@@ -1,4 +1,4 @@
-package toyproject.stylecast.dto;
+package toyproject.stylecast.dto.outfit;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package toyproject.stylecast.dto;
+package toyproject.stylecast.dto.member;
 
 import lombok.Data;
 

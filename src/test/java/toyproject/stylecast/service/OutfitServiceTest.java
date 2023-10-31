@@ -7,8 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.*;
-import toyproject.stylecast.dto.OutfitDto;
-import toyproject.stylecast.dto.OutfitSearchCondition;
+import toyproject.stylecast.dto.outfit.OutfitDto;
+import toyproject.stylecast.dto.outfit.OutfitSearchCondition;
 import toyproject.stylecast.repository.OutfitDataRepository;
 
 import java.util.List;
@@ -56,7 +56,7 @@ public class OutfitServiceTest {
         OutfitSearchCondition condition = new OutfitSearchCondition();
         condition.setProfile(profile);
 
-        List<OutfitDto> outfits = outfitDataRepository.RecommendOutfit(condition);
+        List<OutfitDto> outfits = outfitDataRepository.RecommendOutfitBySimilarThing(condition);
         //then
         System.out.println("outfits.size() = " + outfits.size());
         for (OutfitDto outfit : outfits) {

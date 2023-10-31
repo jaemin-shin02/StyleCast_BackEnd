@@ -7,20 +7,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import toyproject.stylecast.domain.Clothes;
 import toyproject.stylecast.domain.FileInfo;
-import toyproject.stylecast.domain.Member;
-import toyproject.stylecast.dto.CreateClothesRequest;
+import toyproject.stylecast.dto.clothes.CreateClothesRequest;
 import toyproject.stylecast.repository.FileRepository;
 import toyproject.stylecast.service.ClothesDataService;
 import toyproject.stylecast.service.FileService;
 import toyproject.stylecast.service.MemberDataService;
-import toyproject.stylecast.service.MemberService;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.List;
 
 @Slf4j
 @Controller

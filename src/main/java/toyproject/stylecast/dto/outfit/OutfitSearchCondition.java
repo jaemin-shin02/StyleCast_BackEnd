@@ -1,4 +1,4 @@
-package toyproject.stylecast.dto;
+package toyproject.stylecast.dto.outfit;
 
 import lombok.Data;
 import toyproject.stylecast.domain.Profile;

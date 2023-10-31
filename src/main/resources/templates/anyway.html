@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div class="navbar">
+    <a th:href="@{/home}">Home</a>
+    <a th:href="@{/loginPage}">Login</a>
+    <a th:href="@{/joinPage}">Join</a>
+    <a th:href="@{/clothes/create/{id}}">Clothes Update</a>
+    <a th:href="@{/outfit/create/{id}}">Outfit Update</a>
+    <a th:href="@{/test}">test</a>
+    <a th:href="@{/logoutPage}">Logout</a>
+</div>
+
+<!-- JavaScript 코드를 추가하여 액세스 토큰을 가져와 서버로 GET 요청을 보냅니다 -->
+<script>
+    console.log("js 진행됨");
+    // 로컬 스토리지에서 액세스 토큰 가져오기
+    const accessToken = localStorage.getItem('accessToken');
+
+    console.log(accessToken);
+
+    // 액세스 토큰을 헤더에 추가
+    axios.defaults.headers.common['Authorization'] = `${accessToken}`;
+
+    // 서버로 GET 요청 보내기
+    axios.get('/test')
+        .then(response => {
+            // 요청 성공 시 처리
+            console.log(response.data);
+        })
+        .catch(error => {
+            // 요청 실패 시 처리
+            console.error(error);
+        });
+</script>
+</body>
+</html>

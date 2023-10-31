@@ -17,7 +17,6 @@ import java.util.List;
 public class GeocodingService {
 
     public String getCoordinates(String address) {
-        System.out.println("하윙");
         try {
             GeoApiContext context = new GeoApiContext.Builder()
                     .apiKey("AIzaSyCtS4mulaD3WtF93diBvSQvnWq4NPYEaYA") // Google Cloud Platform에서 생성한 API 키를 입력하세요.

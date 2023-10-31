@@ -16,7 +16,7 @@ import toyproject.stylecast.auth.JwtTokenProvider;
 import toyproject.stylecast.auth.mail.MailService;
 import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Token;
-import toyproject.stylecast.dto.CreateMemberRequest;
+import toyproject.stylecast.dto.member.CreateMemberRequest;
 import toyproject.stylecast.repository.MemberDataRepository;
 import toyproject.stylecast.service.MemberDataService;
 
@@ -62,7 +62,6 @@ public class MemberController {
     @PostMapping("/joinPage/member")
     public String joinUser(@Valid CreateMemberRequest request){
         log.info("일반 회원가입 시도됨");
-        System.out.println("request!!!!!! = " + request);
 
         Member member = Member.creatMember(request.getName(), request.getNickname(), request.getBirthdate(), request.getEmail(), request.getPassword2());
 
@@ -127,13 +126,11 @@ public class MemberController {
     @GetMapping("/loginPage")
     public String LoginPage(Model model, HttpSession session){
 
-
         return "loginForm";
     }
 
     @PostMapping("/loginPage/verify")
     public ResponseEntity<?> login(@RequestBody Map<String, String> user) {
-        log.info("user email = {}", user.get("userEmail"));
         Member member = memberDataRepository.findMemberByEmail(user.get("email"))
                 .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
 
@@ -146,6 +143,25 @@ public class MemberController {
             return ResponseEntity.ok(tokenDto); // 로그인 성공
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호가 일치하지 않습니다."); // 로그인 실패
+        }
+    }
+
+    @GetMapping("/logoutPage")
+    public String LogoutPage(Model model, HttpSession session){
+        log.info("로그아웃접근;");
+        return "logoutForm";
+    }
+
+    @PostMapping("/logout/delete")
+    public ResponseEntity<?> performLogout(@RequestBody Map<String, String> request) {
+        String accessToken = request.get("accessToken");
+        log.info("로그아웃 시도", accessToken);
+        if(!accessToken.isEmpty()){
+            String memberEmail = jwtTokenProvider.getUserPk(accessToken);
+            jwtService.logout(memberEmail);
+            return ResponseEntity.ok("로그아웃 성공"); // 로그아웃 성공
+        }else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그아웃 실패"); // 로그아웃 실패
         }
     }
 

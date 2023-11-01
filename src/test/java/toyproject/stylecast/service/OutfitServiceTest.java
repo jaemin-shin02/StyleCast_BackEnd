@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.*;
 import toyproject.stylecast.dto.outfit.OutfitDto;
 import toyproject.stylecast.dto.outfit.OutfitSearchCondition;
-import toyproject.stylecast.repository.OutfitDataRepository;
+import toyproject.stylecast.repository.data.OutfitDataRepository;
 
 import java.util.List;
 

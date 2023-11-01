@@ -4,11 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.Clothes;
-import toyproject.stylecast.domain.FileInfo;
 import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Season;
 import toyproject.stylecast.domain.clothes.Category;
-import toyproject.stylecast.repository.ClothesDataRepository;
+import toyproject.stylecast.repository.data.ClothesDataRepository;
 
 import java.util.List;
 

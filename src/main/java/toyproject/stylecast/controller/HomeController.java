@@ -20,7 +20,7 @@ public class HomeController {
 
     @GetMapping("/main")
     public String main(){
-        return "anyway";
+        return "main";
     }
 
     @GetMapping("/user/test")

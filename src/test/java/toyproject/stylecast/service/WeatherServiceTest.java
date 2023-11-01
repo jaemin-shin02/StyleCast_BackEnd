@@ -29,7 +29,7 @@ public class WeatherServiceTest {
         String lon = location.getLon();
         System.out.println("lat = " + lat);
         System.out.println("lon = " + lon);
-        WeatherDto weatherData = weatherService.getWeatherData(lat, lon);
+        WeatherDto weatherData = weatherService.getWeatherDataByRecommend(lat, lon);
         System.out.println("weatherData = " + weatherData);
         Weather weather = Weather.valueOf(weatherData.getMain());
         System.out.println("weather = " + weather);

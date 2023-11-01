@@ -1,4 +1,4 @@
-package toyproject.stylecast.repository;
+package toyproject.stylecast.repository.data;
 
 import toyproject.stylecast.domain.clothes.*;
 

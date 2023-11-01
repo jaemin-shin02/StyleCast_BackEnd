@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 import toyproject.stylecast.domain.FileInfo;
-import toyproject.stylecast.repository.FileRepository;
+import toyproject.stylecast.repository.data.FileRepository;
 import toyproject.stylecast.service.FileService;
 
 import java.io.IOException;

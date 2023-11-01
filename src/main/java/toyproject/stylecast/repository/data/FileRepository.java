@@ -1,4 +1,4 @@
-package toyproject.stylecast.repository;
+package toyproject.stylecast.repository.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import toyproject.stylecast.domain.FileInfo;

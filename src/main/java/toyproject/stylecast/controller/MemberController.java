@@ -14,7 +14,7 @@ import toyproject.stylecast.auth.mail.MailService;
 import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Token;
 import toyproject.stylecast.dto.member.CreateMemberRequest;
-import toyproject.stylecast.repository.MemberDataRepository;
+import toyproject.stylecast.repository.data.MemberDataRepository;
 import toyproject.stylecast.service.MemberDataService;
 
 import javax.servlet.http.HttpSession;
@@ -34,7 +34,7 @@ public class MemberController {
 
     private final MailService mailService;
 
-    @GetMapping("/joinPage")
+    @GetMapping("/join")
     public String joinPage(Model model, HttpSession session){
         // 세션에서 저장된 회원정보를 읽어 모델에 추가
         String name = (String) session.getAttribute("name");
@@ -120,7 +120,7 @@ public class MemberController {
         return "failure";
     }
 
-    @GetMapping("/loginPage")
+    @GetMapping("/login")
     public String LoginPage(Model model, HttpSession session){
 
         return "loginForm";

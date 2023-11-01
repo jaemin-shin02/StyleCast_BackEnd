@@ -8,6 +8,9 @@ import toyproject.stylecast.domain.*;
 import toyproject.stylecast.domain.clothes.Category;
 import toyproject.stylecast.dto.outfit.OutfitDto;
 import toyproject.stylecast.dto.outfit.OutfitSearchCondition;
+import toyproject.stylecast.repository.data.ClothesDataRepository;
+import toyproject.stylecast.repository.data.MemberDataRepository;
+import toyproject.stylecast.repository.data.OutfitDataRepository;
 
 import java.util.List;
 import java.util.Optional;

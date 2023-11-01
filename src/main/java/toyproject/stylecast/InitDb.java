@@ -52,7 +52,7 @@ public class InitDb {
             Long outfitId = outfitDataService.outfit(outfit);
             Outfit clothes = outfitDataService.findOutfit(outfitId);
 
-            memberDataService.addLocation(memberId, "서울");
+            memberDataService.addLocation(memberId, "서울시 중구");
         }
 
         public void dbInit2(){

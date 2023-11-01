@@ -3,10 +3,9 @@ package toyproject.stylecast.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Profile;
-import toyproject.stylecast.repository.MemberDataRepository;
-import toyproject.stylecast.repository.ProfileRepository;
+import toyproject.stylecast.repository.data.MemberDataRepository;
+import toyproject.stylecast.repository.data.ProfileRepository;
 
 import java.util.Optional;
 

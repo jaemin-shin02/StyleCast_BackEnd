@@ -2,6 +2,7 @@ package toyproject.stylecast.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import toyproject.stylecast.domain.Clothes;
 import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Outfit;
+import toyproject.stylecast.domain.Style;
 import toyproject.stylecast.domain.clothes.Category;
 import toyproject.stylecast.dto.outfit.CreateOutfitRequest;
 import toyproject.stylecast.dto.outfit.ViewOutfit;
@@ -61,16 +63,10 @@ public class OutfitController {
 
 
     @GetMapping("/outfit/all")
-    public String viesOutfits(Model model){
+    public String viewOutfits(Model model){
         Long memberId = getMemberId();
         List<Outfit> outfitList = outfitService.findOutfitByMember(memberId);
-        List<ViewOutfit> collect = outfitList.stream()
-                .map(o -> new ViewOutfit(o.getName(), o.getDescription(), o.getStyle()
-                        , clothesService.getName(o.getTop_id())
-                        , clothesService.getName(o.getBottom_id())
-                        , clothesService.getName(o.getOuterwear_id())
-                        , clothesService.getName(o.getShoe_id())))
-                .collect(Collectors.toList());
+        List<ViewOutfit> collect = getViewOutfits(outfitList);
         for (ViewOutfit viewOutfit : collect) {
             System.out.println("viewOutfit = " + viewOutfit.toString());
         }
@@ -78,6 +74,120 @@ public class OutfitController {
         model.addAttribute("outfitList", collect);
 
         return "outfitList";
+    }
+
+    @GetMapping("/outfit/casual")
+    public String viewCasual(Model model){
+        Long memberId = getMemberId();
+        List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.캐주얼);
+        List<ViewOutfit> collect = getViewOutfits(outfitList);
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("outfitList", collect);
+
+        return "outfitList";
+    }
+
+    @GetMapping("/outfit/chic")
+    public String viewChic(Model model){
+        Long memberId = getMemberId();
+        List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.시크);
+        List<ViewOutfit> collect = getViewOutfits(outfitList);
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("outfitList", collect);
+
+        return "outfitList";
+    }
+
+    @GetMapping("/outfit/dandy")
+    public String viewDandy(Model model){
+        Long memberId = getMemberId();
+        List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.댄디);
+        List<ViewOutfit> collect = getViewOutfits(outfitList);
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("outfitList", collect);
+
+        return "outfitList";
+    }
+    @GetMapping("/outfit/formal")
+    public String viewFormal(Model model){
+        Long memberId = getMemberId();
+        List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.포멀);
+        List<ViewOutfit> collect = getViewOutfits(outfitList);
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("outfitList", collect);
+
+        return "outfitList";
+    }
+    @GetMapping("/outfit/girlish")
+    public String viewGirlish(Model model){
+        Long memberId = getMemberId();
+        List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.걸리시);
+        List<ViewOutfit> collect = getViewOutfits(outfitList);
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("outfitList", collect);
+
+        return "outfitList";
+    }
+    @GetMapping("/outfit/retro")
+    public String viewRetro(Model model){
+        Long memberId = getMemberId();
+        List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.레트로);
+        List<ViewOutfit> collect = getViewOutfits(outfitList);
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("outfitList", collect);
+
+        return "outfitList";
+    }
+    @GetMapping("/outfit/sporty")
+    public String viewSporty(Model model){
+        Long memberId = getMemberId();
+        List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.스포츠);
+        List<ViewOutfit> collect = getViewOutfits(outfitList);
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("outfitList", collect);
+
+        return "outfitList";
+    }
+    @GetMapping("/outfit/street")
+    public String viewStreet(Model model){
+        Long memberId = getMemberId();
+        List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.스트릿);
+        List<ViewOutfit> collect = getViewOutfits(outfitList);
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("outfitList", collect);
+
+        return "outfitList";
+    }
+    @GetMapping("/outfit/gorpcore")
+    public String viewGorpcore(Model model){
+        Long memberId = getMemberId();
+        List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.고프코어);
+        List<ViewOutfit> collect = getViewOutfits(outfitList);
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("outfitList", collect);
+
+        return "outfitList";
+    }
+
+    @NotNull
+    private List<ViewOutfit> getViewOutfits(List<Outfit> outfitList) {
+        List<ViewOutfit> collect = outfitList.stream()
+                .map(o -> new ViewOutfit(o.getName(), o.getDescription(), o.getStyle()
+                        , clothesService.getName(o.getTop_id())
+                        , clothesService.getName(o.getBottom_id())
+                        , clothesService.getName(o.getOuterwear_id())
+                        , clothesService.getName(o.getShoe_id())))
+                .collect(Collectors.toList());
+        return collect;
     }
 
     private Long getMemberId() {

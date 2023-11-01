@@ -10,11 +10,10 @@ import toyproject.stylecast.domain.geocode.Location;
 import toyproject.stylecast.domain.recommendframe.Weather;
 import toyproject.stylecast.dto.outfit.OutfitDto;
 import toyproject.stylecast.dto.outfit.OutfitSearchBasic;
-import toyproject.stylecast.dto.outfit.OutfitSearchCondition;
 import toyproject.stylecast.dto.WeatherDto;
 import toyproject.stylecast.dto.outfit.OutfitSearchPersonal;
-import toyproject.stylecast.repository.MemberDataRepository;
-import toyproject.stylecast.repository.OutfitDataRepository;
+import toyproject.stylecast.repository.data.MemberDataRepository;
+import toyproject.stylecast.repository.data.OutfitDataRepository;
 import toyproject.stylecast.weather.WeatherService;
 
 import java.util.ArrayList;
@@ -58,11 +57,15 @@ public class OutfitDataService {
         return outfitDataRepository.findOutfitsByMember_Id(memberId);
     }
 
+    public List<Outfit> findOutfitByMemberWithStyle(Long memberId, Style style){
+        return outfitDataRepository.findOutfitByMemberIdAndStyle(memberId, style);
+    }
+
     public List<OutfitDto> recommendOutfitBasic(Long memberId){
         Member member = memberDataRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
         String coordinates = geocodingService.getCoordinates(member.getLocationList().get(0));
         Location location = geocodingService.getLocation(coordinates);
-        WeatherDto weatherData = weatherService.getWeatherData(location.getLat(), location.getLon());
+        WeatherDto weatherData = weatherService.getWeatherDataByRecommend(location.getLat(), location.getLon());
 
         OutfitSearchBasic condition = new OutfitSearchBasic();
         condition.setWeather(Weather.valueOf(weatherData.getMain()));
@@ -75,7 +78,7 @@ public class OutfitDataService {
         Member member = memberDataRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
         String coordinates = geocodingService.getCoordinates(member.getLocationList().get(0));
         Location location = geocodingService.getLocation(coordinates);
-        WeatherDto weatherData = weatherService.getWeatherData(location.getLat(), location.getLon());
+        WeatherDto weatherData = weatherService.getWeatherDataByRecommend(location.getLat(), location.getLon());
 
         OutfitSearchPersonal condition = new OutfitSearchPersonal();
         condition.setProfile(member.getProfile());

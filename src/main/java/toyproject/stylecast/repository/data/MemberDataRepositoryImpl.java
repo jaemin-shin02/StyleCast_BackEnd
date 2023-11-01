@@ -1,8 +1,7 @@
-package toyproject.stylecast.repository;
+package toyproject.stylecast.repository.data;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import toyproject.stylecast.domain.Member;
-import toyproject.stylecast.domain.QMember;
 import toyproject.stylecast.domain.Style;
 
 import javax.persistence.EntityManager;

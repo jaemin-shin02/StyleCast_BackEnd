@@ -1,6 +1,5 @@
 package toyproject.stylecast.repository;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,12 +11,12 @@ import toyproject.stylecast.domain.clothes.Category;
 import toyproject.stylecast.domain.clothes.Outer;
 import toyproject.stylecast.domain.clothes.Pants;
 import toyproject.stylecast.domain.clothes.Top;
+import toyproject.stylecast.repository.data.ClothesDataRepository;
+import toyproject.stylecast.repository.data.MemberDataRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional

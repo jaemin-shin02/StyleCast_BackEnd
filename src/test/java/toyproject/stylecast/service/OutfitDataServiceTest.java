@@ -11,8 +11,8 @@ import toyproject.stylecast.domain.*;
 import toyproject.stylecast.domain.clothes.*;
 import toyproject.stylecast.domain.recommendframe.Weather;
 import toyproject.stylecast.dto.outfit.OutfitDto;
-import toyproject.stylecast.repository.ClothesDataRepository;
-import toyproject.stylecast.repository.MemberDataRepository;
+import toyproject.stylecast.repository.data.ClothesDataRepository;
+import toyproject.stylecast.repository.data.MemberDataRepository;
 
 import java.util.List;
 

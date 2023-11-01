@@ -12,8 +12,8 @@ import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Profile;
 import toyproject.stylecast.domain.Token;
 import toyproject.stylecast.dto.member.LoginRequest;
-import toyproject.stylecast.repository.MemberDataRepository;
-import toyproject.stylecast.repository.ProfileRepository;
+import toyproject.stylecast.repository.data.MemberDataRepository;
+import toyproject.stylecast.repository.data.ProfileRepository;
 
 import java.util.HashMap;
 import java.util.List;

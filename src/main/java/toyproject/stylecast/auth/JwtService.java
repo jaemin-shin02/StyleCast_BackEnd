@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.RefreshToken;
 import toyproject.stylecast.domain.Token;
-import toyproject.stylecast.repository.RefreshTokenRepository;
+import toyproject.stylecast.repository.data.RefreshTokenRepository;
 
 import java.util.HashMap;
 import java.util.Map;

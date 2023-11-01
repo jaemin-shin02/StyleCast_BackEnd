@@ -1,4 +1,4 @@
-package toyproject.stylecast.repository;
+package toyproject.stylecast.repository.data;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import toyproject.stylecast.domain.clothes.*;

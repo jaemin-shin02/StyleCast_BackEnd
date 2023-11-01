@@ -8,6 +8,7 @@ import toyproject.stylecast.domain.clothes.Category;
 
 @Data
 public class CreateClothesRequest {
+    private Long memberId;
     private String name;
     private Category category;
     private String color;

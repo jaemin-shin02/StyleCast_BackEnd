@@ -7,7 +7,10 @@
 <body>
 <h1>로그아웃</h1>
 <p>정말 로그아웃 하시겠습니까?</p>
-<button type="submit" class="btn btn-danger" onclick="submitLogoutForm()">로그아웃</button>
+<form action="/logout" method="post">
+  <button type="submit" class="btn btn-danger" onclick="submitLogoutForm()">로그아웃</button>
+</form>
+<!--<button type="submit" class="btn btn-danger" onclick="submitLogoutForm()">로그아웃</button>-->
 <script>
   function submitLogoutForm() {
     const accessToken = localStorage.getItem('accessToken');

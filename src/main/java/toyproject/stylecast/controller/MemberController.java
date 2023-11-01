@@ -7,10 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import toyproject.stylecast.auth.JwtService;
 import toyproject.stylecast.auth.JwtTokenProvider;
 import toyproject.stylecast.auth.mail.MailService;
@@ -162,6 +159,25 @@ public class MemberController {
             return ResponseEntity.ok("로그아웃 성공"); // 로그아웃 성공
         }else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그아웃 실패"); // 로그아웃 실패
+        }
+    }
+
+    @GetMapping("/getMemberId")
+    public ResponseEntity<Long> getMemberId(@RequestHeader("Authorization") String authorizationHeader) {
+        // "Bearer [AccessToken]" 형식의 Authorization 헤더에서 AccessToken 추출
+        String accessToken = authorizationHeader.replace("Bearer ", "");
+        log.info("엑토확인", accessToken);
+        // AccessToken을 검증하고 로그인된 회원의 ID 가져오기
+        String email = jwtTokenProvider.getUserPk(accessToken);
+        Member member = memberDataService.findByEmail(email);
+        Long memberId = member.getId();
+        log.info(email, memberId);
+
+        if (memberId != null) {
+            return ResponseEntity.ok(memberId);
+        } else {
+            // AccessToken이 유효하지 않은 경우 또는 회원 ID를 가져오지 못한 경우
+            return ResponseEntity.badRequest().build();
         }
     }
 

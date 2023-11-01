@@ -58,6 +58,14 @@ public class ClothesDataService {
         return clothesDataRepository.findClothesByMemberIdAndCategory(memberId, category);
     }
 
+    public String getName(Long clothesId){
+        if(clothesId == null){
+            return "X";
+        }
+        Clothes clothes = clothesDataRepository.findById(clothesId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옷입니다."));
+        return clothes.getName();
+    }
+
     @Transactional
     public void updateName(Long clothesId, String name){
         Clothes findClothes = clothesDataRepository.findById(clothesId).get();

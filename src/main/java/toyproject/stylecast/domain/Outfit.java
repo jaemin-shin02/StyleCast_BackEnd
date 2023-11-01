@@ -75,21 +75,21 @@ public class Outfit {
 //    }
 
     //==생성 메서드==//
-    public void setDefault(String name, Style style,String description, Long top_id, Long bottom_id, Long outerwear_id) {
+    public void setDefault(String name, Style style,String description, Long top_id, Long bottom_id, Long shoe_id) {
         this.name = name;
         this.style = style;
         this.description = description;
         this.top_id = top_id;
         this.bottom_id = bottom_id;
-        this.outerwear_id = outerwear_id;
+        this.shoe_id = shoe_id;
 //        this.season = season;
         this.bookmark = false;
     }
 
-    public static Outfit creatOutfit(Member member, String name, Style style, String description, Long top_id, Long bottom_id, Long outerwear_id){
+    public static Outfit creatOutfit(Member member, String name, Style style, String description, Long top_id, Long bottom_id, Long shoe_id){
         Outfit outfit = new Outfit();
         outfit.setMember(member);
-        outfit.setDefault(name, style, description, top_id, bottom_id, outerwear_id);
+        outfit.setDefault(name, style, description, top_id, bottom_id, shoe_id);
 
         return outfit;
     }

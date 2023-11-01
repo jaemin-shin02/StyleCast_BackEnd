@@ -15,6 +15,11 @@ public class HomeController {
 
     @GetMapping("/home")
     public String home(Model model, HttpSession session){
+        return "home";
+    }
+
+    @GetMapping("/main")
+    public String main(){
         return "anyway";
     }
 

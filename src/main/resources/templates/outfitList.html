@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>코디 목록</title>
+  <div class="navbar">
+    <a th:href="@{/main}">Home</a>
+    <a th:href="@{/outfit/all}">전체</a>
+  </div>
+</head>
+<body>
+<h1>내 코디 목록</h1>
+<table>
+  <tr>
+    <th>이름</th>
+    <th>코디 설명</th>
+    <th>스타일</th>
+    <th>상의</th>
+    <th>하의</th>
+    <th>아우터</th>
+    <th>신발</th>
+  </tr>
+  <tr th:each="outfit : ${outfitList}">
+    <td th:text="${outfit.name}"></td>
+    <td th:text="${outfit.description}"></td>
+    <td th:text="${outfit.style}"></td>
+    <td th:text="${outfit.top}"></td>
+    <td th:text="${outfit.bottom}"></td>
+    <td th:text="${outfit.outerwear}"></td>
+    <td th:text="${outfit.shoe}"></td>
+  </tr>
+</table>
+</body>
+</html>

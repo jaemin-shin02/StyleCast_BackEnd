@@ -2,10 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>의류 생성 폼</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // 페이지 로드 시 실행
+        window.addEventListener('load', function () {
+            // 로컬 스토리지에서 액세스 토큰 가져오기
+            const accessToken = localStorage.getItem('accessToken');
+
+            // AccessToken이 있다면 서버로 보내서 회원 ID 가져오기
+            if (accessToken) {
+                // 서버에 AccessToken을 보내서 회원 ID 가져오는 AJAX 요청
+                axios.get('/getMemberId', {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                })
+                    .then(response => {
+                        const memberId = response.data; // 서버에서 받은 회원 ID
+
+                        // memberId를 Thymeleaf 모델로 설정
+                        document.getElementById('memberId').value = memberId;
+                    })
+                    .catch(error => {
+                        console.error('회원 ID 가져오기 실패', error);
+                    });
+            }
+        });
+    </script>
 </head>
 <body>
 <h1>의류 생성</h1>
-<form th:action="@{'/clothes/create/' + ${memberId}}" method="post" enctype="multipart/form-data">
+<form th:action="@{'/clothes/create'}" method="post" enctype="multipart/form-data">
+    <!-- member ID를 숨겨진 필드로 추가 -->
+    <input type="hidden" id="memberId" name="memberId" th:value="${memberId}" />
     <div>
         <label for="name">의류 이름:</label>
         <input type="text" id="name" name="name" th:required="required">

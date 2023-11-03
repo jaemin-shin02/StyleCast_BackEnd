@@ -55,4 +55,8 @@ public class FileService {
 
         return savedFileInfo.getId();
     }
+
+    public FileInfo findById(Long fileId){
+        return fileRepository.findById(fileId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 파일입니다."));
+    }
 }

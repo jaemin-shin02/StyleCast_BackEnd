@@ -10,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import toyproject.stylecast.domain.Clothes;
+import toyproject.stylecast.domain.FileInfo;
 import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.clothes.Category;
 import toyproject.stylecast.dto.clothes.ClothesDto;
+import toyproject.stylecast.dto.clothes.ClothesPostDto;
 import toyproject.stylecast.dto.clothes.CreateClothesRequest;
 import toyproject.stylecast.repository.data.FileRepository;
 import toyproject.stylecast.service.ClothesDataService;
@@ -33,7 +35,6 @@ public class ClothesController {
     private final ClothesDataService clothesService;
 
     private final FileService fileService;
-    private final FileRepository fileRepository;
 
     @GetMapping("/clothes/create")
     public String AddClothesPage(Model model){
@@ -46,13 +47,26 @@ public class ClothesController {
         log.info("옷 추가 시도");
         System.out.println("request = " + request);
 
-//        Long photoId = fileService.saveFile(request.getFile());
-//        FileInfo photo = fileRepository.findById(photoId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사진파일 입니다."));
+        Long photoId = fileService.saveFile(request.getFile());
+        FileInfo photo = fileService.findById(photoId);
 
         Long clothesId = clothesService.clothes(request.getMemberId(), request.getName(), request.getCategory(), request.getColor(), request.getSeason());
-//        clothesService.setPhoto(clothesId, photo);
+        clothesService.setPhoto(clothesId, photo);
 
         return "redirect:/main";
+    }
+
+    @GetMapping("/my/closet")
+    public String myCloset(Model model){
+        Long memberId = getMemberId();
+        List<Clothes> clothesList = clothesService.findClothesByMemberId(memberId);
+        List<ClothesPostDto> collect = clothesList.stream()
+                .map(c -> new ClothesPostDto(c.getPhoto().getId(), c.getName(), c.getCategory(), c.getColor(), c.getSeason()))
+                .collect(Collectors.toList());
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("clothesList", collect);
+        return "/clothesBoard";
     }
 
     @GetMapping("/clothes/all")

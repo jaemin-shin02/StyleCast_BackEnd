@@ -24,11 +24,11 @@ public class FileInfo {
 
     private String savedPath;
 
-//    @OneToOne(fetch = FetchType.LAZY, mappedBy = "photo")
-//    private Clothes clothes;
-//
-//    @OneToOne(fetch = FetchType.LAZY, mappedBy = "photo")
-//    private Outfit outfit;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "photo")
+    private Clothes clothes;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "photo")
+    private Outfit outfit;
 
     @Builder
     public FileInfo(Long id, String orgNm, String savedNm, String savedPath) {

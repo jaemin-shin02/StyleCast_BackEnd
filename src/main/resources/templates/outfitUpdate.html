@@ -78,7 +78,8 @@
               <option th:each="clothes : ${outerList}" th:value="${clothes.id}" th:text="${clothes.name}"></option>
         </select>
     </div>
-
+    <h4>코디 사진 업로드</h4>
+    <input type="file" name="file">
     <div>
         <input type="submit" value="코디 생성">
     </div>

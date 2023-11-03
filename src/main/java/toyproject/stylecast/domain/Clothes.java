@@ -17,9 +17,9 @@ public class Clothes {
     private Long id;
     private String name;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "photo_id")
-//    private FileInfo photo;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "photo_id")
+    private FileInfo photo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -62,10 +62,10 @@ public class Clothes {
         member.getClothesList().add(this);
     }
 
-//    public void setFileInfo(FileInfo file){
-//        this.photo = file;
-//        file.setClothes(this);
-//    }
+    public void setFileInfo(FileInfo file){
+        this.photo = file;
+        file.setClothes(this);
+    }
 
     public void setBookmarkT(){
         this.bookmark = true;

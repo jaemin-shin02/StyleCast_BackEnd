@@ -3,6 +3,7 @@ package toyproject.stylecast.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import toyproject.stylecast.domain.FileInfo;
 import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Outfit;
 import toyproject.stylecast.domain.Style;
@@ -42,6 +43,12 @@ public class OutfitDataService {
         outfitDataRepository.save(outfit);
 
         return outfit.getId();
+    }
+
+    @Transactional
+    public void setPhoto(Long outfitId, FileInfo photo){
+        Outfit outfit = outfitDataRepository.findById(outfitId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 코디입니다."));
+        outfit.setPhoto(photo);
     }
 
     public List<Outfit> findAllOutfit(){

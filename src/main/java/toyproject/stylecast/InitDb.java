@@ -41,16 +41,16 @@ public class InitDb {
             Long profileId = profileService.save(profile);
             memberDataService.setProfile(memberId, profileId);
 
-            Long clothesId1 = clothesDataService.clothes(memberId, "무지반팔", Category.상의, "검정", Season.여름);
-            Clothes clothes1 = clothesDataService.findClothes(clothesId1);
-            Long clothesId2 = clothesDataService.clothes(memberId, "카고팬츠", Category.바지, "검정", Season.여름);
-            Clothes clothes2 = clothesDataService.findClothes(clothesId2);
-            Long clothesId3 = clothesDataService.clothes(memberId, "된장포스", Category.신발, "된장", Season.여름);
-            Clothes clothes3 = clothesDataService.findClothes(clothesId3);
-
-            Outfit outfit = Outfit.creatOutfit(member, "기본코디1", Style.스트릿, "꾸안꾸", clothesId1, clothesId2, clothesId3);
-            Long outfitId = outfitDataService.outfit(outfit);
-            Outfit clothes = outfitDataService.findOutfit(outfitId);
+//            Long clothesId1 = clothesDataService.clothes(memberId, "무지반팔", Category.상의, "검정", Season.여름);
+//            Clothes clothes1 = clothesDataService.findClothes(clothesId1);
+//            Long clothesId2 = clothesDataService.clothes(memberId, "카고팬츠", Category.바지, "검정", Season.여름);
+//            Clothes clothes2 = clothesDataService.findClothes(clothesId2);
+//            Long clothesId3 = clothesDataService.clothes(memberId, "된장포스", Category.신발, "된장", Season.여름);
+//            Clothes clothes3 = clothesDataService.findClothes(clothesId3);
+//
+//            Outfit outfit = Outfit.creatOutfit(member, "기본코디1", Style.스트릿, "꾸안꾸", clothesId1, clothesId2, clothesId3);
+//            Long outfitId = outfitDataService.outfit(outfit);
+//            Outfit clothes = outfitDataService.findOutfit(outfitId);
 
             memberDataService.addLocation(memberId, "서울시 중구");
         }

@@ -26,9 +26,9 @@ public class Outfit {
     private String name;
     private String description; //코디 설명
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "photo_id")
-//    private FileInfo photo;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "photo_id")
+    private FileInfo photo;
 
     @Enumerated(EnumType.STRING)
     private Style style;
@@ -69,10 +69,10 @@ public class Outfit {
         this.weatherList.add(weather);
     }
 
-//    public void setFileInfo(FileInfo file){
-//        this.photo = file;
-//        file.setOutfit(this);
-//    }
+    public void setFileInfo(FileInfo file){
+        this.photo = file;
+        file.setOutfit(this);
+    }
 
     //==생성 메서드==//
     public void setDefault(String name, Style style,String description, Long top_id, Long bottom_id, Long shoe_id) {

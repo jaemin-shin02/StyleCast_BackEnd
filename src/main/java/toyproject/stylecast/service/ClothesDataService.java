@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.Clothes;
+import toyproject.stylecast.domain.FileInfo;
 import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Season;
 import toyproject.stylecast.domain.clothes.Category;
@@ -35,11 +36,11 @@ public class ClothesDataService {
         return clothes.getId();
     }
 
-//    @Transactional
-//    public void setPhoto(Long clothesId, FileInfo photo){
-//        Clothes clothes = clothesDataRepository.findById(clothesId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옷입니다."));
-//        clothes.setPhoto(photo);
-//    }
+    @Transactional
+    public void setPhoto(Long clothesId, FileInfo photo){
+        Clothes clothes = clothesDataRepository.findById(clothesId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옷입니다."));
+        clothes.setPhoto(photo);
+    }
 
     public List<Clothes> findAllClothes(){
         return clothesDataRepository.findAll();

@@ -2,6 +2,7 @@ package toyproject.stylecast.dto.outfit;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Style;
 
@@ -18,4 +19,6 @@ public class CreateOutfitRequest {
     private Long top_id;
     private Long bottom_id;
     private Long outerwear_id;
+
+    private MultipartFile file;
 }

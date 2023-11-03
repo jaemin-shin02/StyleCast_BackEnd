@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>옷 목록</title>
+  <link rel="stylesheet" type="text/css" href="/css/board.css"> <!-- CSS 파일 추가 -->
+  <div class="navbar">
+    <a th:href="@{/main}">Home</a>
+    <a th:href="@{/clothes/all}">전체</a>
+    <a th:href="@{/clothes/top}">상의</a>
+    <a th:href="@{/clothes/bottom}">하의</a>
+    <a th:href="@{/clothes/skirt}">스커트</a>
+    <a th:href="@{/clothes/outer}">아우터</a>
+    <a th:href="@{/clothes/shoes}">신발</a>
+  </div>
+</head>
+<body>
+<h1>내 옷 목록</h1>
+<div class="clothes-container">
+  <div th:each="clothes : ${clothesList}" class="clothes-item">
+    <img th:src="|/file/images/${clothes.photoId}|" width="150" height="150">
+    <p>이름: <span th:text="${clothes.name}"></span></p>
+    <p>카테고리: <span th:text="${clothes.category}"></span></p>
+    <p>색상: <span th:text="${clothes.color}"></span></p>
+    <p>계절: <span th:text="${clothes.season}"></span></p>
+  </div>
+</div>
+
+<a th:href="@{/outfit/create}">코디 생성</a>
+</body>
+</html>

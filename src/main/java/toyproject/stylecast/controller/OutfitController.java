@@ -10,18 +10,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import toyproject.stylecast.domain.Clothes;
-import toyproject.stylecast.domain.Member;
-import toyproject.stylecast.domain.Outfit;
-import toyproject.stylecast.domain.Style;
+import toyproject.stylecast.domain.*;
 import toyproject.stylecast.domain.clothes.Category;
 import toyproject.stylecast.dto.outfit.CreateOutfitRequest;
+import toyproject.stylecast.dto.outfit.OutfitPostDto;
 import toyproject.stylecast.dto.outfit.ViewOutfit;
+import toyproject.stylecast.repository.data.FileRepository;
 import toyproject.stylecast.service.ClothesDataService;
+import toyproject.stylecast.service.FileService;
 import toyproject.stylecast.service.MemberDataService;
 import toyproject.stylecast.service.OutfitDataService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,8 @@ public class OutfitController {
     private final MemberDataService memberService;
     private final ClothesDataService clothesService;
     private final OutfitDataService outfitService;
-    
+    private final FileService fileService;
+
     @GetMapping("/outfit/create")
     public String AddClothesPage(Model model){
         Long memberId = getMemberId();
@@ -52,15 +54,36 @@ public class OutfitController {
     }
 
     @PostMapping("/outfit/create")
-    public String AddClothes(@Valid CreateOutfitRequest request){
+    public String AddClothes(@Valid CreateOutfitRequest request) throws IOException {
         log.info("옷 추가 시도");
         System.out.println("request = " + request);
 
-        outfitService.outfit(request.getMemberId(), request.getName(), request.getDescription(), request.getStyle(), request.getTop_id(), request.getBottom_id(), request.getOuterwear_id());
+        Long photoId = fileService.saveFile(request.getFile());
+        FileInfo photo = fileService.findById(photoId);
+
+        Long outfitId = outfitService.outfit(request.getMemberId(), request.getName(), request.getDescription(), request.getStyle(), request.getTop_id(), request.getBottom_id(), request.getOuterwear_id());
+        outfitService.setPhoto(outfitId, photo);
 
         return "redirect:/main";
     }
 
+    @GetMapping("/my/outfit")
+    public String myOutfit(Model model){
+        Long memberId = getMemberId();
+        List<Outfit> outfitList = outfitService.findOutfitByMember(memberId);
+        List<OutfitPostDto> collect = outfitList.stream()
+                .map(o -> new OutfitPostDto(o.getPhoto().getId(), o.getName(), o.getDescription(), o.getStyle()
+                        , clothesService.getName(o.getTop_id())
+                        , clothesService.getName(o.getBottom_id())
+                        , clothesService.getName(o.getOuterwear_id())
+                        , clothesService.getName(o.getShoe_id()))
+                ).collect(Collectors.toList());
+
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("outfitList", collect);
+
+        return "/outfitBoard";
+    }
 
     @GetMapping("/outfit/all")
     public String viewOutfits(Model model){

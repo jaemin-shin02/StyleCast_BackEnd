@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +14,10 @@ import toyproject.stylecast.auth.JwtService;
 import toyproject.stylecast.auth.JwtTokenProvider;
 import toyproject.stylecast.auth.mail.MailService;
 import toyproject.stylecast.domain.Member;
+import toyproject.stylecast.domain.Profile;
 import toyproject.stylecast.domain.Token;
 import toyproject.stylecast.dto.member.CreateMemberRequest;
+import toyproject.stylecast.dto.member.MyPageDto;
 import toyproject.stylecast.repository.data.MemberDataRepository;
 import toyproject.stylecast.service.MemberDataService;
 
@@ -162,6 +166,20 @@ public class MemberController {
         }
     }
 
+    @GetMapping("/mypage")
+    public String myPage(Model model){
+        Long memberId = getMemberId();
+        Member member = memberDataService.findOne(memberId);
+        Profile profile = member.getProfile();
+
+        MyPageDto myPageDto = new MyPageDto(member.getNickname(), member.getName(), member.getBirthdate(), member.getEmail(),
+                profile.getGender(), profile.getWeight(), profile.getHeight(), profile.getFigure(), profile.getWork_out(), profile.getPrefer_style());
+
+        model.addAttribute("myPageDto", myPageDto);
+
+        return "/myPage";
+    }
+
     @GetMapping("/getMemberId")
     public ResponseEntity<Long> getMemberId(@RequestHeader("Authorization") String authorizationHeader) {
         // "Bearer [AccessToken]" 형식의 Authorization 헤더에서 AccessToken 추출
@@ -179,6 +197,17 @@ public class MemberController {
             // AccessToken이 유효하지 않은 경우 또는 회원 ID를 가져오지 못한 경우
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    private Long getMemberId() {
+        // Spring Security를 사용하여 현재 사용자의 Authentication 객체를 얻어옴
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Authentication 객체에서 사용자 이름 또는 기타 정보를 추출
+        String memberEmail = authentication.getName();
+        Member member = memberDataService.findByEmail(memberEmail);
+        Long memberId = member.getId();
+        return memberId;
     }
 
 }

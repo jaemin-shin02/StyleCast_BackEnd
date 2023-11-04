@@ -56,94 +56,78 @@ public class ClothesController {
         return "redirect:/main";
     }
 
-    @GetMapping("/my/closet")
+    @GetMapping("/my/closet/all")
     public String myCloset(Model model){
         Long memberId = getMemberId();
         List<Clothes> clothesList = clothesService.findClothesByMemberId(memberId);
-        List<ClothesPostDto> collect = clothesList.stream()
-                .map(c -> new ClothesPostDto(c.getPhoto().getId(), c.getName(), c.getCategory(), c.getColor(), c.getSeason()))
-                .collect(Collectors.toList());
+        List<ClothesPostDto> collect = getClothesPostDto(clothesList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("clothesList", collect);
         return "/clothesBoard";
     }
 
-    @GetMapping("/clothes/all")
-    public String viewClothes(Model model){
-        // Spring Security를 사용하여 현재 사용자의 Authentication 객체를 얻어옴
-        Long memberId = getMemberId();
-
-        List<Clothes> clothesList = clothesService.findClothesByMemberId(memberId);
-        List<ClothesDto> collect = getClothesDtos(clothesList);
-
-        model.addAttribute("memberId", memberId);
-        model.addAttribute("clothesList", collect);
-
-        return "/clothes";
-    }
-
-    @GetMapping("/clothes/top")
+    @GetMapping("/my/closet/top")
     public String viewTop(Model model){
         Long memberId = getMemberId();
 
         List<Clothes> clothesList = clothesService.findClothesByMemberIdWithCategory(memberId, Category.상의);
-        List<ClothesDto> collect = getClothesDtos(clothesList);
+        List<ClothesPostDto> collect = getClothesPostDto(clothesList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("clothesList", collect);
 
-        return "/clothes";
+        return "/clothesBoard";
     }
 
-    @GetMapping("/clothes/bottom")
+    @GetMapping("/my/closet/bottom")
     public String viewBottom(Model model){
         Long memberId = getMemberId();
 
         List<Clothes> clothesList = clothesService.findClothesByMemberIdWithCategory(memberId, Category.바지);
-        List<ClothesDto> collect = getClothesDtos(clothesList);
+        List<ClothesPostDto> collect = getClothesPostDto(clothesList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("clothesList", collect);
 
-        return "/clothes";
+        return "/clothesBoard";
     }
-    @GetMapping("/clothes/outer")
+    @GetMapping("/my/closet/outer")
     public String viewOuter(Model model){
         Long memberId = getMemberId();
 
         List<Clothes> clothesList = clothesService.findClothesByMemberIdWithCategory(memberId, Category.아우터);
-        List<ClothesDto> collect = getClothesDtos(clothesList);
+        List<ClothesPostDto> collect = getClothesPostDto(clothesList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("clothesList", collect);
 
-        return "/clothes";
+        return "/clothesBoard";
     }
-    @GetMapping("/clothes/skirt")
+    @GetMapping("/my/closet/skirt")
     public String viewSkirt(Model model){
         Long memberId = getMemberId();
 
         List<Clothes> clothesList = clothesService.findClothesByMemberIdWithCategory(memberId, Category.스커트);
-        List<ClothesDto> collect = getClothesDtos(clothesList);
+        List<ClothesPostDto> collect = getClothesPostDto(clothesList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("clothesList", collect);
 
-        return "/clothes";
+        return "/clothesBoard";
     }
 
-    @GetMapping("/clothes/shoes")
+    @GetMapping("/my/closet/shoes")
     public String viewShoes(Model model){
         Long memberId = getMemberId();
 
         List<Clothes> clothesList = clothesService.findClothesByMemberIdWithCategory(memberId, Category.신발);
-        List<ClothesDto> collect = getClothesDtos(clothesList);
+        List<ClothesPostDto> collect = getClothesPostDto(clothesList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("clothesList", collect);
 
-        return "/clothes";
+        return "/clothesBoard";
     }
 
     private Long getMemberId() {
@@ -158,9 +142,9 @@ public class ClothesController {
     }
 
     @NotNull
-    private static List<ClothesDto> getClothesDtos(List<Clothes> clothesList) {
-        List<ClothesDto> collect = clothesList.stream()
-                .map(c -> new ClothesDto(c.getName(), c.getCategory(), c.getColor(), c.getSeason()))
+    private static List<ClothesPostDto> getClothesPostDto(List<Clothes> clothesList) {
+        List<ClothesPostDto> collect = clothesList.stream()
+                .map(c -> new ClothesPostDto(c.getPhoto().getId(), c.getName(), c.getCategory(), c.getColor(), c.getSeason()))
                 .collect(Collectors.toList());
         return collect;
     }

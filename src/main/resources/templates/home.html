@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <title>메인 페이지</title>
+  <link rel="stylesheet" type="text/css" href="/css/initPage.css">
 </head>
 <body>
-<h1>환영합니다</h1>
+<h1>Style Cast</h1>
 <div th:if="${#request.isUserInRole('USER')}">
   <form action="/logout" method="post">
     <button type="submit">로그아웃</button>

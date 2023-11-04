@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>의류 생성 폼</title>
+    <link rel="stylesheet" type="text/css" href="/css/addClothes.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         // 페이지 로드 시 실행
@@ -34,7 +35,7 @@
 <h1>의류 생성</h1>
 <form th:action="@{'/clothes/create'}" method="post" enctype="multipart/form-data">
     <!-- member ID를 숨겨진 필드로 추가 -->
-    <input type="hidden" id="memberId" name="memberId" th:value="${memberId}" />
+    <input type="hidden" id="memberId" name="memberId" th:value="${memberId}"/>
     <div>
         <label for="name">의류 이름:</label>
         <input type="text" id="name" name="name" th:required="required">

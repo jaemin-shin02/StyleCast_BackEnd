@@ -19,6 +19,7 @@ public class CreateOutfitRequest {
     private Long top_id;
     private Long bottom_id;
     private Long outerwear_id;
+    private Long shoes_id;
 
     private MultipartFile file;
 }

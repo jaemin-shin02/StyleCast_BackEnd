@@ -1,0 +1,45 @@
+/* styles.css */
+
+/* 전체 페이지 스타일링 */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+/* 헤더 스타일링 */
+.header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px;
+}
+
+/* 로그아웃 버튼 스타일링 */
+.logout-button {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+
+/* 로그인 및 회원가입 링크 스타일링 */
+.login-link,
+.join-link {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.login-link:hover,
+.join-link:hover {
+    text-decoration: underline;
+}

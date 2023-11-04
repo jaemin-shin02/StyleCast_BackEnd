@@ -44,14 +44,20 @@ public class ClothesController {
 
     @PostMapping("/clothes/create")
     public String AddClothes(@Valid CreateClothesRequest request) throws IOException {
-        log.info("옷 추가 시도");
-        System.out.println("request = " + request);
+        log.info("옷 추가 시도", request);
 
         Long photoId = fileService.saveFile(request.getFile());
         FileInfo photo = fileService.findById(photoId);
 
         Long clothesId = clothesService.clothes(request.getMemberId(), request.getName(), request.getCategory(), request.getColor(), request.getSeason());
         clothesService.setPhoto(clothesId, photo);
+        clothesService.setTop(clothesId, request.getTop());
+        clothesService.setPants(clothesId, request.getPants());
+        clothesService.setOuter(clothesId, request.getOuter());
+        clothesService.setShoes(clothesId, request.getShoes());
+        clothesService.setOnepiece(clothesId, request.getOnepiece());
+        clothesService.setSkirt(clothesId, request.getSkirt());
+
 
         return "redirect:/main";
     }

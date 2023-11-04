@@ -7,7 +7,7 @@ import toyproject.stylecast.domain.Clothes;
 import toyproject.stylecast.domain.FileInfo;
 import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Season;
-import toyproject.stylecast.domain.clothes.Category;
+import toyproject.stylecast.domain.clothes.*;
 import toyproject.stylecast.repository.data.ClothesDataRepository;
 
 import java.util.List;
@@ -41,6 +41,38 @@ public class ClothesDataService {
         Clothes clothes = clothesDataRepository.findById(clothesId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옷입니다."));
         clothes.setPhoto(photo);
     }
+
+    @Transactional
+    public void setTop(Long clothesId, Top top){
+        Clothes clothes = clothesDataRepository.findById(clothesId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옷입니다."));
+        clothes.setTop(top);
+    }
+    @Transactional
+    public void setPants(Long clothesId, Pants pants){
+        Clothes clothes = clothesDataRepository.findById(clothesId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옷입니다."));
+        clothes.setPants(pants);
+    }
+    @Transactional
+    public void setOuter(Long clothesId, Outer outer){
+        Clothes clothes = clothesDataRepository.findById(clothesId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옷입니다."));
+        clothes.setOuter(outer);
+    }
+    @Transactional
+    public void setShoes(Long clothesId, Shoes shoes){
+        Clothes clothes = clothesDataRepository.findById(clothesId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옷입니다."));
+        clothes.setShoes(shoes);
+    }
+    @Transactional
+    public void setOnepiece(Long clothesId, Onepiece onepiece){
+        Clothes clothes = clothesDataRepository.findById(clothesId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옷입니다."));
+        clothes.setOnepiece(onepiece);
+    }
+    @Transactional
+    public void setSkirt(Long clothesId, Skirt skirt){
+        Clothes clothes = clothesDataRepository.findById(clothesId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옷입니다."));
+        clothes.setSkirt(skirt);
+    }
+
 
     public List<Clothes> findAllClothes(){
         return clothesDataRepository.findAll();

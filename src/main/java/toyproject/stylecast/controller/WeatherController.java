@@ -11,8 +11,7 @@ import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.WeatherData;
 import toyproject.stylecast.domain.geocode.Location;
 import toyproject.stylecast.dto.WeatherDto;
-import toyproject.stylecast.service.GeocodingService;
-import toyproject.stylecast.service.MemberDataService;
+import toyproject.stylecast.service.*;
 import toyproject.stylecast.weather.WeatherService;
 
 

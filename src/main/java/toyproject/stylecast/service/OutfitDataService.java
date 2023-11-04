@@ -12,6 +12,7 @@ import toyproject.stylecast.domain.recommendframe.Weather;
 import toyproject.stylecast.dto.outfit.OutfitDto;
 import toyproject.stylecast.dto.outfit.OutfitSearchBasic;
 import toyproject.stylecast.dto.WeatherDto;
+import toyproject.stylecast.dto.outfit.OutfitSearchMy;
 import toyproject.stylecast.dto.outfit.OutfitSearchPersonal;
 import toyproject.stylecast.repository.data.MemberDataRepository;
 import toyproject.stylecast.repository.data.OutfitDataRepository;
@@ -19,6 +20,7 @@ import toyproject.stylecast.weather.WeatherService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -74,6 +76,34 @@ public class OutfitDataService {
         return outfitDataRepository.findOutfitByMemberIdAndStyle(memberId, style);
     }
 
+    public Outfit recommendOneWithMember(Long memberId){
+        Member member = memberDataRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        String coordinates = geocodingService.getCoordinates(member.getLocationList().get(0));
+        Location location = geocodingService.getLocation(coordinates);
+        WeatherDto weatherData = weatherService.getWeatherDataByRecommend(location.getLat(), location.getLon());
+
+        OutfitSearchMy condition = new OutfitSearchMy();
+        condition.setMemberId(memberId);
+        condition.setWeather(Weather.valueOf(weatherData.getMain()));
+        condition.setTemperature(weatherData.getTemp());
+
+        List<Outfit> outfitDtoList = outfitDataRepository.RecommendOutfitDay(condition);
+
+        if (outfitDtoList.isEmpty()) {
+            // outfitDtoList가 비어 있다면 무작위 추천할 수 없음
+            return null;
+        }
+
+        // Random 객체 생성
+        Random random = new Random();
+
+        // outfitDtoList 크기에 대한 무작위 인덱스 생성
+        int randomIndex = random.nextInt(outfitDtoList.size());
+
+        // 무작위로 선택한 OutfitDto 반환
+        return outfitDtoList.get(randomIndex);
+    }
+
     public List<OutfitDto> recommendOutfitBasic(Long memberId){
         Member member = memberDataRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
         String coordinates = geocodingService.getCoordinates(member.getLocationList().get(0));
@@ -108,7 +138,7 @@ public class OutfitDataService {
             outfitList.addAll(member.getOutfitList());
         }
         List<OutfitDto> outfitDtoList = outfitList.stream()
-                .map(o -> new OutfitDto(o.getName(), o.getDescription(), o.getStyle(), o.getTop_id(), o.getBottom_id(), o.getOuterwear_id()))
+                .map(o -> new OutfitDto(o.getName(), o.getDescription(), o.getStyle(), o.getTop_id(), o.getBottom_id(), o.getOuterwear_id(), o.getShoe_id()))
                 .collect(Collectors.toList());
 
         return outfitDtoList;

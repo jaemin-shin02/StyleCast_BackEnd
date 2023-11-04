@@ -6,20 +6,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+
 import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
-
     @GetMapping("/home")
     public String home(Model model, HttpSession session){
         return "home";
     }
 
     @GetMapping("/main")
-    public String main(){
+    public String main(Model model){
         return "main";
     }
 

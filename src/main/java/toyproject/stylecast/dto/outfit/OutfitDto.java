@@ -20,14 +20,16 @@ public class OutfitDto {
     private Long top_id;
     private Long bottom_id;
     private Long outerwear_id;
+    private Long shoes_id;
 
     @QueryProjection
-    public OutfitDto(String name, String description, Style style, Long top_id, Long bottom_id, Long outerwear_id) {
+    public OutfitDto(String name, String description, Style style, Long top_id, Long bottom_id, Long outerwear_id, Long shoes_id) {
         this.name = name;
         this.description = description;
         this.style = style;
         this.top_id = top_id;
         this.bottom_id = bottom_id;
         this.outerwear_id = outerwear_id;
+        this.shoes_id = shoes_id;
     }
 }

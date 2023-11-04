@@ -29,7 +29,7 @@ public class OutfitApiController {
     public Result clothesList(@PathVariable("id") Long memberId){
         List<Outfit> outfitList = outfitDataService.findOutfitByMember(memberId);
         List<OutfitDto> collect = outfitList.stream()
-                .map(o -> new OutfitDto(o.getName(), o.getDescription(), o.getStyle(), o.getTop_id(), o.getBottom_id(), o.getOuterwear_id()))
+                .map(o -> new OutfitDto(o.getName(), o.getDescription(), o.getStyle(), o.getTop_id(), o.getBottom_id(), o.getOuterwear_id(), o.getShoe_id()))
                 .collect(Collectors.toList());
 
         return new Result(collect.size(), collect);

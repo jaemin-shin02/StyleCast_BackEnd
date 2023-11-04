@@ -43,12 +43,14 @@ public class OutfitController {
         List<Clothes> topList = clothesService.findClothesByMemberIdWithCategory(memberId, Category.상의);
         List<Clothes> bottomList = clothesService.findClothesByMemberIdWithCategory(memberId, Category.바지);
         List<Clothes> outerList = clothesService.findClothesByMemberIdWithCategory(memberId, Category.아우터);
+        List<Clothes> shoesList = clothesService.findClothesByMemberIdWithCategory(memberId, Category.신발);
 
         // 경로 변수 'id'를 모델에 추가하여 뷰로 전달
         model.addAttribute("memberId", memberId);
         model.addAttribute("topList", topList);
         model.addAttribute("bottomList", bottomList);
         model.addAttribute("outerList", outerList);
+        model.addAttribute("shoesList", shoesList);
 
         return "outfitUpdate";
     }
@@ -61,23 +63,21 @@ public class OutfitController {
         Long photoId = fileService.saveFile(request.getFile());
         FileInfo photo = fileService.findById(photoId);
 
-        Long outfitId = outfitService.outfit(request.getMemberId(), request.getName(), request.getDescription(), request.getStyle(), request.getTop_id(), request.getBottom_id(), request.getOuterwear_id());
+        Long outfitId = outfitService.outfit(request.getMemberId(), request.getName(), request.getDescription(), request.getStyle(), request.getTop_id(), request.getBottom_id(), request.getShoes_id());
+        if (request.getOuterwear_id() != null) {
+            outfitService.setOuter(outfitId, request.getOuterwear_id());
+        }
+
         outfitService.setPhoto(outfitId, photo);
 
         return "redirect:/main";
     }
 
-    @GetMapping("/my/outfit")
+    @GetMapping("/my/outfit/all")
     public String myOutfit(Model model){
         Long memberId = getMemberId();
         List<Outfit> outfitList = outfitService.findOutfitByMember(memberId);
-        List<OutfitPostDto> collect = outfitList.stream()
-                .map(o -> new OutfitPostDto(o.getPhoto().getId(), o.getName(), o.getDescription(), o.getStyle()
-                        , clothesService.getName(o.getTop_id())
-                        , clothesService.getName(o.getBottom_id())
-                        , clothesService.getName(o.getOuterwear_id())
-                        , clothesService.getName(o.getShoe_id()))
-                ).collect(Collectors.toList());
+        List<OutfitPostDto> collect = getOutfitPostDto(outfitList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("outfitList", collect);
@@ -85,131 +85,117 @@ public class OutfitController {
         return "/outfitBoard";
     }
 
-    @GetMapping("/outfit/all")
-    public String viewOutfits(Model model){
-        Long memberId = getMemberId();
-        List<Outfit> outfitList = outfitService.findOutfitByMember(memberId);
-        List<ViewOutfit> collect = getViewOutfits(outfitList);
-        for (ViewOutfit viewOutfit : collect) {
-            System.out.println("viewOutfit = " + viewOutfit.toString());
-        }
-        model.addAttribute("memberId", memberId);
-        model.addAttribute("outfitList", collect);
-
-        return "outfitList";
-    }
-
-    @GetMapping("/outfit/casual")
+    @GetMapping("/my/outfit/casual")
     public String viewCasual(Model model){
         Long memberId = getMemberId();
         List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.캐주얼);
-        List<ViewOutfit> collect = getViewOutfits(outfitList);
+        List<OutfitPostDto> collect = getOutfitPostDto(outfitList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("outfitList", collect);
 
-        return "outfitList";
+        return "/outfitBoard";
     }
 
-    @GetMapping("/outfit/chic")
+    @GetMapping("/my/outfit/chic")
     public String viewChic(Model model){
         Long memberId = getMemberId();
         List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.시크);
-        List<ViewOutfit> collect = getViewOutfits(outfitList);
+        List<OutfitPostDto> collect = getOutfitPostDto(outfitList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("outfitList", collect);
 
-        return "outfitList";
+        return "/outfitBoard";
     }
 
-    @GetMapping("/outfit/dandy")
+    @GetMapping("/my/outfit/dandy")
     public String viewDandy(Model model){
         Long memberId = getMemberId();
         List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.댄디);
-        List<ViewOutfit> collect = getViewOutfits(outfitList);
+        List<OutfitPostDto> collect = getOutfitPostDto(outfitList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("outfitList", collect);
 
-        return "outfitList";
+        return "/outfitBoard";
     }
-    @GetMapping("/outfit/formal")
+    @GetMapping("/my/outfit/formal")
     public String viewFormal(Model model){
         Long memberId = getMemberId();
         List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.포멀);
-        List<ViewOutfit> collect = getViewOutfits(outfitList);
+        List<OutfitPostDto> collect = getOutfitPostDto(outfitList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("outfitList", collect);
 
-        return "outfitList";
+        return "/outfitBoard";
     }
-    @GetMapping("/outfit/girlish")
+    @GetMapping("/my/outfit/girlish")
     public String viewGirlish(Model model){
         Long memberId = getMemberId();
         List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.걸리시);
-        List<ViewOutfit> collect = getViewOutfits(outfitList);
+        List<OutfitPostDto> collect = getOutfitPostDto(outfitList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("outfitList", collect);
 
-        return "outfitList";
+        return "/outfitBoard";
     }
-    @GetMapping("/outfit/retro")
+    @GetMapping("/my/outfit/retro")
     public String viewRetro(Model model){
         Long memberId = getMemberId();
         List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.레트로);
-        List<ViewOutfit> collect = getViewOutfits(outfitList);
+        List<OutfitPostDto> collect = getOutfitPostDto(outfitList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("outfitList", collect);
 
-        return "outfitList";
+        return "/outfitBoard";
     }
-    @GetMapping("/outfit/sporty")
+    @GetMapping("/my/outfit/sporty")
     public String viewSporty(Model model){
         Long memberId = getMemberId();
         List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.스포츠);
-        List<ViewOutfit> collect = getViewOutfits(outfitList);
+        List<OutfitPostDto> collect = getOutfitPostDto(outfitList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("outfitList", collect);
 
-        return "outfitList";
+        return "/outfitBoard";
     }
-    @GetMapping("/outfit/street")
+    @GetMapping("/my/outfit/street")
     public String viewStreet(Model model){
         Long memberId = getMemberId();
         List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.스트릿);
-        List<ViewOutfit> collect = getViewOutfits(outfitList);
+        List<OutfitPostDto> collect = getOutfitPostDto(outfitList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("outfitList", collect);
 
-        return "outfitList";
+        return "/outfitBoard";
     }
-    @GetMapping("/outfit/gorpcore")
+    @GetMapping("/my/outfit/gorpcore")
     public String viewGorpcore(Model model){
         Long memberId = getMemberId();
         List<Outfit> outfitList = outfitService.findOutfitByMemberWithStyle(memberId, Style.고프코어);
-        List<ViewOutfit> collect = getViewOutfits(outfitList);
+        List<OutfitPostDto> collect = getOutfitPostDto(outfitList);
 
         model.addAttribute("memberId", memberId);
         model.addAttribute("outfitList", collect);
 
-        return "outfitList";
+        return "/outfitBoard";
     }
 
     @NotNull
-    private List<ViewOutfit> getViewOutfits(List<Outfit> outfitList) {
-        List<ViewOutfit> collect = outfitList.stream()
-                .map(o -> new ViewOutfit(o.getName(), o.getDescription(), o.getStyle()
+    private List<OutfitPostDto> getOutfitPostDto(List<Outfit> outfitList) {
+        List<OutfitPostDto> collect = outfitList.stream()
+                .map(o -> new OutfitPostDto(o.getPhoto().getId(), o.getName(), o.getDescription(), o.getStyle()
                         , clothesService.getName(o.getTop_id())
                         , clothesService.getName(o.getBottom_id())
                         , clothesService.getName(o.getOuterwear_id())
-                        , clothesService.getName(o.getShoe_id())))
-                .collect(Collectors.toList());
+                        , clothesService.getName(o.getShoe_id()))
+                ).collect(Collectors.toList());
         return collect;
     }
 

@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>코디 생성 폼</title>
+    <link rel="stylesheet" type="text/css" href="/css/addOutfit.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         // 페이지 로드 시 실행
@@ -32,7 +33,7 @@
 </head>
 <body>
 <h1>코디 생성</h1>
-<form th:action="@{'/outfit/create'}" method="post">
+<form th:action="@{'/outfit/create'}" method="post" enctype="multipart/form-data">
     <!-- member ID를 숨겨진 필드로 추가 -->
     <input type="hidden" id="memberId" name="memberId" th:value="${memberId}" />
     <div>
@@ -76,6 +77,13 @@
         <select id="outerwear_id" name="outerwear_id">
             <option value="">선택</option>
               <option th:each="clothes : ${outerList}" th:value="${clothes.id}" th:text="${clothes.name}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="shoes_id">신발 ID:</label>
+        <select id="shoes_id" name="shoes_id">
+            <option value="">선택</option>
+            <option th:each="clothes : ${shoesList}" th:value="${clothes.id}" th:text="${clothes.name}"></option>
         </select>
     </div>
     <h4>코디 사진 업로드</h4>

@@ -37,12 +37,18 @@ public class OutfitDataService {
     }
 
     @Transactional
-    public Long outfit(Long memberId, String name, String description, Style style, Long top, Long bottom, Long outer){
+    public Long outfit(Long memberId, String name, String description, Style style, Long top, Long bottom, Long shoe){
         Member member = memberDataRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
-        Outfit outfit = Outfit.creatOutfit(member, name, style, description, top, bottom, outer);
+        Outfit outfit = Outfit.creatOutfit(member, name, style, description, top, bottom, shoe);
         outfitDataRepository.save(outfit);
 
         return outfit.getId();
+    }
+
+    @Transactional
+    public void setOuter(Long outfitId, Long outerId){
+        Outfit outfit = outfitDataRepository.findById(outfitId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 코디입니다."));
+        outfit.setOuterwear_id(outerId);
     }
 
     @Transactional

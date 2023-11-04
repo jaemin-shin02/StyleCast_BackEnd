@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>마이 페이지</title>
+    <link rel="stylesheet" type="text/css" href="/css/mypage.css">
+    <div class="navbar">
+        <a th:href="@{/main}">Home</a>
+        <a th:href="@{/weather}">날씨</a>
+        <a th:href="@{/clothes/create}">Clothes Update</a>
+        <a th:href="@{/outfit/create}">Outfit Update</a>
+        <a th:href="@{/my/closet/all}">내 옷장</a>
+        <a th:href="@{/my/outfit/all}">내 코디</a>
+        <a th:href="@{/mypage}">마이페이지</a>
+        <a th:href="@{/logoutPage}">Logout</a>
+    </div>
+</head>
+<body>
+<h1>나의 정보</h1>
+<div>
+    <strong>닉네임:</strong>
+    <span th:text="${myPageDto.nickname}"></span>
+</div>
+<div>
+    <strong>이름:</strong>
+    <span th:text="${myPageDto.name}"></span>
+</div>
+<div>
+    <strong>생년월일:</strong>
+    <span th:text="${myPageDto.birthdate}"></span>
+</div>
+<div>
+    <strong>이메일:</strong>
+    <span th:text="${myPageDto.email}"></span>
+</div>
+<div>
+    <strong>성별:</strong>
+    <span th:text="${myPageDto.gender}"></span>
+</div>
+<div>
+    <strong>체중:</strong>
+    <span th:text="${myPageDto.weight}"></span>
+</div>
+<div>
+    <strong>키:</strong>
+    <span th:text="${myPageDto.height}"></span>
+</div>
+<div>
+    <strong>체형:</strong>
+    <span th:text="${myPageDto.figure}"></span>
+</div>
+<div>
+    <strong>운동 여부:</strong>
+    <span th:if="${myPageDto.work_out}">예</span>
+    <span th:unless="${myPageDto.work_out}">아니오</span>
+</div>
+<div>
+    <strong>선호하는 스타일:</strong>
+    <ul>
+        <li th:each="style : ${myPageDto.prefer_style}">
+            <span th:text="${style}"></span>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

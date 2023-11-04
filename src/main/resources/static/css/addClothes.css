@@ -1,0 +1,46 @@
+/* styles.css */
+
+/* 전체 폼 스타일링 */
+.clothes-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+/* 폼 그룹 스타일링 */
+.form-group {
+    margin-bottom: 10px;
+}
+
+/* 레이블 스타일링 */
+label {
+    display: block;
+    font-weight: bold;
+}
+
+/* 입력 필드 스타일링 */
+input[type="text"],
+select,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* 버튼 스타일링 */
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}

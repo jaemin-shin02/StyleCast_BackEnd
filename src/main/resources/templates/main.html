@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
@@ -9,8 +10,9 @@
     <a th:href="@{/weather}">날씨</a>
     <a th:href="@{/clothes/create}">Clothes Update</a>
     <a th:href="@{/outfit/create}">Outfit Update</a>
-    <a th:href="@{/clothes/all}">내 옷장</a>
-    <a th:href="@{/outfit/all}">내 코디</a>
+    <a th:href="@{/my/closet/all}">내 옷장</a>
+    <a th:href="@{/my/outfit/all}">내 코디</a>
+    <a th:href="@{/mypage}">마이페이지</a>
     <a th:href="@{/logoutPage}">Logout</a>
 </div>
 

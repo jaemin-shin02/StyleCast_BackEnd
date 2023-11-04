@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import toyproject.stylecast.domain.*;
 import toyproject.stylecast.domain.clothes.Category;
+import toyproject.stylecast.domain.geocode.Location;
 import toyproject.stylecast.dto.outfit.CreateOutfitRequest;
+import toyproject.stylecast.dto.outfit.OutfitDto;
 import toyproject.stylecast.dto.outfit.OutfitPostDto;
 import toyproject.stylecast.dto.outfit.ViewOutfit;
 import toyproject.stylecast.repository.data.FileRepository;
-import toyproject.stylecast.service.ClothesDataService;
-import toyproject.stylecast.service.FileService;
-import toyproject.stylecast.service.MemberDataService;
-import toyproject.stylecast.service.OutfitDataService;
+import toyproject.stylecast.service.*;
+import toyproject.stylecast.weather.WeatherService;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -35,6 +35,34 @@ public class OutfitController {
     private final ClothesDataService clothesService;
     private final OutfitDataService outfitService;
     private final FileService fileService;
+
+//    private final MemberDataService memberDataService;
+//    private final GeocodingService geocodingService;
+//    private final WeatherService weatherService;
+//
+//    @GetMapping("/main/weather")
+//    public String dayOutfit(Model model){
+//        Long memberId = getMemberId();
+//
+//        Outfit outfit = outfitService.recommendOneWithMember(memberId);
+//        OutfitPostDto outfitPostDto = new OutfitPostDto(outfit.getPhoto().getId(), outfit.getName(), outfit.getDescription(), outfit.getStyle()
+//                , clothesService.getName(outfit.getTop_id())
+//                , clothesService.getName(outfit.getBottom_id())
+//                , clothesService.getName(outfit.getOuterwear_id())
+//                , clothesService.getName(outfit.getShoe_id()));
+//
+//        Member member = memberDataService.findOne(memberId);
+//        String coordinates = geocodingService.getCoordinates(member.getLocationList().get(0));
+//        Location location = geocodingService.getLocation(coordinates);
+//
+//        WeatherData weatherData = weatherService.getWeatherData(location.getLat(), location.getLon());
+//
+//        model.addAttribute("memberId", memberId);
+//        model.addAttribute("outfitPostDto", outfitPostDto);
+//        model.addAttribute("weatherData", weatherData);
+//
+//        return "/subMain";
+//    }
 
     @GetMapping("/outfit/create")
     public String AddClothesPage(Model model){

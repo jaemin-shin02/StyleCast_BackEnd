@@ -1,13 +1,14 @@
 package toyproject.stylecast.repository.data;
 
-import toyproject.stylecast.dto.outfit.OutfitDto;
-import toyproject.stylecast.dto.outfit.OutfitSearchBasic;
-import toyproject.stylecast.dto.outfit.OutfitSearchCondition;
-import toyproject.stylecast.dto.outfit.OutfitSearchPersonal;
+import toyproject.stylecast.domain.Outfit;
+import toyproject.stylecast.dto.outfit.*;
 
 import java.util.List;
 
 public interface OutfitDataRepositoryCustom {
+
+    List<Outfit> RecommendOutfitDay(OutfitSearchMy condition);
+
     List<OutfitDto> RecommendOutfitBasic(OutfitSearchBasic condition);
 
     List<OutfitDto> RecommendOutfitByPersonalized(OutfitSearchPersonal condition);

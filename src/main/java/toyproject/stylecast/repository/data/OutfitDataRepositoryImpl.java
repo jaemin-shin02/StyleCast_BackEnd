@@ -29,6 +29,24 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
         this.memberDataRepository = memberDataRepository;
     }
 
+
+    @Override
+    public List<Outfit> RecommendOutfitDay(OutfitSearchMy condition) {
+        return queryFactory
+                .select(outfit)
+                .from(outfit)
+                .leftJoin(outfit.member, member)
+                .where(
+                        memberEq(condition.getMemberId()),
+                        weatherEq(condition.getWeather()),
+                        temperatureCmp(condition.getTemperature())
+                )
+                .orderBy(outfit.likes.desc())
+                .offset(0)
+                .limit(10)
+                .fetch();
+    }
+
     @Override
     public List<OutfitDto> RecommendOutfitBasic(OutfitSearchBasic condition) {
 
@@ -39,7 +57,8 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
                         outfit.style,
                         outfit.top_id,
                         outfit.bottom_id,
-                        outfit.outerwear_id
+                        outfit.outerwear_id,
+                        outfit.shoe_id
                 ))
                 .from(outfit)
                 .leftJoin(outfit.member, member)
@@ -63,7 +82,8 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
                         outfit.style,
                         outfit.top_id,
                         outfit.bottom_id,
-                        outfit.outerwear_id
+                        outfit.outerwear_id,
+                        outfit.shoe_id
                 ))
                 .from(outfit)
                 .leftJoin(outfit.member, member)
@@ -95,7 +115,8 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
                         outfit.style,
                         outfit.top_id,
                         outfit.bottom_id,
-                        outfit.outerwear_id
+                        outfit.outerwear_id,
+                        outfit.shoe_id
                 ))
                 .from(outfit)
                 .leftJoin(outfit.member, member)
@@ -117,6 +138,9 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
                 .fetch();
     }
 
+    private BooleanExpression memberEq(Long memberId) {
+        return memberId != null ? outfit.member.id.eq(memberId) :  null;
+    }
     private BooleanExpression weightGoe(Integer weightGoe) {
         return weightGoe != null ? outfit.member.profile.weight.goe(weightGoe) :  null;
     }

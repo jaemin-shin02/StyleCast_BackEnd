@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <div class="navbar">
+    <a th:href="@{/main}">Home</a>
+    <a th:href="@{/weather}">날씨</a>
+    <a th:href="@{/clothes/create}">Clothes Update</a>
+    <a th:href="@{/outfit/create}">Outfit Update</a>
+    <a th:href="@{/my/closet/all}">내 옷장</a>
+    <a th:href="@{/my/outfit/all}">내 코디</a>
+    <a th:href="@{/mypage}">마이페이지</a>
+    <a th:href="@{/logoutPage}">Logout</a>
+  </div>
+</head>
+<body>
+<div class="container">
+  <h1>날씨 정보</h1>
+  <div>
+    <img class="weather-icon" id="weather-icon" src="" alt="날씨 아이콘">
+  </div>
+  <p><strong id="city">도시</strong></p>
+  <p><span id="temperature">온도</span> °C</p>
+  <p><span id="description">날씨 상태</span></p>
+</div>
+
+<div th:each="${outfitPostDto}" class="clothes-item">
+  <img th:src="|/file/images/${outfitPostDto.photoId}|" width="150" height="150">
+  <p>이름: <span th:text="${outfitPostDto.name}"></span></p>
+  <p>스타일: <span th:text="${outfitPostDto.style}"></span></p>
+  <p>코디설명: <span th:text="${outfitPostDto.description}"></span></p>
+  <p>상의: <span th:text="${outfitPostDto.top}"></span></p>
+  <p>하의: <span th:text="${outfitPostDto.bottom}"></span></p>
+  <p>아우터: <span th:text="${outfitPostDto.outerwear}"></span></p>
+  <p>신발: <span th:text="${outfitPostDto.shoe}"></span></p>
+</div>
+
+<!-- JavaScript 코드를 추가하여 액세스 토큰을 가져와 서버로 GET 요청을 보냅니다 -->
+<script>
+  console.log("js 진행됨");
+  // 로컬 스토리지에서 액세스 토큰 가져오기
+  const accessToken = localStorage.getItem('accessToken');
+
+  console.log(accessToken);
+
+  // 액세스 토큰을 헤더에 추가
+  axios.defaults.headers.common['Authorization'] = `${accessToken}`;
+
+  // 서버로 GET 요청 보내기
+  axios.get('/test')
+          .then(response => {
+            // 요청 성공 시 처리
+            console.log(response.data);
+          })
+          .catch(error => {
+            // 요청 실패 시 처리
+            console.error(error);
+          });
+</script>
+<script th:inline="javascript">
+  /* 변수 초기화 */
+  var city = [[${weatherData.name}]];
+  var temperature = [[${weatherData.main.temp}]];
+  var description = [[${weatherData.weather[0].description}]];
+  var iconCode = [[${weatherData.weather[0].icon}]];
+
+  /* 아이콘 이미지 URL 구성 */
+  var iconUrl = 'http://openweathermap.org/img/wn/' + iconCode + '.png';
+
+  /* JavaScript 코드 */
+  document.getElementById('city').textContent = city;
+  document.getElementById('temperature').textContent = temperature + ' °C';
+  document.getElementById('description').textContent = description;
+  document.getElementById('weather-icon').src = iconUrl;
+  document.getElementById('weather-icon').alt = description;
+</script>
+</body>
+</html>

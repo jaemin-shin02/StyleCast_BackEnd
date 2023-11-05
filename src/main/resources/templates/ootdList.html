@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>옷 목록</title>
+  <link rel="stylesheet" type="text/css" href="/css/ootd.css"> <!-- CSS 파일 추가 -->
+  <title>코디 목록</title>
+  <div class="navbar">
+    <a th:href="@{/main}">Home</a>
+    <a th:href="@{/ootd}">데일리룩</a>
+  </div>
+</head>
+<body>
+<h1>데일리룩 게시판</h1>
+<div class="clothes-container">
+  <div th:each="ootd : ${ootdList}" class="ootd-item" th:attr="data-url=@{'/ootd/detail/' + ${ootd.id}}">
+    <img th:src="|/file/images/${ootd.photoId}|" width="150" height="150">
+    <p>닉네임: <span th:text="${ootd.nickname}"></span></p>
+    <p>코디명: <span th:text="${ootd.name}"></span></p>
+    <p>좋아요: <span th:text="${ootd.likes}"></span></p>
+  </div>
+</div>
+<script>
+  document.querySelectorAll('.ootd-item').forEach(function(item) {
+    item.addEventListener('click', function() {
+      var url = item.getAttribute('data-url');
+      if (url) {
+        window.location.href = url;
+      }
+    });
+  });
+</script>
+</body>
+</html>

@@ -3,6 +3,7 @@ package toyproject.stylecast.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import toyproject.stylecast.domain.*;
 import toyproject.stylecast.domain.clothes.Category;
 import toyproject.stylecast.domain.geocode.Location;
-import toyproject.stylecast.dto.outfit.CreateOutfitRequest;
-import toyproject.stylecast.dto.outfit.OutfitDto;
-import toyproject.stylecast.dto.outfit.OutfitPostDto;
-import toyproject.stylecast.dto.outfit.ViewOutfit;
+import toyproject.stylecast.dto.outfit.*;
 import toyproject.stylecast.repository.data.FileRepository;
 import toyproject.stylecast.service.*;
 import toyproject.stylecast.weather.WeatherService;
@@ -35,34 +33,6 @@ public class OutfitController {
     private final ClothesDataService clothesService;
     private final OutfitDataService outfitService;
     private final FileService fileService;
-
-//    private final MemberDataService memberDataService;
-//    private final GeocodingService geocodingService;
-//    private final WeatherService weatherService;
-//
-//    @GetMapping("/main/weather")
-//    public String dayOutfit(Model model){
-//        Long memberId = getMemberId();
-//
-//        Outfit outfit = outfitService.recommendOneWithMember(memberId);
-//        OutfitPostDto outfitPostDto = new OutfitPostDto(outfit.getPhoto().getId(), outfit.getName(), outfit.getDescription(), outfit.getStyle()
-//                , clothesService.getName(outfit.getTop_id())
-//                , clothesService.getName(outfit.getBottom_id())
-//                , clothesService.getName(outfit.getOuterwear_id())
-//                , clothesService.getName(outfit.getShoe_id()));
-//
-//        Member member = memberDataService.findOne(memberId);
-//        String coordinates = geocodingService.getCoordinates(member.getLocationList().get(0));
-//        Location location = geocodingService.getLocation(coordinates);
-//
-//        WeatherData weatherData = weatherService.getWeatherData(location.getLat(), location.getLon());
-//
-//        model.addAttribute("memberId", memberId);
-//        model.addAttribute("outfitPostDto", outfitPostDto);
-//        model.addAttribute("weatherData", weatherData);
-//
-//        return "/subMain";
-//    }
 
     @GetMapping("/outfit/create")
     public String AddClothesPage(Model model){
@@ -97,9 +67,12 @@ public class OutfitController {
         }
 
         outfitService.setPhoto(outfitId, photo);
+        outfitService.setSeason(outfitId, request.getSeason());
+        outfitService.setWeatherList(outfitId, request.getWeatherList());
 
         return "redirect:/main";
     }
+
 
     @GetMapping("/my/outfit/all")
     public String myOutfit(Model model){

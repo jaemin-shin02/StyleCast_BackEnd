@@ -3,10 +3,7 @@ package toyproject.stylecast.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import toyproject.stylecast.domain.FileInfo;
-import toyproject.stylecast.domain.Member;
-import toyproject.stylecast.domain.Outfit;
-import toyproject.stylecast.domain.Style;
+import toyproject.stylecast.domain.*;
 import toyproject.stylecast.domain.geocode.Location;
 import toyproject.stylecast.domain.recommendframe.Weather;
 import toyproject.stylecast.dto.outfit.OutfitDto;
@@ -57,6 +54,21 @@ public class OutfitDataService {
     public void setPhoto(Long outfitId, FileInfo photo){
         Outfit outfit = outfitDataRepository.findById(outfitId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 코디입니다."));
         outfit.setPhoto(photo);
+    }
+
+    @Transactional
+    public void setSeason(Long outfitId, Season season){
+        Outfit outfit = outfitDataRepository.findById(outfitId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 코디입니다."));
+        outfit.setSeason(season);
+    }
+    @Transactional
+    public void setWeatherList(Long outfitId, List<Weather> weatherList){
+        Outfit outfit = outfitDataRepository.findById(outfitId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 코디입니다."));
+        outfit.setWeatherList(weatherList);
+    }
+
+    public List<Outfit> findOotdList(){
+       return outfitDataRepository.ootdList();
     }
 
     public List<Outfit> findAllOutfit(){
@@ -143,6 +155,30 @@ public class OutfitDataService {
 
         return outfitDtoList;
     }
+
+    @Transactional
+    public int Like(Long outfitId, Long memberId) {
+        // 코디를 찾아서 좋아요 수 증가 처리
+        Outfit outfit = outfitDataRepository.findById(outfitId).orElse(null);
+        if (outfit != null && !outfit.getLikeUser().contains(memberId)) {
+            outfit.addLike();
+            outfit.addUser(memberId);
+            return outfit.getLikes();
+        }
+        return outfit.getLikes();
+    }
+    @Transactional
+    public int unLike(Long outfitId, Long memberId) {
+        // 코디를 찾아서 좋아요 수 증가 처리
+        Outfit outfit = outfitDataRepository.findById(outfitId).orElse(null);
+        if (outfit != null && outfit.getLikeUser().contains(memberId)) {
+            outfit.unLike();
+            outfit.deleteUser(memberId);
+            return outfit.getLikes();
+        }
+        return outfit.getLikes();
+    }
+
 
     @Transactional
     public void updateName(Long outfitId, String name){

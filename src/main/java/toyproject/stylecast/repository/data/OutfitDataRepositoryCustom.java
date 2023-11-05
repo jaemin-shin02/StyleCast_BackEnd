@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface OutfitDataRepositoryCustom {
 
+    List<Outfit> ootdList();
+
     List<Outfit> RecommendOutfitDay(OutfitSearchMy condition);
 
     List<OutfitDto> RecommendOutfitBasic(OutfitSearchBasic condition);

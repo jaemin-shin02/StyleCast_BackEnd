@@ -31,6 +31,17 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
 
 
     @Override
+    public List<Outfit> ootdList() {
+        return queryFactory
+                .selectFrom(outfit)
+                .leftJoin(outfit.member, member)
+                .orderBy(outfit.id.desc())
+                .offset(0)
+                .limit(20)
+                .fetch();
+    }
+
+    @Override
     public List<Outfit> RecommendOutfitDay(OutfitSearchMy condition) {
         return queryFactory
                 .select(outfit)
@@ -215,6 +226,7 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
             skirtIdList.addAll(clothesDataRepository.SelectBySkirt(Skirt.미디스커트));
             skirtIdList.addAll(clothesDataRepository.SelectBySkirt(Skirt.롱스커트));
         } else if (temperature > 17) {
+            topIdList.addAll(clothesDataRepository.SelectByTop(Top.긴팔));
             topIdList.addAll(clothesDataRepository.SelectByTop(Top.맨투맨));
             topIdList.addAll(clothesDataRepository.SelectByTop(Top.후드티));
             topIdList.addAll(clothesDataRepository.SelectByTop(Top.니트));

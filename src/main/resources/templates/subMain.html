@@ -1,39 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+  <link rel="stylesheet" type="text/css" href="/css/subMain.css">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <div class="navbar">
     <a th:href="@{/main}">Home</a>
-    <a th:href="@{/weather}">날씨</a>
-    <a th:href="@{/clothes/create}">Clothes Update</a>
-    <a th:href="@{/outfit/create}">Outfit Update</a>
-    <a th:href="@{/my/closet/all}">내 옷장</a>
-    <a th:href="@{/my/outfit/all}">내 코디</a>
-    <a th:href="@{/mypage}">마이페이지</a>
-    <a th:href="@{/logoutPage}">Logout</a>
   </div>
 </head>
 <body>
 <div class="container">
-  <h1>날씨 정보</h1>
-  <div>
-    <img class="weather-icon" id="weather-icon" src="" alt="날씨 아이콘">
+  <div class="weather-box">
+    <h1>날씨 정보</h1>
+    <div>
+      <img class="weather-icon" id="weather-icon" src="" alt="날씨 아이콘">
+    </div>
+    <p><strong id="city">도시</strong></p>
+    <p><span id="temperature">온도</span> °C</p>
+    <p><span id="description">날씨 상태</span></p>
   </div>
-  <p><strong id="city">도시</strong></p>
-  <p><span id="temperature">온도</span> °C</p>
-  <p><span id="description">날씨 상태</span></p>
-</div>
-
-<div th:each="${outfitPostDto}" class="clothes-item">
-  <img th:src="|/file/images/${outfitPostDto.photoId}|" width="150" height="150">
-  <p>이름: <span th:text="${outfitPostDto.name}"></span></p>
-  <p>스타일: <span th:text="${outfitPostDto.style}"></span></p>
-  <p>코디설명: <span th:text="${outfitPostDto.description}"></span></p>
-  <p>상의: <span th:text="${outfitPostDto.top}"></span></p>
-  <p>하의: <span th:text="${outfitPostDto.bottom}"></span></p>
-  <p>아우터: <span th:text="${outfitPostDto.outerwear}"></span></p>
-  <p>신발: <span th:text="${outfitPostDto.shoe}"></span></p>
+  <div class="outfit-box">
+    <h1>오늘의 코디 추천</h1>
+    <div class="clothes-item">
+      <img th:src="|/file/images/${outfitPostDto.photoId}|" width="150" height="150">
+      <p>이름: <span th:text="${outfitPostDto.name}"></span></p>
+      <p>스타일: <span th:text="${outfitPostDto.style}"></span></p>
+      <p>코디설명: <span th:text="${outfitPostDto.description}"></span></p>
+      <p>상의: <span th:text="${outfitPostDto.top}"></span></p>
+      <p>하의: <span th:text="${outfitPostDto.bottom}"></span></p>
+      <p>아우터: <span th:text="${outfitPostDto.outerwear}"></span></p>
+      <p>신발: <span th:text="${outfitPostDto.shoe}"></span></p>
+    </div>
+  </div>
 </div>
 
 <!-- JavaScript 코드를 추가하여 액세스 토큰을 가져와 서버로 GET 요청을 보냅니다 -->

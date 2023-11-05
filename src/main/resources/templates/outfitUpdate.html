@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>코디 생성 폼</title>
+    <div class="navbar">
+        <a th:href="@{/main}">Home</a>
+    </div>
     <link rel="stylesheet" type="text/css" href="/css/addOutfit.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
@@ -57,6 +60,34 @@
             <option value="스트릿">스트릿</option>
             <option value="고프코어">고프코어</option>
         </select>
+    </div>
+    <div>
+        <label for="season">계절:</label>
+        <select id="season" name="season" th:required="required">
+            <option value="봄">봄</option>
+            <option value="여름">여름</option>
+            <option value="가을">가을</option>
+            <option value="겨울">겨울</option>
+        </select>
+    </div>
+    <div>
+        <div>
+            <strong>날씨 선택</strong>
+        </div>
+        <div class="weather-checkbox">
+            <label for="weather_thunderstorm">천둥우</label>
+            <input type="checkbox" id="weather_thunderstorm" name="weatherList" value="Thunderstorm">
+            <label for="weather_drizzle">이슬비</label>
+            <input type="checkbox" id="weather_drizzle" name="weatherList" value="Drizzle">
+            <label for="weather_rain">강한 비</label>
+            <input type="checkbox" id="weather_rain" name="weatherList" value="Rain">
+            <label for="weather_snow">눈</label>
+            <input type="checkbox" id="weather_snow" name="weatherList" value="Snow">
+            <label for="weather_clear">맑음</label>
+            <input type="checkbox" id="weather_clear" name="weatherList" value="Clear">
+            <label for="weather_clouds">흐림</label>
+            <input type="checkbox" id="weather_clouds" name="weatherList" value="Clouds">
+        </div>
     </div>
     <div>
         <label for="top_id">상의 ID:</label>

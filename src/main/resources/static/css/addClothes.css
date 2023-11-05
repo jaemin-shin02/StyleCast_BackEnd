@@ -1,5 +1,26 @@
 /* styles.css */
 
+/* 네비게이션 바 스타일 */
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+
 /* 전체 폼 스타일링 */
 .clothes-form {
     max-width: 400px;

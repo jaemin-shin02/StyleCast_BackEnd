@@ -52,11 +52,22 @@ public class Outfit {
 
     private Boolean bookmark;
     private int likes;
+
+    @ElementCollection(targetClass = Long.class)
+    private List<Long> likeUser = new ArrayList<>();
+
     public void addLike(){
         this.likes++;
     }
     public void unLike(){
         this.likes--;
+    }
+
+    public void addUser(Long memberId){
+        likeUser.add(memberId);
+    }
+    public void deleteUser(Long memberId){
+        likeUser.remove(memberId);
     }
 
     //==연관관계 메서드==//

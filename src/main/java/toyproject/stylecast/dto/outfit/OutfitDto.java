@@ -12,6 +12,8 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 public class OutfitDto {
+    private Long id;
+    private Long photoId;
     private String name;
     private String description; //코디 설명
 
@@ -23,7 +25,9 @@ public class OutfitDto {
     private Long shoes_id;
 
     @QueryProjection
-    public OutfitDto(String name, String description, Style style, Long top_id, Long bottom_id, Long outerwear_id, Long shoes_id) {
+    public OutfitDto(Long id, Long photoId, String name, String description, Style style, Long top_id, Long bottom_id, Long outerwear_id, Long shoes_id) {
+        this.id = id;
+        this.photoId = photoId;
         this.name = name;
         this.description = description;
         this.style = style;

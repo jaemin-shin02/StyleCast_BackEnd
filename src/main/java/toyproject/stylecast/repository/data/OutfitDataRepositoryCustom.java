@@ -11,9 +11,9 @@ public interface OutfitDataRepositoryCustom {
 
     List<Outfit> RecommendOutfitDay(OutfitSearchMy condition);
 
-    List<OutfitDto> RecommendOutfitBasic(OutfitSearchBasic condition);
+    List<Outfit> RecommendOutfitBasic(OutfitSearchBasic condition);
 
-    List<OutfitDto> RecommendOutfitByPersonalized(OutfitSearchPersonal condition);
+    List<Outfit> RecommendOutfitByPersonalized(OutfitSearchPersonal condition);
 
     List<OutfitDto> RecommendOutfitBySimilarThing(OutfitSearchCondition condition);
 

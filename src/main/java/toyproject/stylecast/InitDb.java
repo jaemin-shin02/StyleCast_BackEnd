@@ -15,11 +15,12 @@ public class InitDb {
 
     private final InitService initService;
 
-    @PostConstruct
-    public void init(){
-        initService.dbInit1();
-        initService.dbInit2();
-    }
+//    @PostConstruct
+//    public void init(){
+//        initService.dbInit1();
+//        initService.dbInit2();
+//        initService.dbInit3();
+//    }
 
     @Component
     @Transactional
@@ -32,52 +33,44 @@ public class InitDb {
 
 
         public void dbInit1(){
-            Member member = Member.creatMember("Shin", "우주최강재민","20020220", "sour_jam0220@naver.com", "woals0220!");
+            Member member = Member.creatMember("신재민", "우주최강재민","20020220", "sour_jam0220@naver.com", "woals0220!");
             Profile profile = Profile.creatProfile(member, Gender.MEN, 73, 174, Figure.STANDARD, true);
             profile.addStyle(Style.스트릿);
+            profile.addStyle(Style.포멀);
+            profile.addStyle(Style.댄디);
+
+            Long memberId = memberDataService.join(member);
+            Long profileId = profileService.save(profile);
+            memberDataService.setProfile(memberId, profileId);
+
+            memberDataService.addLocation(memberId, "서울시");
+        }
+
+        public void dbInit2(){
+            Member member = Member.creatMember("설유진", "우주최강유진","19990518", "youjin@naver.com", "sksmsdbwls!");
+            Profile profile = Profile.creatProfile(member, Gender.WOMEN, 48, 161, Figure.STANDARD, false);
+            profile.addStyle(Style.캐주얼);
+            profile.addStyle(Style.걸리시);
             profile.addStyle(Style.포멀);
 
             Long memberId = memberDataService.join(member);
             Long profileId = profileService.save(profile);
             memberDataService.setProfile(memberId, profileId);
 
-//            Long clothesId1 = clothesDataService.clothes(memberId, "무지반팔", Category.상의, "검정", Season.여름);
-//            Clothes clothes1 = clothesDataService.findClothes(clothesId1);
-//            Long clothesId2 = clothesDataService.clothes(memberId, "카고팬츠", Category.바지, "검정", Season.여름);
-//            Clothes clothes2 = clothesDataService.findClothes(clothesId2);
-//            Long clothesId3 = clothesDataService.clothes(memberId, "된장포스", Category.신발, "된장", Season.여름);
-//            Clothes clothes3 = clothesDataService.findClothes(clothesId3);
-//
-//            Outfit outfit = Outfit.creatOutfit(member, "기본코디1", Style.스트릿, "꾸안꾸", clothesId1, clothesId2, clothesId3);
-//            Long outfitId = outfitDataService.outfit(outfit);
-//            Outfit clothes = outfitDataService.findOutfit(outfitId);
-
-            memberDataService.addLocation(memberId, "서울시 중구");
+            memberDataService.addLocation(memberId,"서울시");
         }
-
-        public void dbInit2(){
-            Member member = Member.creatMember("Sul", "안유진","20020611", "youjin@naver.com", "sulwha");
-            Profile profile = Profile.creatProfile(member, Gender.WOMEN, 48, 161, Figure.STANDARD, true);
-            profile.addStyle(Style.스트릿);
+        public void dbInit3(){
+            Member member = Member.creatMember("박예은", "pye.eun","20021011", "pye.eun@naver.com", "sksmsdPdms!");
+            Profile profile = Profile.creatProfile(member, Gender.WOMEN, 46, 158, Figure.STANDARD, false);
+            profile.addStyle(Style.캐주얼);
             profile.addStyle(Style.걸리시);
+            profile.addStyle(Style.스트릿);
 
             Long memberId = memberDataService.join(member);
             Long profileId = profileService.save(profile);
             memberDataService.setProfile(memberId, profileId);
 
-//            Long clothesId1 = clothesDataService.clothes(memberId, "프린팅반팔", Category.상의, "검정", Season.여름);
-//            Clothes clothes1 = clothesDataService.findClothes(clothesId1);
-//            Long clothesId2 = clothesDataService.clothes(memberId, "와이드블랙진", Category.바지, "검정", Season.여름);
-//            Clothes clothes2 = clothesDataService.findClothes(clothesId2);
-//            Long clothesId3 = clothesDataService.clothes(memberId, "된장포스", Category.신발, "된장", Season.여름);
-//            Clothes clothes3 = clothesDataService.findClothes(clothesId3);
-//
-//            Outfit outfit = Outfit.creatOutfit(member, "기본코디2", Style.스트릿, "꾸안꾸", clothesId1, clothesId2, clothesId3);
-//            Long outfitId = outfitDataService.outfit(outfit);
-//
-//            Outfit clothes = outfitDataService.findOutfit(outfitId);
-
-            memberDataService.addLocation(memberId,"부산");
+            memberDataService.addLocation(memberId,"서울시");
         }
     }
 

@@ -3,7 +3,7 @@ package toyproject.stylecast.repository.data;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import toyproject.stylecast.domain.*;
-import toyproject.stylecast.domain.clothes.Outer;
+import toyproject.stylecast.domain.clothes.Outwear;
 import toyproject.stylecast.domain.clothes.Pants;
 import toyproject.stylecast.domain.clothes.Skirt;
 import toyproject.stylecast.domain.clothes.Top;
@@ -223,35 +223,35 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
             pantsIdList.addAll(clothesDataRepository.SelectByPants(Pants.조거팬츠));
             pantsIdList.addAll(clothesDataRepository.SelectByPants(Pants.트래이닝팬츠));
             skirtIdList.addAll(clothesDataRepository.SelectBySkirt(Skirt.롱스커트));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.후드집업));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.트래이닝재킷));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.후드집업));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.트래이닝재킷));
         } else if (temperature > 12) {
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.가디건));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.나일론재킷));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.래더재킷));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.베스트));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.블레이저));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.뽀글이));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.스타디움재킷));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.헌팅재킷));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.블루종));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.트러커));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.항공점퍼));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.가디건));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.나일론재킷));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.래더재킷));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.베스트));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.블레이저));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.뽀글이));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.스타디움재킷));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.헌팅재킷));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.블루종));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.트러커));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.항공점퍼));
         } else if (temperature > 9) {
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.항공점퍼));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.코트));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.항공점퍼));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.코트));
         } else if (temperature > 5) {
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.항공점퍼));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.코트));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.퍼));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.무스탕));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.항공점퍼));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.코트));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.퍼));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.무스탕));
         } else {
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.항공점퍼));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.코트));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.퍼));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.무스탕));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.롱패딩));
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outer.숏패딩));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.항공점퍼));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.코트));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.퍼));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.무스탕));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.롱패딩));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.숏패딩));
         }
 
         BooleanExpression pantsOrSkirt = outfit.bottom_id.in(pantsIdList).or(outfit.bottom_id.in(skirtIdList));

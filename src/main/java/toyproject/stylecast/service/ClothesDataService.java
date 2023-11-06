@@ -53,9 +53,9 @@ public class ClothesDataService {
         clothes.setPants(pants);
     }
     @Transactional
-    public void setOuter(Long clothesId, Outer outer){
+    public void setOuter(Long clothesId, Outwear outwear){
         Clothes clothes = clothesDataRepository.findById(clothesId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 옷입니다."));
-        clothes.setOuter(outer);
+        clothes.setOutwear(outwear);
     }
     @Transactional
     public void setShoes(Long clothesId, Shoes shoes){

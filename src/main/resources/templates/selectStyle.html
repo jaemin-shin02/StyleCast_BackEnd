@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>스타일 선택</title>
+  <!-- CSS 파일 추가 -->
+  <link rel="stylesheet" type="text/css" href="/css/selectStyle.css">
+</head>
+<body>
+<div class="navbar">
+  <a th:href="@{/main}">Home</a>
+  <a th:href="@{/recommend/basic}">코디 추천</a>
+  <a th:href="@{/recommend/style/select}">스타일별 추천</a>
+</div>
+<h1>스타일 선택</h1>
+<form action="/recommend/style" method="get">
+  <label for="style">스타일 선택:</label>
+  <select name="style" id="style">
+    <option value="캐주얼">캐주얼</option>
+    <option value="시크">시크</option>
+    <option value="댄디">댄디</option>
+    <option value="포멀">포멀</option>
+    <option value="걸리시">걸리시</option>
+    <option value="레트로">레트로</option>
+    <option value="스포츠">스포츠</option>
+    <option value="스트릿">스트릿</option>
+    <option value="고프코어">고프코어</option>
+  </select>
+  <input type="submit" value="스타일 선택">
+</form>
+</body>
+</html>

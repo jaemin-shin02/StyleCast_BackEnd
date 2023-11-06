@@ -59,18 +59,10 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
     }
 
     @Override
-    public List<OutfitDto> RecommendOutfitBasic(OutfitSearchBasic condition) {
+    public List<Outfit> RecommendOutfitBasic(OutfitSearchBasic condition) {
 
         return queryFactory
-                .select(new QOutfitDto(
-                        outfit.name,
-                        outfit.description,
-                        outfit.style,
-                        outfit.top_id,
-                        outfit.bottom_id,
-                        outfit.outerwear_id,
-                        outfit.shoe_id
-                ))
+                .select(outfit)
                 .from(outfit)
                 .leftJoin(outfit.member, member)
                 .where(
@@ -85,17 +77,9 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
     }
 
     @Override
-    public List<OutfitDto> RecommendOutfitByPersonalized(OutfitSearchPersonal condition) {
+    public List<Outfit> RecommendOutfitByPersonalized(OutfitSearchPersonal condition) {
         return queryFactory
-                .select(new  QOutfitDto(
-                        outfit.name,
-                        outfit.description,
-                        outfit.style,
-                        outfit.top_id,
-                        outfit.bottom_id,
-                        outfit.outerwear_id,
-                        outfit.shoe_id
-                ))
+                .select(outfit)
                 .from(outfit)
                 .leftJoin(outfit.member, member)
                 .leftJoin(member.profile, profile)
@@ -121,6 +105,8 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
     public List<OutfitDto> RecommendOutfitBySimilarThing(OutfitSearchCondition condition) {
         return queryFactory
                 .select(new  QOutfitDto(
+                        outfit.id,
+                        outfit.photo.id,
                         outfit.name,
                         outfit.description,
                         outfit.style,

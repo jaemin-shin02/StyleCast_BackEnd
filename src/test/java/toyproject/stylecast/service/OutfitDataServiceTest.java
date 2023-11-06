@@ -117,11 +117,11 @@ class OutfitDataServiceTest {
         }
 
         //when
-        List<OutfitDto> outfitDtoList = outfitDataService.recommendOutfitBasic(member1.getId());
-        System.out.println("outfitDtoList.size() = " + outfitDtoList.size());
-        for (OutfitDto outfitDto : outfitDtoList) {
-            System.out.println("outfitDto = " + outfitDto);
-        }
+//        List<OutfitDto> outfitDtoList = outfitDataService.recommendOutfitBasic(member1.getId());
+//        System.out.println("outfitDtoList.size() = " + outfitDtoList.size());
+//        for (OutfitDto outfitDto : outfitDtoList) {
+//            System.out.println("outfitDto = " + outfitDto);
+//        }
     }
 
     @Test
@@ -201,10 +201,10 @@ class OutfitDataServiceTest {
         }
 
         //when
-        List<OutfitDto> outfitDtoList = outfitDataService.recommendOutfitByStyle(member1.getId(), Style.스트릿);
-        System.out.println("outfitDtoList.size() = " + outfitDtoList.size());
-        for (OutfitDto outfitDto : outfitDtoList) {
-            System.out.println("outfitDto = " + outfitDto);
-        }
+//        List<OutfitDto> outfitDtoList = outfitDataService.recommendOutfitByStyle(member1.getId(), Style.스트릿);
+//        System.out.println("outfitDtoList.size() = " + outfitDtoList.size());
+//        for (OutfitDto outfitDto : outfitDtoList) {
+//            System.out.println("outfitDto = " + outfitDto);
+//        }
     }
 }

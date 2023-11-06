@@ -29,7 +29,7 @@ public class OutfitApiController {
     public Result clothesList(@PathVariable("id") Long memberId){
         List<Outfit> outfitList = outfitDataService.findOutfitByMember(memberId);
         List<OutfitDto> collect = outfitList.stream()
-                .map(o -> new OutfitDto(o.getName(), o.getDescription(), o.getStyle(), o.getTop_id(), o.getBottom_id(), o.getOuterwear_id(), o.getShoe_id()))
+                .map(o -> new OutfitDto(o.getId(), o.getPhoto().getId(), o.getName(), o.getDescription(), o.getStyle(), o.getTop_id(), o.getBottom_id(), o.getOuterwear_id(), o.getShoe_id()))
                 .collect(Collectors.toList());
 
         return new Result(collect.size(), collect);
@@ -47,7 +47,7 @@ public class OutfitApiController {
     @PostMapping("/api/outfit/recommend/basic/{id}")
     public Result recommendByWeather(@PathVariable("id") Long memberId){
 
-        List<OutfitDto> outfitDtoList = outfitDataService.recommendOutfitBasic(memberId);
+        List<Outfit> outfitDtoList = outfitDataService.recommendOutfitBasic(memberId);
 
         return new Result(outfitDtoList.size(), outfitDtoList);
     }
@@ -55,7 +55,7 @@ public class OutfitApiController {
     @PostMapping("/api/outfit/recommend/style/{id}")
     public Result recommendByStyle(@RequestBody @Valid OutfitSearchCondition request, @PathVariable("id") Long memberId){
 
-        List<OutfitDto> outfitDtoList = outfitDataService.recommendOutfitByStyle(memberId, request.getStyle());
+        List<Outfit> outfitDtoList = outfitDataService.recommendOutfitByStyle(memberId, request.getStyle());
 
         return new Result(outfitDtoList.size(), outfitDtoList);
     }

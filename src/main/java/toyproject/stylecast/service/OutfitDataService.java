@@ -116,7 +116,7 @@ public class OutfitDataService {
         return outfitDtoList.get(randomIndex);
     }
 
-    public List<OutfitDto> recommendOutfitBasic(Long memberId){
+    public List<Outfit> recommendOutfitBasic(Long memberId){
         Member member = memberDataRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
         String coordinates = geocodingService.getCoordinates(member.getLocationList().get(0));
         Location location = geocodingService.getLocation(coordinates);
@@ -129,7 +129,7 @@ public class OutfitDataService {
         return outfitDataRepository.RecommendOutfitBasic(condition);
     }
 
-    public List<OutfitDto> recommendOutfitByStyle(Long memberId, Style style){
+    public List<Outfit> recommendOutfitByStyle(Long memberId, Style style){
         Member member = memberDataRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
         String coordinates = geocodingService.getCoordinates(member.getLocationList().get(0));
         Location location = geocodingService.getLocation(coordinates);
@@ -150,7 +150,7 @@ public class OutfitDataService {
             outfitList.addAll(member.getOutfitList());
         }
         List<OutfitDto> outfitDtoList = outfitList.stream()
-                .map(o -> new OutfitDto(o.getName(), o.getDescription(), o.getStyle(), o.getTop_id(), o.getBottom_id(), o.getOuterwear_id(), o.getShoe_id()))
+                .map(o -> new OutfitDto(o.getId(), o.getPhoto().getId(), o.getName(), o.getDescription(), o.getStyle(), o.getTop_id(), o.getBottom_id(), o.getOuterwear_id(), o.getShoe_id()))
                 .collect(Collectors.toList());
 
         return outfitDtoList;

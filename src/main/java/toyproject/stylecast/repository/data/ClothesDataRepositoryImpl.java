@@ -63,11 +63,11 @@ public class ClothesDataRepositoryImpl implements ClothesDataRepositoryCustom{
     }
 
     @Override
-    public List<Long> SelectByOuter(Outer outer) {
+    public List<Long> SelectByOuter(Outwear outwear) {
         return queryFactory
                 .select(clothes.id)
                 .from(clothes)
-                .where(clothes.outer.eq(outer))
+                .where(clothes.outwear.eq(outwear))
                 .fetch();
     }
 }

@@ -4,7 +4,6 @@ import lombok.Data;
 import toyproject.stylecast.domain.Profile;
 import toyproject.stylecast.domain.Style;
 import toyproject.stylecast.domain.clothes.*;
-import toyproject.stylecast.domain.recommendframe.Temperature;
 import toyproject.stylecast.domain.recommendframe.Weather;
 
 @Data
@@ -21,7 +20,7 @@ public class OutfitSearchCondition {
     private Category category;
 
     private Onepiece onepiece;
-    private Outer outer;
+    private Outwear outwear;
     private Pants pants;
     private Shoes shoes;
     private Skirt skirt;

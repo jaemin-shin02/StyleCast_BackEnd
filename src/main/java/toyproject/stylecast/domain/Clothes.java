@@ -40,7 +40,7 @@ public class Clothes {
     @Enumerated(EnumType.STRING)
     private Shoes shoes;
     @Enumerated(EnumType.STRING)
-    private Outer outer;
+    private Outwear outwear;
     private String color;
     @Enumerated(EnumType.STRING)
     private Season season;

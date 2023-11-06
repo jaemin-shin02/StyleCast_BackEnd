@@ -1,19 +1,32 @@
 spring:
+#  datasource:
+#    url: jdbc:h2:tcp://localhost/~/stylecast
+#    username: sa
+#    password:
+#    driverClassName: org.h2.Driver
   datasource:
-    url: jdbc:h2:tcp://localhost/~/stylecast
-    username: sa
-    password:
-    driverClassName: org.h2.Driver
+    url: jdbc:mysql://localhost:3306/stylecast
+    username: root
+    password: Insanejam0220!
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddlAuto: create
+      ddlAuto: update
     properties:
       hibernate:
         #        show_sql: true
         format_sql: true
         default_batch_fetch_size: 100
     open-in-view: true
+#    jpa:
+#      hibernate:
+#        ddl-auto: create
+#      properties:
+#        hibernate:
+#          dialect: org.hibernate.dialect.MySQL5Dialect
+#          show_sql: true
+
 
   mail:
     host: smtp.gmail.com

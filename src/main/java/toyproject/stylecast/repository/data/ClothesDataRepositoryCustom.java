@@ -10,5 +10,5 @@ public interface ClothesDataRepositoryCustom {
     List<Long> SelectBySkirt(Skirt skirt);
     List<Long> SelectByOnepiece(Onepiece onepiece);
     List<Long> SelectByShoes(Shoes shoes);
-    List<Long> SelectByOuter(Outer outer);
+    List<Long> SelectByOuter(Outwear outwear);
 }

@@ -5,9 +5,6 @@ import org.springframework.web.multipart.MultipartFile;
 import toyproject.stylecast.domain.Season;
 import toyproject.stylecast.domain.clothes.*;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 
 @Data
 public class CreateClothesRequest {
@@ -23,5 +20,5 @@ public class CreateClothesRequest {
     private Skirt skirt;
     private Onepiece onepiece;
     private Shoes shoes;
-    private Outer outer;
+    private Outwear outwear;
 }

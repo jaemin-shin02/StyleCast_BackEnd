@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import toyproject.stylecast.domain.*;
 import toyproject.stylecast.domain.clothes.*;
 import toyproject.stylecast.domain.recommendframe.Weather;
-import toyproject.stylecast.dto.outfit.OutfitDto;
 import toyproject.stylecast.repository.data.ClothesDataRepository;
 import toyproject.stylecast.repository.data.MemberDataRepository;
 
@@ -83,15 +82,15 @@ class OutfitDataServiceTest {
                 clothes1.setTop(Top.후드티);
                 clothes2.setPants(Pants.데님팬츠);
                 clothes3.setPants(Pants.나일론팬츠);
-                clothes4.setOuter(Outer.블루종);
-                clothes5.setOuter(Outer.항공점퍼);
+                clothes4.setOutwear(Outwear.블루종);
+                clothes5.setOutwear(Outwear.항공점퍼);
             }else {
                 clothes.setTop(Top.반팔);
                 clothes1.setTop(Top.긴팔);
                 clothes2.setPants(Pants.숏팬츠);
                 clothes3.setPants(Pants.슬랙스);
-                clothes4.setOuter(Outer.래더재킷);
-                clothes5.setOuter(Outer.헌팅재킷);
+                clothes4.setOutwear(Outwear.래더재킷);
+                clothes5.setOutwear(Outwear.헌팅재킷);
             }
             Outfit outfit2 = outfitDataService.findOutfit(outfit);
             Outfit outfit3 = outfitDataService.findOutfit(outfit1);
@@ -164,15 +163,15 @@ class OutfitDataServiceTest {
                 clothes1.setTop(Top.후드티);
                 clothes2.setPants(Pants.데님팬츠);
                 clothes3.setSkirt(Skirt.미니스커트);
-                clothes4.setOuter(Outer.블루종);
-                clothes5.setOuter(Outer.항공점퍼);
+                clothes4.setOutwear(Outwear.블루종);
+                clothes5.setOutwear(Outwear.항공점퍼);
             }else {
                 clothes.setTop(Top.맨투맨);
                 clothes1.setTop(Top.긴팔);
                 clothes2.setPants(Pants.숏팬츠);
                 clothes3.setSkirt(Skirt.롱스커트);
-                clothes4.setOuter(Outer.래더재킷);
-                clothes5.setOuter(Outer.헌팅재킷);
+                clothes4.setOutwear(Outwear.래더재킷);
+                clothes5.setOutwear(Outwear.헌팅재킷);
             }
             Outfit outfit2 = outfitDataService.findOutfit(outfit);
             Outfit outfit3 = outfitDataService.findOutfit(outfit1);

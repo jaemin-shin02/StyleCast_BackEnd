@@ -2,9 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>의류 생성 폼</title>
-    <div class="navbar">
-        <a th:href="@{/main}">Home</a>
-    </div>
     <link rel="stylesheet" type="text/css" href="/css/addClothes.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
@@ -35,154 +32,155 @@
     </script>
 </head>
 <body>
-<h1>의류 생성</h1>
-<form th:action="@{'/clothes/create'}" method="post" enctype="multipart/form-data">
-    <!-- member ID를 숨겨진 필드로 추가 -->
-    <input type="hidden" id="memberId" name="memberId" th:value="${memberId}"/>
-    <div>
-        <label for="name">의류 이름:</label>
-        <input type="text" id="name" name="name" th:required="required">
-    </div>
-    <div>
-        <label for="category">주 카테고리:</label>
-        <select id="category" name="category" th:required="required">
-            <option value="상의">상의</option>
-            <option value="바지">바지</option>
-            <option value="아우터">아우터</option>
-            <option value="신발">신발</option>
-            <option value="원피스">원피스</option>
-            <option value="스커트">스커트</option>
-        </select>
-    </div>
-    <div id="subCategoryDiv">
-        <label for="subCategory">서브 카테고리:</label>
-        <select id="subCategory" name="subCategory" th:required="required">
-            <!-- 서브 카테고리 옵션은 JavaScript로 동적으로 추가 -->
-        </select>
-    </div>
-    <div>
-        <label for="color">색상:</label>
-        <input type="text" id="color" name="color" th:required="required">
-    </div>
-    <div>
-        <label for="season">계절:</label>
-        <select id="season" name="season" th:required="required">
-            <option value="봄">봄</option>
-            <option value="여름">여름</option>
-            <option value="가을">가을</option>
-            <option value="겨울">겨울</option>
-        </select>
-    </div>
-    <h4>의류 사진 업로드</h4>
-    <input type="file" name="file">
-    <div>
-        <input type="submit" value="의류 생성">
-    </div>
-</form>
+<div class="container">
+    <a th:href="@{/main}">뒤로가기</a>
+    <h1>의류 생성</h1>
+    <form th:action="@{'/clothes/create'}" method="post" enctype="multipart/form-data">
+        <!-- member ID를 숨겨진 필드로 추가 -->
+        <input type="hidden" id="memberId" name="memberId" th:value="${memberId}"/>
+        <div>
+            <label for="name">의류 이름:</label>
+            <input type="text" id="name" name="name" th:required="required">
+        </div>
+        <div>
+            <label for="category">주 카테고리:</label>
+            <select id="category" name="category" th:required="required">
+                <option value="상의">상의</option>
+                <option value="바지">바지</option>
+                <option value="아우터">아우터</option>
+                <option value="신발">신발</option>
+                <option value="원피스">원피스</option>
+                <option value="스커트">스커트</option>
+            </select>
+        </div>
+        <div id="subCategoryDiv">
+            <label for="subCategory">서브 카테고리:</label>
+            <select id="subCategory" name="subCategory" th:required="required">
+                <!-- 서브 카테고리 옵션은 JavaScript로 동적으로 추가 -->
+            </select>
+        </div>
+        <div>
+            <label for="color">색상:</label>
+            <input type="text" id="color" name="color" th:required="required">
+        </div>
+        <div>
+            <label for="season">계절:</label>
+            <select id="season" name="season" th:required="required">
+                <option value="봄">봄</option>
+                <option value="여름">여름</option>
+                <option value="가을">가을</option>
+                <option value="겨울">겨울</option>
+            </select>
+        </div>
+        <h4>의류 사진 업로드</h4>
+        <input type="file" name="file">
+        <div>
+            <input type="submit" value="의류 생성">
+        </div>
+    </form>
 
-<script>
-    // 주 카테고리 선택 셀렉트 박스
-    const categorySelect = document.getElementById('category');
+    <script>
+        // 주 카테고리 선택 셀렉트 박스
+        const categorySelect = document.getElementById('category');
 
-    // 서브 카테고리 선택 셀렉트 박스
-    const subCategorySelect = document.getElementById('subCategory');
+        // 서브 카테고리 선택 셀렉트 박스
+        const subCategorySelect = document.getElementById('subCategory');
 
-    // 주 카테고리 선택이 변경될 때 호출되는 함수
-    categorySelect.addEventListener('change', function() {
-        // 새로운 id 생성
-        var newId = categorySelect.value;
-        switch (categorySelect.value) {
-            case '상의':
-                newId = "top";
-                break;
-            case '바지':
-                newId = "pants";
-                break;
-            case '아우터':
-                newId = "outwear";
-                break;
-            case '신발':
-                newId = "shoes";
-                break;
-            case '원피스':
-                newId = "onepiece";
-                break;
-            case '스커트':
-                newId = "skirt";
-                break;
-        }
+        // 주 카테고리 선택이 변경될 때 호출되는 함수
+        categorySelect.addEventListener('change', function() {
+            // 새로운 id 생성
+            var newId = categorySelect.value;
+            switch (categorySelect.value) {
+                case '상의':
+                    newId = "top";
+                    break;
+                case '바지':
+                    newId = "pants";
+                    break;
+                case '아우터':
+                    newId = "outwear";
+                    break;
+                case '신발':
+                    newId = "shoes";
+                    break;
+                case '원피스':
+                    newId = "onepiece";
+                    break;
+                case '스커트':
+                    newId = "skirt";
+                    break;
+            }
 
-        // 서브 카테고리 선택 상자의 id 속성을 변경
-        subCategorySelect.setAttribute('id', newId);
-        subCategorySelect.setAttribute('name', newId);
-        console.log("아이디변경확인", newId);
-    });
+            // 서브 카테고리 선택 상자의 id 속성을 변경
+            subCategorySelect.setAttribute('id', newId);
+            subCategorySelect.setAttribute('name', newId);
+            console.log("아이디변경확인", newId);
+        });
 
-    // 주 카테고리 선택이 변경될 때 호출되는 함수
-    categorySelect.addEventListener('change', function() {
-        // 서브 카테고리 셀렉트 박스를 초기화
-        subCategorySelect.innerHTML = '';
+        // 주 카테고리 선택이 변경될 때 호출되는 함수
+        categorySelect.addEventListener('change', function() {
+            // 서브 카테고리 셀렉트 박스를 초기화
+            subCategorySelect.innerHTML = '';
 
-        // 선택한 주 카테고리에 따라 서브 카테고리 옵션을 동적으로 생성
-        switch (categorySelect.value) {
-            case '상의':
-                const topsOptions = ["니트", "카라티", "후드티", "맨투맨", "반팔", "긴팔", "민소매", "셔츠", "블라우스"]; // 원하는 옵션으로 대체
-                topsOptions.forEach(option => {
-                    const opt = document.createElement('option');
-                    opt.value = option;
-                    opt.textContent = option;
-                    subCategorySelect.appendChild(opt);
-                });
-                break;
-            case '바지':
-                const pantsOptions = ["데님팬츠", "숏팬츠", "코튼팬츠", "레깅스", "슬랙스", "트래이닝팬츠", "조거팬츠", "나일론팬츠"]; // 원하는 옵션으로 대체
-                pantsOptions.forEach(option => {
-                    const opt = document.createElement('option');
-                    opt.value = option;
-                    opt.textContent = option;
-                    subCategorySelect.appendChild(opt);
-                });
-                break;
-            case '아우터':
-                const outwearsOptions = ["후드집업", "코트", "블루종", "항공점퍼", "래더재킷", "무스탕", "퍼", "트러커", "블레이저", "가디건", "뽀글이", "롱패딩", "숏패딩", "베스트", "트래이닝재킷", "스타디움재킷", "헌팅재킷", "나일론재킷"]; // 원하는 옵션으로 대체
-                outwearsOptions.forEach(option => {
-                    const opt = document.createElement('option');
-                    opt.value = option;
-                    opt.textContent = option;
-                    subCategorySelect.appendChild(opt);
-                });
-                break;
-            case '신발':
-                const shoesOptions = ["캔버스", "단화", "더비슈즈", "로퍼", "힐", "플랫슈즈", "블로퍼", "샌들", "슬리퍼", "부츠", "모카신"]; // 원하는 옵션으로 대체
-                shoesOptions.forEach(option => {
-                    const opt = document.createElement('option');
-                    opt.value = option;
-                    opt.textContent = option;
-                    subCategorySelect.appendChild(opt);
-                });
-                break;
-            case '원피스':
-                const onepiceOptions = ["미니원피스", "미디원피스", "맥시원피스"]; // 원하는 옵션으로 대체
-                onepiceOptions.forEach(option => {
-                    const opt = document.createElement('option');
-                    opt.value = option;
-                    opt.textContent = option;
-                    subCategorySelect.appendChild(opt);
-                });
-                break;
-            case '스커트':
-                const skirtsOptions = ["미니스커트", "미디스커트", "롱스커트"]; // 원하는 옵션으로 대체
-                skirtsOptions.forEach(option => {
-                    const opt = document.createElement('option');
-                    opt.value = option;
-                    opt.textContent = option;
-                    subCategorySelect.appendChild(opt);
-                });
-                break;
-
-        }
-    });
-</script>
-
+            // 선택한 주 카테고리에 따라 서브 카테고리 옵션을 동적으로 생성
+            switch (categorySelect.value) {
+                case '상의':
+                    const topsOptions = ["니트", "카라티", "후드티", "맨투맨", "반팔", "긴팔", "민소매", "셔츠", "블라우스"]; // 원하는 옵션으로 대체
+                    topsOptions.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option;
+                        opt.textContent = option;
+                        subCategorySelect.appendChild(opt);
+                    });
+                    break;
+                case '바지':
+                    const pantsOptions = ["데님팬츠", "숏팬츠", "코튼팬츠", "레깅스", "슬랙스", "트래이닝팬츠", "조거팬츠", "나일론팬츠"]; // 원하는 옵션으로 대체
+                    pantsOptions.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option;
+                        opt.textContent = option;
+                        subCategorySelect.appendChild(opt);
+                    });
+                    break;
+                case '아우터':
+                    const outwearsOptions = ["후드집업", "코트", "블루종", "항공점퍼", "래더재킷", "무스탕", "퍼", "트러커", "블레이저", "가디건", "뽀글이", "롱패딩", "숏패딩", "베스트", "트래이닝재킷", "스타디움재킷", "헌팅재킷", "나일론재킷"]; // 원하는 옵션으로 대체
+                    outwearsOptions.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option;
+                        opt.textContent = option;
+                        subCategorySelect.appendChild(opt);
+                    });
+                    break;
+                case '신발':
+                    const shoesOptions = ["캔버스", "단화", "더비슈즈", "로퍼", "힐", "플랫슈즈", "블로퍼", "샌들", "슬리퍼", "부츠", "모카신"]; // 원하는 옵션으로 대체
+                    shoesOptions.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option;
+                        opt.textContent = option;
+                        subCategorySelect.appendChild(opt);
+                    });
+                    break;
+                case '원피스':
+                    const onepiceOptions = ["미니원피스", "미디원피스", "맥시원피스"]; // 원하는 옵션으로 대체
+                    onepiceOptions.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option;
+                        opt.textContent = option;
+                        subCategorySelect.appendChild(opt);
+                    });
+                    break;
+                case '스커트':
+                    const skirtsOptions = ["미니스커트", "미디스커트", "롱스커트"]; // 원하는 옵션으로 대체
+                    skirtsOptions.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option;
+                        opt.textContent = option;
+                        subCategorySelect.appendChild(opt);
+                    });
+                    break;
+            }
+        });
+    </script>
+</div>
 </body>
 </html>

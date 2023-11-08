@@ -1,38 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>옷 목록</title>
-  <link rel="stylesheet" type="text/css" href="/css/board.css"> <!-- CSS 파일 추가 -->
   <title>코디 목록</title>
-  <div class="navbar">
-    <a th:href="@{/main}">Home</a>
-    <a th:href="@{/my/outfit/all}">전체</a>
-    <a th:href="@{/my/outfit/casual}">캐주얼</a>
-    <a th:href="@{/my/outfit/chic}">시크</a>
-    <a th:href="@{/my/outfit/dandy}">댄디</a>
-    <a th:href="@{/my/outfit/formal}">포멀</a>
-    <a th:href="@{/my/outfit/girlish}">걸리시</a>
-    <a th:href="@{/my/outfit/retro}">레트로</a>
-    <a th:href="@{/my/outfit/sporty}">스포츠</a>
-    <a th:href="@{/my/outfit/street}">스트릿</a>
-    <a th:href="@{/my/outfit/gorpcore}">고프코어</a>
-  </div>
+  <link rel="stylesheet" type="text/css" href="/css/board.css">
 </head>
 <body>
-<h1>내 옷 목록</h1>
+<div class="navbar">
+  <a th:href="@{/main}">Home</a>
+  <a th:href="@{/my/outfit/all}">전체</a>
+  <a th:href="@{/my/outfit/casual}">캐주얼</a>
+  <a th:href="@{/my/outfit/chic}">시크</a>
+  <a th:href="@{/my/outfit/dandy}">댄디</a>
+  <a th:href="@{/my/outfit/formal}">포멀</a>
+  <a th:href="@{/my/outfit/girlish}">걸리시</a>
+  <a th:href="@{/my/outfit/retro}">레트로</a>
+  <a th:href="@{/my/outfit/sporty}">스포츠</a>
+  <a th:href="@{/my/outfit/street}">스트릿</a>
+  <a th:href="@{/my/outfit/gorpcore}">고프코어</a>
+</div>
+<h1>내 코디 목록</h1>
 <div class="clothes-container">
   <div th:each="outfit : ${outfitList}" class="clothes-item">
-    <img th:src="|/file/images/${outfit.photoId}|" width="150" height="150">
-    <p>이름: <span th:text="${outfit.name}"></span></p>
-    <p>스타일: <span th:text="${outfit.style}"></span></p>
-    <p>코디설명: <span th:text="${outfit.description}"></span></p>
-    <p>상의: <span th:text="${outfit.top}"></span></p>
-    <p>하의: <span th:text="${outfit.bottom}"></span></p>
-    <p>아우터: <span th:text="${outfit.outerwear}"></span></p>
-    <p>신발: <span th:text="${outfit.shoe}"></span></p>
+    <img th:src="|/file/images/${outfit.photoId}|" alt="코디 이미지">
+    <p class="info">이름: <span th:text="${outfit.name}"></span></p>
+    <p class="info">스타일: <span th:text="${outfit.style}"></span></p>
+    <p class="info">코디설명: <span th:text="${outfit.description}"></span></p>
+    <p class="info">상의: <span th:text="${outfit.top}"></span></p>
+    <p class="info">하의: <span th:text="${outfit.bottom}"></span></p>
+    <p class="info">아우터: <span th:text="${outfit.outerwear}"></span></p>
+    <p class="info">신발: <span th:text="${outfit.shoe}"></span></p>
   </div>
 </div>
-
-<a th:href="@{/outfit/create}">코디 생성</a>
+<a class="create-outfit" th:href="@{/outfit/create}">코디 생성</a>
 </body>
 </html>

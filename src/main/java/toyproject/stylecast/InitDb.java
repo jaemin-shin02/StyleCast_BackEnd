@@ -14,7 +14,6 @@ import javax.annotation.PostConstruct;
 public class InitDb {
 
     private final InitService initService;
-
 //    @PostConstruct
 //    public void init(){
 //        initService.dbInit1();

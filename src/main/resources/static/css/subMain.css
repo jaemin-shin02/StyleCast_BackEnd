@@ -1,4 +1,12 @@
-/* 네비게이션 바 스타일 */
+/* subMain.css */
+
+/* 공통 스타일 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 .navbar {
     background-color: #333;
     overflow: hidden;
@@ -6,7 +14,7 @@
 
 .navbar a {
     float: left;
-    display: block;
+    font-size: 16px;
     color: white;
     text-align: center;
     padding: 14px 16px;
@@ -18,54 +26,48 @@
     color: black;
 }
 
-/* 공통 스타일 */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+/* 페이지별 스타일 */
+.weather-box, .basic-box, .outfit-box {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 10px;
     padding: 20px;
-}
-
-/* 날씨 정보 스타일 */
-.weather-box {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
+    margin: 10px; /* 위아래 간격 추가 */
+    display: inline-block;
+    vertical-align: top;
+    width: calc(33.33% - 20px); /* 각 div의 가로 크기를 33.33%로 설정하고 간격 제외한 너비 계산 */
     text-align: center;
-    margin-right: 20px;
+    box-sizing: border-box; /* 너비와 여백 포함하여 상자 크기 설정 */
 }
 
-.weather-icon {
-    width: 100px;
-    height: 100px;
+.weather-icon, .clothes-item img {
+    max-width: 150px;
+    max-height: 150px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
 }
 
-/* 코디 추천 스타일 */
-.outfit-box {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
+.city, .basic-box h1, .outfit-box h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.temperature {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ff5733; /* 수정 가능 */
+    margin-top: 10px;
+}
+
+.description, .clothes-item p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.ootd-title {
+    font-size: 28px;
+    margin: 20px 0;
     text-align: center;
 }
-
-.clothes-item {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.clothes-item img {
-    width: 150px;
-    height: 150px;
-}
-
-/* 추가적인 스타일링을 원하실 경우 여기에 더 추가하세요. */

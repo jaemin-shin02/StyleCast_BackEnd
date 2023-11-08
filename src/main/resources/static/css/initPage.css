@@ -1,45 +1,41 @@
-/* styles.css */
+/* initPage.css */
 
-/* 전체 페이지 스타일링 */
-body {
-    font-family: Arial, sans-serif;
+/* 홈 페이지 컨테이너 스타일 */
+.container {
+    max-width: 500px;
+    margin: 0 auto;
     text-align: center;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
-}
-
-/* 헤더 스타일링 */
-.header {
-    background-color: #007bff;
-    color: #fff;
     padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* 로그아웃 버튼 스타일링 */
-.logout-button {
-    background-color: #dc3545;
-    color: #fff;
+/* 제목 스타일 */
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #007BFF;
+}
+
+/* 로그아웃 및 로그인/회원가입 버튼 스타일 */
+button, a {
+    display: inline-block;
     padding: 10px 20px;
+    font-size: 18px;
+    margin: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.logout-button:hover {
-    background-color: #c82333;
-}
-
-/* 로그인 및 회원가입 링크 스타일링 */
-.login-link,
-.join-link {
     text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-    margin: 10px;
+    color: #fff;
 }
 
-.login-link:hover,
-.join-link:hover {
-    text-decoration: underline;
+button {
+    background-color: #dc3545; /* 빨간색 */
+}
+
+a {
+    background-color: #007BFF; /* 파란색 */
 }

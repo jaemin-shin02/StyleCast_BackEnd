@@ -36,7 +36,7 @@ public class PublicOutfitController {
     private final GeocodingService geocodingService;
     private final WeatherService weatherService;
 
-    @GetMapping("/main/weather")
+    @GetMapping("/main")
     public String dayOutfit(Model model){
         Long memberId = getMemberId();
 
@@ -55,7 +55,11 @@ public class PublicOutfitController {
 
         WeatherData weatherData = weatherService.getWeatherData(location.getLat(), location.getLon());
 
+        float temp = weatherData.getMain().getTemp();
+        OutfitPostDto basic = outfitService.OutfitByTemperature(temp);
+
         model.addAttribute("memberId", memberId);
+        model.addAttribute("initOutfit", basic);
         model.addAttribute("weatherData", weatherData);
 
         return "/subMain";

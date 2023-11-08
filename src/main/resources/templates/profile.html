@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>새로운 프로필 생성</title>
+    <link rel="stylesheet" type="text/css" href="/css/setprofile.css">
+</head>
+<body>
+<div class="container">
+    <a th:href="@{/mypage}">뒤로가기</a>
+    <h1>새로운 프로필 생성</h1>
+
+    <form th:action="@{/member/profile}" th:object="${profileForm}" method="post">
+        <div class="form-group">
+            <label>성별:</label>
+            <select th:field="*{gender}">
+                <option value="MEN">남성</option>
+                <option value="WOMEN">여성</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>체중:</label>
+            <input type="text" th:field="*{weight}">
+        </div>
+
+        <div class="form-group">
+            <label>키:</label>
+            <input type="text" th:field="*{height}">
+        </div>
+
+        <div class="form-group">
+            <label>체형:</label>
+            <select th:field="*{figure}">
+                <option value="SLIM">날씬</option>
+                <option value="STANDARD">보통</option>
+                <option value="MUSCULAR">근육질</option>
+                <option value="CHUBBY">통통</option>
+                <!-- 다른 체형 옵션들 추가 -->
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>운동 여부:</label>
+            <input type="checkbox" th:field="*{work_out}">
+        </div>
+
+        <div class="form-group">
+            <label>스타일:</label>
+            <div th:each="style : ${styles}">
+                <input type="checkbox" th:field="*{prefer_style}" th:value="${style}" th:id="'style-' + ${style}"/>
+                <label th:for="'style-' + ${style}" th:text="${style}"></label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit">프로필 생성</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

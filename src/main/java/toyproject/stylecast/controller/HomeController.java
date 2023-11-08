@@ -18,7 +18,7 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("/main")
+    @GetMapping("/start")
     public String main(Model model){
         return "main";
     }

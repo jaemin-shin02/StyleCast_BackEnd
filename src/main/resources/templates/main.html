@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+    <style>
+        /* 스타일 추가 */
+        .navbar {
+            text-align: center; /* 링크 가운데 정렬 */
+        }
+
+        .navbar a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff; /* 배경색 설정 */
+            color: #fff; /* 글자색 설정 */
+            text-decoration: none;
+            border-radius: 5px; /* 모서리를 둥글게 만듦 */
+            transition: background-color 0.3s; /* 마우스 오버 효과를 위한 전환 설정 */
+        }
+
+        .navbar a:hover {
+            background-color: #0056b3; /* 마우스 오버 시 배경색 변경 */
+        }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <div class="navbar">
-    <a th:href="@{/main}">Home</a>
-    <a th:href="@{/weather}">날씨</a>
-    <a th:href="@{/main/weather}">날씨 코디</a>
-    <a th:href="@{/recommend/basic}">코디 추천</a>
-    <a th:href="@{/ootd}">데일리룩</a>
-    <a th:href="@{/clothes/create}">Clothes Update</a>
-    <a th:href="@{/outfit/create}">Outfit Update</a>
-    <a th:href="@{/my/closet/all}">내 옷장</a>
-    <a th:href="@{/my/outfit/all}">내 코디</a>
-    <a th:href="@{/mypage}">마이페이지</a>
-    <a th:href="@{/logoutPage}">Logout</a>
+    <a th:href="@{/main}">시작하기</a>
 </div>
 
 <!-- JavaScript 코드를 추가하여 액세스 토큰을 가져와 서버로 GET 요청을 보냅니다 -->

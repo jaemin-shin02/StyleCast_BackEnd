@@ -15,14 +15,19 @@ import toyproject.stylecast.auth.JwtTokenProvider;
 import toyproject.stylecast.auth.mail.MailService;
 import toyproject.stylecast.domain.Member;
 import toyproject.stylecast.domain.Profile;
+import toyproject.stylecast.domain.Style;
 import toyproject.stylecast.domain.Token;
+import toyproject.stylecast.dto.member.CreateMemberProfileDto;
 import toyproject.stylecast.dto.member.CreateMemberRequest;
 import toyproject.stylecast.dto.member.MyPageDto;
 import toyproject.stylecast.repository.data.MemberDataRepository;
 import toyproject.stylecast.service.MemberDataService;
+import toyproject.stylecast.service.ProfileService;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -32,6 +37,7 @@ public class MemberController {
     private final JwtTokenProvider jwtTokenProvider;
     private final MemberDataService memberDataService;
     private final MemberDataRepository memberDataRepository;
+    private final ProfileService profileService;
     private final JwtService jwtService;
 
     private final PasswordEncoder passwordEncoder;
@@ -67,8 +73,9 @@ public class MemberController {
         Member member = Member.creatMember(request.getName(), request.getNickname(), request.getBirthdate(), request.getEmail(), request.getPassword2());
 
         memberDataService.join(member);
+        memberDataService.addLocation(member.getId(),"서울시");
 
-        return "redirect:/joinPage/success";
+        return "redirect:/home";
     }
 
     @PostMapping("/joinPage/admin")
@@ -115,15 +122,6 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/joinPage/success")
-    public String joinSuccess(){
-        return "success";
-    }
-    @GetMapping("/joinPage/failure")
-    public String joinFailure(){
-        return "failure";
-    }
-
     @GetMapping("/login")
     public String LoginPage(Model model, HttpSession session){
 
@@ -166,7 +164,32 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/mypage")
+    @GetMapping("/member/profile")
+    public String showCreateProfilePage(Model model) {
+        CreateMemberProfileDto profileForm = new CreateMemberProfileDto();
+        model.addAttribute("profileForm", profileForm);
+
+        // 스타일 목록을 모델에 추가
+        List<String> styles = Arrays.asList("캐주얼", "시크", "댄디", "포멀", "걸리시", "레트로", "스포츠", "스트릿", "고프코어");
+        model.addAttribute("styles", styles);
+
+        return "/profile";
+    }
+    @PostMapping("/member/profile")
+    public String serProfile(@Valid CreateMemberProfileDto request){
+        Long memberId = getMemberId();
+        Member member = memberDataService.findOne(memberId);
+        Profile profile = Profile.creatProfile(member, request.getGender(), request.getWeight(), request.getHeight(), request.getFigure(), request.getWork_out());
+        for (Style style : request.getPrefer_style()) {
+            profile.addStyle(style);
+        }
+        Long profileId = profileService.save(profile);
+        memberDataService.setProfile(memberId, profileId);
+
+        return "redirect:/mypage";
+    }
+
+    @GetMapping( "/mypage")
     public String myPage(Model model){
         Long memberId = getMemberId();
         Member member = memberDataService.findOne(memberId);

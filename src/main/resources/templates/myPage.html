@@ -15,51 +15,56 @@
     </div>
 </head>
 <body>
-<h1>나의 정보</h1>
-<div>
-    <strong>닉네임:</strong>
-    <span th:text="${myPageDto.nickname}"></span>
-</div>
-<div>
-    <strong>이름:</strong>
-    <span th:text="${myPageDto.name}"></span>
-</div>
-<div>
-    <strong>생년월일:</strong>
-    <span th:text="${myPageDto.birthdate}"></span>
-</div>
-<div>
-    <strong>이메일:</strong>
-    <span th:text="${myPageDto.email}"></span>
-</div>
-<div>
-    <strong>성별:</strong>
-    <span th:text="${myPageDto.gender}"></span>
-</div>
-<div>
-    <strong>체중:</strong>
-    <span th:text="${myPageDto.weight}"></span>
-</div>
-<div>
-    <strong>키:</strong>
-    <span th:text="${myPageDto.height}"></span>
-</div>
-<div>
-    <strong>체형:</strong>
-    <span th:text="${myPageDto.figure}"></span>
-</div>
-<div>
-    <strong>운동 여부:</strong>
-    <span th:if="${myPageDto.work_out}">예</span>
-    <span th:unless="${myPageDto.work_out}">아니오</span>
-</div>
-<div>
-    <strong>선호하는 스타일:</strong>
-    <ul>
-        <li th:each="style : ${myPageDto.prefer_style}">
-            <span th:text="${style}"></span>
-        </li>
-    </ul>
+<div class="container">
+    <h1>나의 정보</h1>
+    <div class="profile-details">
+        <div>
+            <strong>닉네임:</strong>
+            <span th:text="${myPageDto.nickname}"></span>
+        </div>
+        <div>
+            <strong>이름:</strong>
+            <span th:text="${myPageDto.name}"></span>
+        </div>
+        <div>
+            <strong>생년월일:</strong>
+            <span th:text="${myPageDto.birthdate}"></span>
+        </div>
+        <div>
+            <strong>이메일:</strong>
+            <span th:text="${myPageDto.email}"></span>
+        </div>
+        <div>
+            <strong>성별:</strong>
+            <span th:text="${myPageDto.gender}"></span>
+        </div>
+        <div>
+            <strong>체중:</strong>
+            <span th:text="${myPageDto.weight}"></span>
+        </div>
+        <div>
+            <strong>키:</strong>
+            <span th:text="${myPageDto.height}"></span>
+        </div>
+        <div>
+            <strong>체형:</strong>
+            <span th:text="${myPageDto.figure}"></span>
+        </div>
+        <div>
+            <strong>운동 여부:</strong>
+            <span th:if="${myPageDto.work_out}">예</span>
+            <span th:unless="${myPageDto.work_out}">아니오</span>
+        </div>
+        <div>
+            <strong>선호하는 스타일:</strong>
+            <ul>
+                <li th:each="style : ${myPageDto.prefer_style}">
+                    <span th:text="${style}"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <a class="profile-link" th:href="@{/member/profile}">프로필 재설정</a>
 </div>
 </body>
 </html>

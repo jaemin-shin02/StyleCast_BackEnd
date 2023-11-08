@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
   <title>메인 페이지</title>
   <link rel="stylesheet" type="text/css" href="/css/initPage.css">
 </head>
 <body>
-<h1>Style Cast</h1>
-<div th:if="${#request.isUserInRole('USER')}">
-  <form action="/logout" method="post">
-    <button type="submit">로그아웃</button>
-  </form>
+<div class="container">
+  <h1>Style Cast</h1>
+  <div th:if="${#request.isUserInRole('USER')}">
+    <form action="/logout" method="post">
+      <button type="submit">로그아웃</button>
+    </form>
+  </div>
+  <div th:unless="${#request.isUserInRole('USER')}">
+    <a th:href="@{'/login'}">로그인</a>
+    <a th:href="@{'/join'}">회원가입</a>
+  </div>
 </div>
-<div th:unless="${#request.isUserInRole('USER')}">
-  <a th:href="@{'/login'}">로그인</a>
-  <a th:href="@{'/join'}">회원가입</a>
-</div>
-
 </body>
 </html>

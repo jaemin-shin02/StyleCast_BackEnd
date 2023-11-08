@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>옷 목록</title>
-  <link rel="stylesheet" type="text/css" href="/css/ootd.css"> <!-- CSS 파일 추가 -->
+  <link rel="stylesheet" type="text/css" href="/css/recommend.css"> <!-- CSS 파일 추가 -->
   <title>코디 목록</title>
   <div class="navbar">
     <a th:href="@{/main}">Home</a>
@@ -13,7 +13,7 @@
 </head>
 <body>
 <h1>코디 추천</h1>
-<div class="clothes-container">
+<div class="clothes-container" th:if="${recommendList != null and !recommendList.isEmpty()}">
   <div th:each="outfit : ${recommendList}" class="ootd-item" th:attr="data-url=@{'/ootd/detail/' + ${outfit.id}}">
     <img th:src="|/file/images/${outfit.photoId}|" width="150" height="150">
     <p>닉네임: <span th:text="${outfit.nickname}"></span></p>
@@ -21,9 +21,12 @@
     <p>좋아요: <span th:text="${outfit.likes}"></span></p>
   </div>
 </div>
+<div th:if="${recommendList == null or recommendList.isEmpty()}">
+  <p>조건을 만족하는 코디가 없습니다.</p>
+</div>
 <script>
-  document.querySelectorAll('.ootd-item').forEach(function(item) {
-    item.addEventListener('click', function() {
+  document.querySelectorAll('.ootd-item').forEach(function (item) {
+    item.addEventListener('click', function () {
       var url = item.getAttribute('data-url');
       if (url) {
         window.location.href = url;

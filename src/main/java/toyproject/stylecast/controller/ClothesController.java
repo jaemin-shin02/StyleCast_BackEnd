@@ -96,7 +96,7 @@ public class ClothesController {
 
         return "/clothesBoard";
     }
-    @GetMapping("/my/closet/outer")
+    @GetMapping("/my/closet/outwear")
     public String viewOuter(Model model){
         Long memberId = getMemberId();
 

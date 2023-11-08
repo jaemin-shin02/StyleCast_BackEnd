@@ -2,39 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>코디 상세 정보</title>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/css/detailOotd.css"> <!-- CSS 파일 추가 -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <div class="navbar">
     <a th:href="@{/main}">Home</a>
     <a th:href="@{/ootd}">데일리룩</a>
   </div>
 </head>
 <body>
-<h1>코디 상세 정보</h1>
-<div class="ootd-detail">
-  <img th:src="|/file/images/${outfitDetail.photoId}|" width="300" height="300">
-  <!-- 이 코드는 Thymeleaf 템플릿으로 outfitId를 클라이언트에 렌더링합니다. -->
-  <span id="outfitId" th:text="${outfitId}"></span>
-  <p>닉네임: <span th:text="${outfitDetail.nickname}"></span></p>
-  <p>코디명: <span th:text="${outfitDetail.name}"></span></p>
-  <p>스타일: <span th:text="${outfitDetail.style}"></span></p>
-  <p>코디 설명: <span th:text="${outfitDetail.description}"></span></p>
-  <p>상의: <span th:text="${outfitDetail.top}"></span></p>
-  <p>하의: <span th:text="${outfitDetail.bottom}"></span></p>
-  <p>아우터: <span th:text="${outfitDetail.outerwear}"></span></p>
-  <p>신발: <span th:text="${outfitDetail.shoe}"></span></p>
-  <p>계절: <span th:text="${outfitDetail.season}"></span></p>
-  <p>추천 날씨:
-    <span th:if="${outfitDetail.weatherList}"> <!-- weatherList가 null이 아니고 비어 있지 않은 경우에만 출력 -->
+<div class="container">
+  <a th:href="@{/ootd}">뒤로가기</a>
+  <h1 class="ootd-title">코디 상세 정보</h1>
+  <div class="ootd-detail">
+    <img class="ootd-image" th:src="|/file/images/${outfitDetail.photoId}|" alt="코디 이미지">
+    <div class="ootd-info">
+      <span id="outfitId" th:text="${outfitId}"></span>
+      <p class="ootd-nickname">닉네임: <span th:text="${outfitDetail.nickname}"></span></p>
+      <p class="ootd-name">코디명: <span th:text="${outfitDetail.name}"></span></p>
+      <p class="ootd-style">스타일: <span th:text="${outfitDetail.style}"></span></p>
+      <p class="ootd-description">코디 설명: <span th:text="${outfitDetail.description}"></span></p>
+      <p class="ootd-top">상의: <span th:text="${outfitDetail.top}"></span></p>
+      <p class="ootd-bottom">하의: <span th:text="${outfitDetail.bottom}"></span></p>
+      <p class="ootd-outerwear">아우터: <span th:text="${outfitDetail.outerwear}"></span></p>
+      <p class="ootd-shoe">신발: <span th:text="${outfitDetail.shoe}"></span></p>
+      <p class="ootd-season">계절: <span th:text="${outfitDetail.season}"></span></p>
+      <p class="ootd-weather">추천 날씨: <span th:if="${outfitDetail.weatherList}">
         <span th:each="weather, iterStat : ${outfitDetail.weatherList}">
-            <span th:text="${weather}"></span>
-            <span th:if="${!iterStat.last}">, </span> <!-- 현재 요소가 마지막 요소가 아닌 경우에만 쉼표 출력 -->
+          <span th:text="${weather}"></span>
+          <span th:if="${!iterStat.last}">, </span>
         </span>
-    </span>
-  </p>
-  <p>좋아요: <span id="likeCount" th:text="${outfitDetail.likes}"></span></p>
-  <button id="likeButton" data-outfit-id="${outfitIdLong}">좋아요</button>
-  <button id="unlikeButton" data-outfit-id="${outfitIdLong}">좋아요 취소</button>
+      </span></p>
+    </div>
+    <div class="ootd-like">
+      <p class="ootd-likes">좋아요: <span id="likeCount" th:text="${outfitDetail.likes}"></span></p>
+      <button class="ootd-like-button" id="likeButton" data-outfit-id="${outfitIdLong}">좋아요</button>
+      <button class="ootd-unlike-button" id="unlikeButton" data-outfit-id="${outfitIdLong}">좋아요 취소</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -68,6 +72,5 @@
             });
   });
 </script>
-
 </body>
 </html>

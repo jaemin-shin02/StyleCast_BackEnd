@@ -68,7 +68,7 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
                 .where(
                         weatherEq(condition.getWeather()),
                         temperatureCmp(condition.getTemperature()),
-                        outfit.likes.goe(10)
+                        outfit.likes.goe(2)
                 )
                 .orderBy(outfit.likes.desc())
                 .offset(0)
@@ -92,7 +92,7 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
                         workOutEq(condition.getProfile().getWork_out()),
                         genderEq(condition.getProfile().getGender()),
                         styleEq(condition.getStyle()),
-                        outfit.likes.goe(10)
+                        outfit.likes.goe(2)
                 )
                 .orderBy(outfit.likes.desc())
                 .offset(0)
@@ -127,7 +127,7 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
                         workOutEq(condition.getProfile().getWork_out()),
                         genderEq(condition.getProfile().getGender()),
                         preferStyleIn(condition.getStyle()),
-                        outfit.likes.goe(10)
+                        outfit.likes.goe(2)
                 )
                 .orderBy(outfit.likes.desc())
                 .offset(0)
@@ -225,7 +225,7 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
             skirtIdList.addAll(clothesDataRepository.SelectBySkirt(Skirt.롱스커트));
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.후드집업));
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.트래이닝재킷));
-        } else if (temperature > 12) {
+        } else if (temperature > 8) {
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.가디건));
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.나일론재킷));
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.래더재킷));
@@ -237,10 +237,10 @@ public class OutfitDataRepositoryImpl implements OutfitDataRepositoryCustom{
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.블루종));
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.트러커));
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.항공점퍼));
-        } else if (temperature > 9) {
-            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.항공점퍼));
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.코트));
         } else if (temperature > 5) {
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.나일론재킷));
+            outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.스타디움재킷));
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.항공점퍼));
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.코트));
             outerIdList.addAll(clothesDataRepository.SelectByOuter(Outwear.퍼));

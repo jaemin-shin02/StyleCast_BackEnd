@@ -28,14 +28,9 @@
 <details>
 <summary>회원가입 및 Klas 연동하기</summary>
 <div markdown="1">       
- ![EA8DF032-E3F8-487D-BB36-C901B16E4332_1_102_o](https://github.com/jaemin-shin02/StyleCast_BackEnd/assets/99861250/fa2a758a-fd66-4051-9e51-ea32028e27e0)
+![EA8DF032-E3F8-487D-BB36-C901B16E4332_1_102_o](https://github.com/19-21-40/KLtime_FrontEnd/assets/99861250/eceb5c5f-7776-42be-b130-5a187667cd1e)
 
-* Klas Time은 회원가입 페이지에서 회원가입이 가능합니다.
-* 회원가입 정보를 바탕으로 로그인 진행 가능합니다.
-* 로그인 후 광운대학교 정보 사이트인 Klas의 아이디와 비밀번호를 입력하면 Klas와 연동이 가능합니다.
-  * Klas 연동하기 기능은 사용자가 이전에 수강한 시간표 정보와 수강한 과목들의 정보 등 여러 정보를 HTTP Request를 통해 수집하여 사용자에게 양질의 정보를 제공합니다.
-  * Klas란 광운대학교의 모든 학생들이 가입하여 학교 생활과 관련된 모든 것을 처리하는 사이트입니다.
-
+* ㅇㅇ
 
 </div>
 </details>

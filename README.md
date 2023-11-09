@@ -21,7 +21,16 @@
 
 **아쉬운 점**
 * 프로젝트의 목적은 백엔드 실무에서 사용되는 기술들을 공부하고, 체화시키는 것이였기 때문에 프론트 개발이 완벽하지 않았던 점
-* 추후에 프론트까지 신경써서 제작하여 "오늘 뭐입지?"라는 고민을 해결해 줄 수 있는 앱을 정식적으로 개발, 배포할 계획 
+* 추후에 프론트까지 신경써서 제작하여 "오늘 뭐입지?"라는 고민을 해결해 줄 수 있는 앱을 정식적으로 개발, 배포 계획 
+
+##개발환경
+|도구|버전|
+|:---:|:---:|
+| Framework |Spring Boot 2.7.12 |
+| OS |macOs sonoma14.0|
+| IDE |IntelliJ IDEA|
+| DataBase |H2 , MySql|
+| Build Tool | Gradle 7.6.1 |
 
 ## 🔎 기능 소개
 <details>
@@ -149,6 +158,7 @@
 ## 📃 기술 스택
 ### Database
 * H2 Database
+* MySql
 
 ### Framework
 * Spring Boot
@@ -163,10 +173,20 @@
 ## ⚙️ 시스템 아키텍처
 ![stylecast drawio](https://github.com/19-21-40/KLtime_BackEnd/assets/99861250/74a94069-136d-4dde-9ddc-b45ab7f5dc0f)
 
-## 📁 DB 구조
-
-
 ## 🗂️ Entitiy 구조
 <img width="821" alt="스크린샷 2023-10-15 오후 7 40 55" src="https://github.com/jaemin-shin02/StyleCast_BackEnd/assets/99861250/b5b239f8-d4ea-4693-9c17-80652e74c1c4">
 
+## 참고
+<details>
+<summary>참고 블로그</summary>
+<div markdown="1">
+
+https://openweathermap.org/current#multi
+
+https://velog.io/@kjh950330/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%EC%9D%B4%EB%A9%94%EC%9D%BC-%EC%9D%B8%EC%A6%9D-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84
+
+https://velog.io/@jkijki12/Jwt-Refresh-Token-%EC%A0%81%EC%9A%A9%EA%B8%B0
+
+</div>
+</details>
 

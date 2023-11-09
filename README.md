@@ -28,7 +28,7 @@
 <details>
 <summary>회원가입 및 Klas 연동하기</summary>
 <div markdown="1">       
-![EA8DF032-E3F8-487D-BB36-C901B16E4332_1_102_o](https://github.com/19-21-40/KLtime_FrontEnd/assets/99861250/eceb5c5f-7776-42be-b130-5a187667cd1e)
+![회원가입및로그인](https://github.com/19-21-40/KLtime_FrontEnd/assets/99861250/032deaa9-d901-4c3d-b2d6-19558df9b1a7)
 
 * ㅇㅇ
 
